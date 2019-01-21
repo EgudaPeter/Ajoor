@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SuperAdminUI));
             this.btn_CreateSubAdmin = new System.Windows.Forms.Button();
             this.panel_Controls = new System.Windows.Forms.Panel();
+            this.btn_TransferCustomer = new System.Windows.Forms.Button();
             this.btn_CreateCustomer = new System.Windows.Forms.Button();
             this.btn_Summary = new System.Windows.Forms.Button();
             this.btn_Logout = new System.Windows.Forms.Button();
@@ -57,7 +58,6 @@
             this.lb_TotalCustomers = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.bgw_PullData = new System.ComponentModel.BackgroundWorker();
-            this.btn_TransferCustomer = new System.Windows.Forms.Button();
             this.panel_Controls.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -95,6 +95,20 @@
             this.panel_Controls.Name = "panel_Controls";
             this.panel_Controls.Size = new System.Drawing.Size(278, 594);
             this.panel_Controls.TabIndex = 1;
+            // 
+            // btn_TransferCustomer
+            // 
+            this.btn_TransferCustomer.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btn_TransferCustomer.Enabled = false;
+            this.btn_TransferCustomer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_TransferCustomer.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_TransferCustomer.Location = new System.Drawing.Point(19, 483);
+            this.btn_TransferCustomer.Name = "btn_TransferCustomer";
+            this.btn_TransferCustomer.Size = new System.Drawing.Size(243, 46);
+            this.btn_TransferCustomer.TabIndex = 9;
+            this.btn_TransferCustomer.Text = "Transfer Customers";
+            this.btn_TransferCustomer.UseVisualStyleBackColor = true;
+            this.btn_TransferCustomer.Click += new System.EventHandler(this.btn_TransferCustomer_Click);
             // 
             // btn_CreateCustomer
             // 
@@ -395,20 +409,6 @@
             // bgw_PullData
             // 
             this.bgw_PullData.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgw_PullData_DoWork);
-            // 
-            // btn_TransferCustomer
-            // 
-            this.btn_TransferCustomer.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btn_TransferCustomer.Enabled = false;
-            this.btn_TransferCustomer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_TransferCustomer.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_TransferCustomer.Location = new System.Drawing.Point(19, 483);
-            this.btn_TransferCustomer.Name = "btn_TransferCustomer";
-            this.btn_TransferCustomer.Size = new System.Drawing.Size(243, 46);
-            this.btn_TransferCustomer.TabIndex = 9;
-            this.btn_TransferCustomer.Text = "Transfer Customers";
-            this.btn_TransferCustomer.UseVisualStyleBackColor = true;
-            this.btn_TransferCustomer.Click += new System.EventHandler(this.btn_TransferCustomer_Click);
             // 
             // SuperAdminUI
             // 
