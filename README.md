@@ -1,2 +1,2 @@
 # Ajoor
-A mini financial technology application that imbibes the conventional way of group savings
+A mini financial technology desktop application developed for Superior Investment Ltd that imbibes the conventional way of group savings
