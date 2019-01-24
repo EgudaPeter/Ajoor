@@ -23,32 +23,46 @@ namespace Ajoor
 
         private void btn_Go_Click(object sender, EventArgs e)
         {
-            if (dtp_Start.Value == null)
+            if (chkUseDate.Checked == false)
             {
-                MessageBox.Show("Please you must specicy a start date!", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                dtp_Start.Focus();
-                return;
+                if (dtp_Start.Value == null)
+                {
+                    MessageBox.Show("Please you must specicy a start date!", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    dtp_Start.Focus();
+                    return;
+                }
+                if (dtp_End.Value == null)
+                {
+                    MessageBox.Show("Please you must specicy an end date!", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    dtp_End.Focus();
+                    return;
+                }
+
+                if (dtp_Start.Value != null && dtp_End.Value != null)
+                {
+                    if (cmb_Subadmin.SelectedValue != null)
+                    {
+                        if (!bgw_PullReport_DatesAndSubadminOnly.IsBusy)
+                        {
+                            bgw_PullReport_DatesAndSubadminOnly.RunWorkerAsync();
+                        }
+                    }
+                    else
+                    {
+                        if (!bgw_PullReport_DatesOnly.IsBusy)
+                        {
+                            bgw_PullReport_DatesOnly.RunWorkerAsync();
+                        }
+                    }
+                }
             }
-            if (dtp_End.Value == null)
-            {
-                MessageBox.Show("Please you must specicy an end date!", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                dtp_End.Focus();
-                return;
-            }
-            if (dtp_Start.Value != null && dtp_End.Value != null)
+            else
             {
                 if (cmb_Subadmin.SelectedValue != null)
                 {
-                    if (!bwg_PullReport_DatesAndSubadminOnly.IsBusy)
+                    if (!bgw_PullReport_SubAdminOnly.IsBusy)
                     {
-                        bwg_PullReport_DatesAndSubadminOnly.RunWorkerAsync();
-                    }
-                }
-                else
-                {
-                    if (!bgw_PullReport_DatesOnly.IsBusy)
-                    {
-                        bgw_PullReport_DatesOnly.RunWorkerAsync();
+                        bgw_PullReport_SubAdminOnly.RunWorkerAsync();
                     }
                 }
             }
@@ -351,14 +365,139 @@ namespace Ajoor
             }
         }
 
+        private void bgw_PullReport_SubAdminOnly_DoWork(object sender, DoWorkEventArgs e)
+        {
+            try
+            {
+                dgv_SummaryMonthlyView.Invoke(new MethodInvoker(delegate
+                {
+                    try
+                    {
+                        dgv_SummaryMonthlyView.DataSource = _TransactionRepo.GetAllTransactions().Where(x => x.CreatedBy == cmb_Subadmin.SelectedValue.ToString()).GroupBy(p => p.CustomerId).Select(g => new
+                        {
+                            TransactionId = g.FirstOrDefault().TransactionId,
+                            Name = g.FirstOrDefault().CustomerName,
+                            AccountNumber = g.FirstOrDefault().AccountNumber,
+                            AmountContributed = g.Sum(s => s.AmountContributed),
+                            AmountCollected = g.Sum(s => s.AmountCollected),
+                            Commission = g.Sum(s => s.Commission),
+                            TotalCredit = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) > 0 ? g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) : 0,
+                            TotalDebt = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) > 0 ? 0 : g.OrderByDescending(x => x.TransactionId).FirstOrDefault().TotalDebt,
+                            CreatedBy = g.FirstOrDefault().CreatedBy,
+                            CreatedDate = g.FirstOrDefault().CreatedDate
+                        }).ToList();
+                    }
+                    catch (Exception ex) { MessageBox.Show($"{Utilities.ERRORMESSAGE} \n Error details: {ex.Message}", "Superior Investment!", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+                }));
+                lb_Total.Invoke(new MethodInvoker(delegate { lb_Total.Text = dgv_SummaryMonthlyView.RowCount.ToString(); }));
+
+                txt_TotalDebit.Invoke(new MethodInvoker(delegate
+                {
+                    try
+                    {
+                        decimal grandTotal = 0m;
+                        for (int i = 0; i < dgv_SummaryMonthlyView.RowCount; i++)
+                        {
+                            if (dgv_SummaryMonthlyView.Rows[i].Cells[4].Value != null)
+                            {
+                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[4].Value.ToString();
+                                grandTotal += decimal.Parse(total);
+                            }
+                        }
+                        txt_TotalDebit.Text = Utilities.CurrencyFormat(grandTotal.ToString());
+                    }
+                    catch (Exception ex) { MessageBox.Show($"{Utilities.ERRORMESSAGE} \n Error details: {ex.Message}", "Superior Investment!", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+
+                }));
+                txt_TotalCredit.Invoke(new MethodInvoker(delegate
+                {
+                    try
+                    {
+                        decimal grandTotal = 0m;
+                        for (int i = 0; i < dgv_SummaryMonthlyView.RowCount; i++)
+                        {
+                            if (dgv_SummaryMonthlyView.Rows[i].Cells[3].Value != null)
+                            {
+                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[3].Value.ToString();
+                                grandTotal += decimal.Parse(total);
+                            }
+                        }
+                        txt_TotalCredit.Text = Utilities.CurrencyFormat(grandTotal.ToString());
+                    }
+                    catch (Exception ex) { MessageBox.Show($"{Utilities.ERRORMESSAGE} \n Error details: {ex.Message}", "Superior Investment!", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+
+                }));
+                txt_TotalCommission.Invoke(new MethodInvoker(delegate
+                {
+                    try
+                    {
+                        decimal grandTotal = 0m;
+                        for (int i = 0; i < dgv_SummaryMonthlyView.RowCount; i++)
+                        {
+                            if (dgv_SummaryMonthlyView.Rows[i].Cells[5].Value != null)
+                            {
+                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[5].Value.ToString();
+                                grandTotal += decimal.Parse(total);
+                            }
+                        }
+                        txt_TotalCommission.Text = Utilities.CurrencyFormat(grandTotal.ToString());
+                    }
+                    catch (Exception ex) { MessageBox.Show($"{Utilities.ERRORMESSAGE} \n Error details: {ex.Message}", "Superior Investment!", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+
+                }));
+                txt_TotalAmountPayable.Invoke(new MethodInvoker(delegate
+                {
+                    try
+                    {
+                        decimal grandTotal = 0m;
+                        for (int i = 0; i < dgv_SummaryMonthlyView.RowCount; i++)
+                        {
+                            if (dgv_SummaryMonthlyView.Rows[i].Cells[6].Value != null)
+                            {
+                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[6].Value.ToString();
+                                grandTotal += decimal.Parse(total);
+                            }
+                        }
+                        txt_TotalAmountPayable.Text = Utilities.CurrencyFormat(grandTotal.ToString());
+                    }
+                    catch (Exception ex) { MessageBox.Show($"{Utilities.ERRORMESSAGE} \n Error details: {ex.Message}", "Superior Investment!", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+
+                }));
+                txt_TotalDebt.Invoke(new MethodInvoker(delegate
+                {
+                    try
+                    {
+                        decimal grandTotal = 0m;
+                        for (int i = 0; i < dgv_SummaryMonthlyView.RowCount; i++)
+                        {
+                            if (dgv_SummaryMonthlyView.Rows[i].Cells[7].Value != null)
+                            {
+                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[7].Value.ToString();
+                                grandTotal += decimal.Parse(total);
+                            }
+                        }
+                        txt_TotalDebt.Text = Utilities.CurrencyFormat(grandTotal.ToString());
+                    }
+                    catch (Exception ex) { MessageBox.Show($"{Utilities.ERRORMESSAGE} \n Error details: {ex.Message}", "Superior Investment!", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+
+                }));
+
+                e.Result = "Done";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{Utilities.ERRORMESSAGE} \n Error details: {ex.Message}", "Superior Investment!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void SuperAdminMonthlyView_Load(object sender, EventArgs e)
         {
             txt_TotalCredit.ReadOnly = true; txt_TotalDebit.ReadOnly = true;
             txt_TotalCommission.ReadOnly = true; txt_TotalAmountPayable.ReadOnly = true;
             txt_TotalDebt.ReadOnly = true;
-            if (!bwg_SubAdmin.IsBusy)
+            if (!bgw_SubAdmin.IsBusy)
             {
-                bwg_SubAdmin.RunWorkerAsync();
+                bgw_SubAdmin.RunWorkerAsync();
             }
             if (!bgw_PullData.IsBusy)
             {

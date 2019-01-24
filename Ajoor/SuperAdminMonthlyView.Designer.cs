@@ -56,11 +56,15 @@
             this.btn_Go = new System.Windows.Forms.Button();
             this.bgw_PullReport_DatesOnly = new System.ComponentModel.BackgroundWorker();
             this.dgv_SummaryMonthlyView = new System.Windows.Forms.DataGridView();
-            this.bwg_PullReport_DatesAndSubadminOnly = new System.ComponentModel.BackgroundWorker();
-            this.bwg_SubAdmin = new System.ComponentModel.BackgroundWorker();
+            this.bgw_PullReport_DatesAndSubadminOnly = new System.ComponentModel.BackgroundWorker();
+            this.bgw_SubAdmin = new System.ComponentModel.BackgroundWorker();
             this.txt_TotalDebt = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.bgw_PullData = new System.ComponentModel.BackgroundWorker();
+            this.chkUseDate = new System.Windows.Forms.CheckBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.bgw_PullReport_SubAdminOnly = new System.ComponentModel.BackgroundWorker();
             this.groupBox2.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_SummaryMonthlyView)).BeginInit();
@@ -105,7 +109,7 @@
             // txt_TotalAmountPayable
             // 
             this.txt_TotalAmountPayable.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_TotalAmountPayable.Location = new System.Drawing.Point(783, 111);
+            this.txt_TotalAmountPayable.Location = new System.Drawing.Point(15, 163);
             this.txt_TotalAmountPayable.Name = "txt_TotalAmountPayable";
             this.txt_TotalAmountPayable.Size = new System.Drawing.Size(250, 27);
             this.txt_TotalAmountPayable.TabIndex = 146;
@@ -140,7 +144,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(779, 89);
+            this.label3.Location = new System.Drawing.Point(11, 141);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(88, 19);
             this.label3.TabIndex = 142;
@@ -349,18 +353,18 @@
             this.dgv_SummaryMonthlyView.Size = new System.Drawing.Size(934, 400);
             this.dgv_SummaryMonthlyView.TabIndex = 134;
             // 
-            // bwg_PullReport_DatesAndSubadminOnly
+            // bgw_PullReport_DatesAndSubadminOnly
             // 
-            this.bwg_PullReport_DatesAndSubadminOnly.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgw_PullReport_DatesAndSubadminOnly_DoWork);
+            this.bgw_PullReport_DatesAndSubadminOnly.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgw_PullReport_DatesAndSubadminOnly_DoWork);
             // 
-            // bwg_SubAdmin
+            // bgw_SubAdmin
             // 
-            this.bwg_SubAdmin.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwg_SubAdmin_DoWork);
+            this.bgw_SubAdmin.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwg_SubAdmin_DoWork);
             // 
             // txt_TotalDebt
             // 
             this.txt_TotalDebt.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_TotalDebt.Location = new System.Drawing.Point(15, 163);
+            this.txt_TotalDebt.Location = new System.Drawing.Point(271, 163);
             this.txt_TotalDebt.Name = "txt_TotalDebt";
             this.txt_TotalDebt.Size = new System.Drawing.Size(250, 27);
             this.txt_TotalDebt.TabIndex = 148;
@@ -369,7 +373,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(11, 141);
+            this.label6.Location = new System.Drawing.Point(267, 141);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(80, 19);
             this.label6.TabIndex = 147;
@@ -379,12 +383,48 @@
             // 
             this.bgw_PullData.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgw_PullData_DoWork);
             // 
+            // chkUseDate
+            // 
+            this.chkUseDate.AutoSize = true;
+            this.chkUseDate.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkUseDate.Location = new System.Drawing.Point(527, 165);
+            this.chkUseDate.Name = "chkUseDate";
+            this.chkUseDate.Size = new System.Drawing.Size(271, 23);
+            this.chkUseDate.TabIndex = 149;
+            this.chkUseDate.Text = "Use selected dates to filter records?";
+            this.chkUseDate.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Location = new System.Drawing.Point(787, 111);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(250, 27);
+            this.textBox1.TabIndex = 151;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(783, 89);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(167, 19);
+            this.label9.TabIndex = 150;
+            this.label9.Text = "Total Extra Commission";
+            // 
+            // bgw_PullReport_SubAdminOnly
+            // 
+            this.bgw_PullReport_SubAdminOnly.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgw_PullReport_SubAdminOnly_DoWork);
+            // 
             // SuperAdminMonthlyView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1114, 661);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.chkUseDate);
             this.Controls.Add(this.txt_TotalDebt);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.lb_Total);
@@ -446,11 +486,15 @@
         private System.Windows.Forms.DataGridView dgv_SummaryMonthlyView;
         private System.Windows.Forms.ComboBox cmb_Subadmin;
         private System.Windows.Forms.Label label12;
-        private System.ComponentModel.BackgroundWorker bwg_PullReport_DatesAndSubadminOnly;
-        private System.ComponentModel.BackgroundWorker bwg_SubAdmin;
+        private System.ComponentModel.BackgroundWorker bgw_PullReport_DatesAndSubadminOnly;
+        private System.ComponentModel.BackgroundWorker bgw_SubAdmin;
         private System.Windows.Forms.TextBox txt_TotalDebt;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btn_Print;
         private System.ComponentModel.BackgroundWorker bgw_PullData;
+        private System.Windows.Forms.CheckBox chkUseDate;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label9;
+        private System.ComponentModel.BackgroundWorker bgw_PullReport_SubAdminOnly;
     }
 }
