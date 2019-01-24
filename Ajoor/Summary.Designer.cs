@@ -299,9 +299,9 @@
             this.label7.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(6, 89);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(190, 19);
+            this.label7.Size = new System.Drawing.Size(98, 19);
             this.label7.TabIndex = 111;
-            this.label7.Text = "Total Amount Contributed";
+            this.label7.Text = "Total Savings";
             // 
             // txt_TotalCredit
             // 
@@ -317,9 +317,9 @@
             this.label4.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(353, 89);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(170, 19);
+            this.label4.Size = new System.Drawing.Size(128, 19);
             this.label4.TabIndex = 109;
-            this.label4.Text = "Total Amount Collected";
+            this.label4.Text = "Total Withdrawal";
             // 
             // label2
             // 
@@ -327,9 +327,9 @@
             this.label2.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(691, 89);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(176, 19);
+            this.label2.Size = new System.Drawing.Size(100, 19);
             this.label2.TabIndex = 115;
-            this.label2.Text = "Total Amount Combined";
+            this.label2.Text = "Total Balance";
             // 
             // txt_TotalDebit
             // 

@@ -49,6 +49,8 @@
             this.bgwGetRecords = new System.ComponentModel.BackgroundWorker();
             this.cmb_Customers = new System.Windows.Forms.ComboBox();
             this.dgv_CustomerTransactions = new System.Windows.Forms.DataGridView();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txt_TotalCredit = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_CustomerTransactions)).BeginInit();
             this.SuspendLayout();
@@ -56,7 +58,7 @@
             // txt_TotalDebt
             // 
             this.txt_TotalDebt.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txt_TotalDebt.Location = new System.Drawing.Point(12, 167);
+            this.txt_TotalDebt.Location = new System.Drawing.Point(324, 171);
             this.txt_TotalDebt.Name = "txt_TotalDebt";
             this.txt_TotalDebt.Size = new System.Drawing.Size(306, 27);
             this.txt_TotalDebt.TabIndex = 108;
@@ -87,11 +89,11 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(8, 145);
+            this.label9.Location = new System.Drawing.Point(320, 149);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(80, 19);
+            this.label9.Size = new System.Drawing.Size(146, 19);
             this.label9.TabIndex = 109;
-            this.label9.Text = "Total Debt";
+            this.label9.Text = "Total Debt (Current)";
             // 
             // label6
             // 
@@ -252,12 +254,32 @@
             this.dgv_CustomerTransactions.Size = new System.Drawing.Size(932, 469);
             this.dgv_CustomerTransactions.TabIndex = 94;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(8, 149);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(154, 19);
+            this.label5.TabIndex = 111;
+            this.label5.Text = "Total Credit (Current)";
+            // 
+            // txt_TotalCredit
+            // 
+            this.txt_TotalCredit.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_TotalCredit.Location = new System.Drawing.Point(12, 171);
+            this.txt_TotalCredit.Name = "txt_TotalCredit";
+            this.txt_TotalCredit.Size = new System.Drawing.Size(306, 27);
+            this.txt_TotalCredit.TabIndex = 110;
+            // 
             // DebitCustomer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1114, 711);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.txt_TotalCredit);
             this.Controls.Add(this.txt_TotalDebt);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.txt_Commission);
@@ -310,5 +332,7 @@
         private System.Windows.Forms.ComboBox cmb_Customers;
         private System.Windows.Forms.DataGridView dgv_CustomerTransactions;
         private System.Windows.Forms.Button btn_ChargeCommission;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox txt_TotalCredit;
     }
 }

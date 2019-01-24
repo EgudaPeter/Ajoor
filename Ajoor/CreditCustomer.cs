@@ -80,6 +80,7 @@ namespace Ajoor
                           .OrderByDescending(x => x.TransactionId).Where(x => x.CustomerId == customer.CustomerId).FirstOrDefault();
                 txt_AccountNumber.Text = customer.AccountNumber.ToString();
                 selectedID = long.Parse(ID); txt_Commission.Text = Utilities.CurrencyFormat(customer.Commission.ToString());
+                txt_TotalCredit.Text = Utilities.CurrencyFormat(customerTransaction != null ? customerTransaction.AmountPayable.ToString() : 0m.ToString());
                 txt_TotalDebt.Text = Utilities.CurrencyFormat(customerTransaction != null ? customerTransaction.TotalDebt.ToString() : 0m.ToString());
                 if (!bgwGetRecords.IsBusy)
                 {
@@ -93,7 +94,7 @@ namespace Ajoor
         private void CreditCustomer_Load(object sender, EventArgs e)
         {
             txt_AccountNumber.ReadOnly = true; txt_Commission.ReadOnly = true;
-            txt_TotalDebt.ReadOnly = true;
+            txt_TotalDebt.ReadOnly = true; txt_TotalCredit.ReadOnly = true;
             if (!bgwGetCustomers.IsBusy)
             {
                 bgwGetCustomers.RunWorkerAsync();
@@ -131,7 +132,9 @@ namespace Ajoor
                             MessageBox.Show("Customer credited successfully!", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             var totalDebt = _TransactionRepo.GetAllTransactions()
                                .OrderByDescending(x => x.TransactionId).Where(x => x.CustomerId == customer.CustomerId).FirstOrDefault().TotalDebt.ToString();
-                            txt_TotalDebt.Text = Utilities.CurrencyFormat(totalDebt);
+                            var totalCredit = _TransactionRepo.GetAllTransactions()
+                              .OrderByDescending(x => x.TransactionId).Where(x => x.CustomerId == customer.CustomerId).FirstOrDefault().AmountPayable.ToString();
+                            txt_TotalDebt.Text = Utilities.CurrencyFormat(totalDebt); txt_TotalCredit.Text = Utilities.CurrencyFormat(totalCredit);
                             if (!bgwGetRecords.IsBusy)
                             {
                                 bgwGetRecords.RunWorkerAsync();
