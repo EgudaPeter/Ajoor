@@ -1,13 +1,10 @@
-﻿using Ajoor.Core;
-using Ajoor.Repos;
+﻿using Ajoor.BusinessLayer.Repos;
+using Ajoor.Core;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Ajoor
@@ -23,7 +20,7 @@ namespace Ajoor
 
         private void bgwGetRecords_DoWork(object sender, DoWorkEventArgs e)
         {
-            dgv_CustomerList.Invoke(new MethodInvoker(delegate { dgv_CustomerList.DataSource = _CustomerRepo.GetAllRecords().Where(x=>x.CreatedBy == Utilities.USERNAME).ToList(); }));
+            dgv_CustomerList.Invoke(new MethodInvoker(delegate { dgv_CustomerList.DataSource = _CustomerRepo.GetAllRecords().Where(x => x.CreatedBy == Utilities.USERNAME).ToList(); }));
             lb_Total.Invoke(new MethodInvoker(delegate { lb_Total.Text = dgv_CustomerList.RowCount.ToString(); }));
             e.Result = "Done";
         }
@@ -101,32 +98,39 @@ namespace Ajoor
 
         private void btn_Edit_Click(object sender, EventArgs e)
         {
-            if (dgv_CustomerList.SelectedRows.Count > 0)
+            try
             {
-                if (dgv_CustomerList.SelectedRows.Count > 1)
+                if (dgv_CustomerList.SelectedRows.Count > 0)
                 {
-                    MessageBox.Show("Please edit customers one at a time!", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-                else
-                {
-                    long ID = long.Parse(dgv_CustomerList.SelectedRows[0].Cells[0].Value.ToString());
-                    var record = _CustomerRepo.GetCustomer(ID);
-                    if (record != null)
+                    if (dgv_CustomerList.SelectedRows.Count > 1)
                     {
-                        EditCustomer editCustomer_Form = new EditCustomer(record);
-                        if (editCustomer_Form.ShowDialog() != DialogResult.Yes)
+                        MessageBox.Show("Please edit customers one at a time!", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    else
+                    {
+                        long ID = long.Parse(dgv_CustomerList.SelectedRows[0].Cells[0].Value.ToString());
+                        var record = _CustomerRepo.GetCustomer(ID);
+                        if (record != null)
                         {
-                            if (!bgwGetRecords.IsBusy)
+                            EditCustomer editCustomer_Form = new EditCustomer(record);
+                            if (editCustomer_Form.ShowDialog() != DialogResult.Yes)
                             {
-                                bgwGetRecords.RunWorkerAsync();
+                                if (!bgwGetRecords.IsBusy)
+                                {
+                                    bgwGetRecords.RunWorkerAsync();
+                                }
                             }
                         }
                     }
                 }
+                else
+                {
+                    MessageBox.Show("Please select atleast one customer to edit!", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Please select atleast one customer to edit!", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show($"{Utilities.ERRORMESSAGE} \n Error details: {ex.Message}", "Superior Investment!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

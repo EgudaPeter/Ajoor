@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
-using Ajoor.Repos;
 using Ajoor.Core;
 using System.Linq;
+using Ajoor.BusinessLayer.Repos;
 
 namespace Ajoor
 {

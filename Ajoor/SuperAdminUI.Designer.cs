@@ -99,7 +99,6 @@
             // btn_TransferCustomer
             // 
             this.btn_TransferCustomer.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btn_TransferCustomer.Enabled = false;
             this.btn_TransferCustomer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_TransferCustomer.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_TransferCustomer.Location = new System.Drawing.Point(19, 483);

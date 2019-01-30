@@ -52,6 +52,7 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnView = new System.Windows.Forms.Button();
             this.btn_Print = new System.Windows.Forms.Button();
             this.btn_Go = new System.Windows.Forms.Button();
             this.bgw_PullReport_DatesOnly = new System.ComponentModel.BackgroundWorker();
@@ -62,7 +63,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.bgw_PullData = new System.ComponentModel.BackgroundWorker();
             this.chkUseDate = new System.Windows.Forms.CheckBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txt_TotalExtraCommission = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.bgw_PullReport_SubAdminOnly = new System.ComponentModel.BackgroundWorker();
             this.groupBox2.SuspendLayout();
@@ -227,7 +228,7 @@
             this.btn_Cancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_Cancel.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_Cancel.ForeColor = System.Drawing.Color.Black;
-            this.btn_Cancel.Location = new System.Drawing.Point(7, 150);
+            this.btn_Cancel.Location = new System.Drawing.Point(7, 215);
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(142, 59);
             this.btn_Cancel.TabIndex = 3;
@@ -297,13 +298,28 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnView);
             this.panel1.Controls.Add(this.btn_Print);
             this.panel1.Controls.Add(this.btn_Cancel);
             this.panel1.Controls.Add(this.btn_Go);
             this.panel1.Location = new System.Drawing.Point(955, 222);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(152, 224);
+            this.panel1.Size = new System.Drawing.Size(152, 289);
             this.panel1.TabIndex = 135;
+            // 
+            // btnView
+            // 
+            this.btnView.BackColor = System.Drawing.Color.Red;
+            this.btnView.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnView.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnView.ForeColor = System.Drawing.Color.White;
+            this.btnView.Location = new System.Drawing.Point(7, 150);
+            this.btnView.Name = "btnView";
+            this.btnView.Size = new System.Drawing.Size(142, 59);
+            this.btnView.TabIndex = 150;
+            this.btnView.Text = "View";
+            this.btnView.UseVisualStyleBackColor = false;
+            this.btnView.Click += new System.EventHandler(this.btnView_Click);
             // 
             // btn_Print
             // 
@@ -394,13 +410,13 @@
             this.chkUseDate.Text = "Use selected dates to filter records?";
             this.chkUseDate.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // txt_TotalExtraCommission
             // 
-            this.textBox1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(787, 111);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(250, 27);
-            this.textBox1.TabIndex = 151;
+            this.txt_TotalExtraCommission.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_TotalExtraCommission.Location = new System.Drawing.Point(787, 111);
+            this.txt_TotalExtraCommission.Name = "txt_TotalExtraCommission";
+            this.txt_TotalExtraCommission.Size = new System.Drawing.Size(250, 27);
+            this.txt_TotalExtraCommission.TabIndex = 151;
             // 
             // label9
             // 
@@ -422,7 +438,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1114, 661);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txt_TotalExtraCommission);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.chkUseDate);
             this.Controls.Add(this.txt_TotalDebt);
@@ -493,8 +509,9 @@
         private System.Windows.Forms.Button btn_Print;
         private System.ComponentModel.BackgroundWorker bgw_PullData;
         private System.Windows.Forms.CheckBox chkUseDate;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txt_TotalExtraCommission;
         private System.Windows.Forms.Label label9;
         private System.ComponentModel.BackgroundWorker bgw_PullReport_SubAdminOnly;
+        private System.Windows.Forms.Button btnView;
     }
 }

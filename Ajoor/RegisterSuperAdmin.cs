@@ -1,15 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Ajoor.Repos;
-using Ajoor.DTO;
 using Ajoor.Core;
+using Ajoor.BusinessLayer.Repos;
+using Ajoor.BusinessLayer.DTO;
 
 namespace Ajoor
 {
@@ -116,7 +109,7 @@ namespace Ajoor
 
         private void txt_Password_TextChanged(object sender, EventArgs e)
         {
-            if(txt_Password.Text.Length < 6)
+            if (txt_Password.Text.Length < 6)
             {
                 lb_DangerPassword.Show(); toolTip.Show("Password must have atleast 6 characters", lb_DangerPassword);
             }

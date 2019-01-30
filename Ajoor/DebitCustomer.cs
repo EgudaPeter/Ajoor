@@ -1,14 +1,10 @@
-﻿using Ajoor.Core;
-using Ajoor.DTO;
-using Ajoor.Repos;
+﻿using Ajoor.BusinessLayer.DTO;
+using Ajoor.BusinessLayer.Repos;
+using Ajoor.Core;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Ajoor
@@ -285,6 +281,11 @@ namespace Ajoor
                         if (_TransactionRepo.DebitTransaction(transactions))
                         {
                             MessageBox.Show($"Commission has been charged successfully!", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            var totalDebt = _TransactionRepo.GetAllTransactions()
+                                               .OrderByDescending(x => x.TransactionId).Where(x => x.CustomerId == customer.CustomerId).FirstOrDefault().TotalDebt.ToString();
+                            var totalCredit = _TransactionRepo.GetAllTransactions()
+                                .OrderByDescending(x => x.TransactionId).Where(x => x.CustomerId == customer.CustomerId).FirstOrDefault().AmountPayable.ToString();
+                            txt_TotalDebt.Text = Utilities.CurrencyFormat(totalDebt); txt_TotalCredit.Text = Utilities.CurrencyFormat(totalCredit);
                             if (!bgwGetRecords.IsBusy)
                             {
                                 bgwGetRecords.RunWorkerAsync();
@@ -303,6 +304,62 @@ namespace Ajoor
             }
             catch (Exception ex)
             { }
+        }
+
+        private void btn_ExtraCommision_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (cmb_Customers.SelectedValue != null)
+                {
+                    var customerId = int.Parse(cmb_Customers.SelectedValue.ToString());
+                    var customer = _CustomerRepo.GetCustomer(customerId);
+                    var extraCommission = _TransactionRepo.GetAllTransactions().Where(x => x.CustomerId == customerId && x.ExtraCommission == customer.Commission && x.Date.Value.Month == DateTime.Now.Month).FirstOrDefault();
+                    var transactionRecord = _TransactionRepo.GetDebitTransactions().Where(x => x.CustomerId == customerId).OrderByDescending(p => p.TransactionId).FirstOrDefault();
+                    if (extraCommission == null)
+                    {
+                        Transactions transactions = new Transactions()
+                        {
+                            CustomerId = int.Parse(cmb_Customers.SelectedValue.ToString()),
+                            AmountContributed = 0m,
+                            AmountCollected = 0m,
+                            TransactionType = "Extra Commission Charge",
+                            Date = DateTime.Now,
+                            ExtraCommission = customer.Commission,
+                            AmountPayable = 0m,
+                            Debt = transactionRecord != null ? transactionRecord.Debt : customer.Commission,
+                            TotalDebt = transactionRecord != null ? transactionRecord.TotalDebt + customer.Commission : customer.Commission,
+                            CreatedBy = Utilities.USERNAME,
+                            CreatedDate = DateTime.Now
+                        };
+                        if (_TransactionRepo.DebitTransaction(transactions))
+                        {
+                            MessageBox.Show($"Extra Commission has been charged successfully!", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            var totalDebt = _TransactionRepo.GetAllTransactions()
+                                               .OrderByDescending(x => x.TransactionId).Where(x => x.CustomerId == customer.CustomerId).FirstOrDefault().TotalDebt.ToString();
+                            var totalCredit = _TransactionRepo.GetAllTransactions()
+                                .OrderByDescending(x => x.TransactionId).Where(x => x.CustomerId == customer.CustomerId).FirstOrDefault().AmountPayable.ToString();
+                            txt_TotalDebt.Text = Utilities.CurrencyFormat(totalDebt); txt_TotalCredit.Text = Utilities.CurrencyFormat(totalCredit);
+                            if (!bgwGetRecords.IsBusy)
+                            {
+                                bgwGetRecords.RunWorkerAsync();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Extra Commission for selected customer has been charged for current month!", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Please select atleast one customer to charge extra commission!", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{Utilities.ERRORMESSAGE} \n Error details: {ex.Message}", "Superior Investment!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

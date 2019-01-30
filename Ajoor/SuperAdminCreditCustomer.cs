@@ -1,14 +1,10 @@
-﻿using Ajoor.Core;
-using Ajoor.DTO;
-using Ajoor.Repos;
+﻿using Ajoor.BusinessLayer.DTO;
+using Ajoor.BusinessLayer.Repos;
+using Ajoor.Core;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Ajoor

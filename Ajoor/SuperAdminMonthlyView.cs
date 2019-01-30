@@ -1,13 +1,10 @@
-﻿using Ajoor.Core;
-using Ajoor.Repos;
+﻿using Ajoor.BusinessLayer.Repos;
+using Ajoor.Core;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Ajoor
@@ -96,7 +93,8 @@ namespace Ajoor
                             AccountNumber = g.FirstOrDefault().AccountNumber,
                             AmountContributed = g.Sum(s => s.AmountContributed),
                             AmountCollected = g.Sum(s => s.AmountCollected),
-                            Commission = g.OrderByDescending(s=>s.TransactionId).FirstOrDefault().Commission,
+                            Commission = g.OrderByDescending(s => s.TransactionId).FirstOrDefault().Commission,
+                            ExtraCommission = g.OrderByDescending(s => s.TransactionId).FirstOrDefault().ExtraCommission,
                             TotalCredit = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) > 0 ? g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) : 0,
                             TotalDebt = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) > 0 ? 0 : g.OrderByDescending(x => x.TransactionId).FirstOrDefault().TotalDebt,
                             CreatedBy = g.FirstOrDefault().CreatedBy,
@@ -180,7 +178,7 @@ namespace Ajoor
                     catch (Exception ex) { MessageBox.Show($"{Utilities.ERRORMESSAGE} \n Error details: {ex.Message}", "Superior Investment!", MessageBoxButtons.OK, MessageBoxIcon.Error); }
 
                 }));
-                txt_TotalAmountPayable.Invoke(new MethodInvoker(delegate
+                txt_TotalExtraCommission.Invoke(new MethodInvoker(delegate
                 {
                     try
                     {
@@ -190,6 +188,24 @@ namespace Ajoor
                             if (dgv_SummaryMonthlyView.Rows[i].Cells[6].Value != null)
                             {
                                 string total = dgv_SummaryMonthlyView.Rows[i].Cells[6].Value.ToString();
+                                grandTotal += decimal.Parse(total);
+                            }
+                        }
+                        txt_TotalExtraCommission.Text = Utilities.CurrencyFormat(grandTotal.ToString());
+                    }
+                    catch (Exception ex) { MessageBox.Show($"{Utilities.ERRORMESSAGE} \n Error details: {ex.Message}", "Superior Investment!", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+
+                }));
+                txt_TotalAmountPayable.Invoke(new MethodInvoker(delegate
+                {
+                    try
+                    {
+                        decimal grandTotal = 0m;
+                        for (int i = 0; i < dgv_SummaryMonthlyView.RowCount; i++)
+                        {
+                            if (dgv_SummaryMonthlyView.Rows[i].Cells[7].Value != null)
+                            {
+                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[7].Value.ToString();
                                 grandTotal += decimal.Parse(total);
                             }
                         }
@@ -205,9 +221,9 @@ namespace Ajoor
                         decimal grandTotal = 0m;
                         for (int i = 0; i < dgv_SummaryMonthlyView.RowCount; i++)
                         {
-                            if (dgv_SummaryMonthlyView.Rows[i].Cells[7].Value != null)
+                            if (dgv_SummaryMonthlyView.Rows[i].Cells[8].Value != null)
                             {
-                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[7].Value.ToString();
+                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[8].Value.ToString();
                                 grandTotal += decimal.Parse(total);
                             }
                         }
@@ -240,6 +256,7 @@ namespace Ajoor
                             AmountContributed = g.Sum(s => s.AmountContributed),
                             AmountCollected = g.Sum(s => s.AmountCollected),
                             Commission = g.OrderByDescending(s => s.TransactionId).FirstOrDefault().Commission,
+                            ExtraCommission = g.OrderByDescending(s => s.TransactionId).FirstOrDefault().ExtraCommission,
                             TotalCredit = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) > 0 ? g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) : 0,
                             TotalDebt = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) > 0 ? 0 : g.OrderByDescending(x => x.TransactionId).FirstOrDefault().TotalDebt,
                             CreatedBy = g.FirstOrDefault().CreatedBy,
@@ -320,7 +337,7 @@ namespace Ajoor
                     catch (Exception ex) { MessageBox.Show($"{Utilities.ERRORMESSAGE} \n Error details: {ex.Message}", "Superior Investment!", MessageBoxButtons.OK, MessageBoxIcon.Error); }
 
                 }));
-                txt_TotalAmountPayable.Invoke(new MethodInvoker(delegate
+                txt_TotalExtraCommission.Invoke(new MethodInvoker(delegate
                 {
                     try
                     {
@@ -330,6 +347,24 @@ namespace Ajoor
                             if (dgv_SummaryMonthlyView.Rows[i].Cells[6].Value != null)
                             {
                                 string total = dgv_SummaryMonthlyView.Rows[i].Cells[6].Value.ToString();
+                                grandTotal += decimal.Parse(total);
+                            }
+                        }
+                        txt_TotalExtraCommission.Text = Utilities.CurrencyFormat(grandTotal.ToString());
+                    }
+                    catch (Exception ex) { MessageBox.Show($"{Utilities.ERRORMESSAGE} \n Error details: {ex.Message}", "Superior Investment!", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+
+                }));
+                txt_TotalAmountPayable.Invoke(new MethodInvoker(delegate
+                {
+                    try
+                    {
+                        decimal grandTotal = 0m;
+                        for (int i = 0; i < dgv_SummaryMonthlyView.RowCount; i++)
+                        {
+                            if (dgv_SummaryMonthlyView.Rows[i].Cells[7].Value != null)
+                            {
+                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[7].Value.ToString();
                                 grandTotal += decimal.Parse(total);
                             }
                         }
@@ -345,9 +380,9 @@ namespace Ajoor
                         decimal grandTotal = 0m;
                         for (int i = 0; i < dgv_SummaryMonthlyView.RowCount; i++)
                         {
-                            if (dgv_SummaryMonthlyView.Rows[i].Cells[7].Value != null)
+                            if (dgv_SummaryMonthlyView.Rows[i].Cells[8].Value != null)
                             {
-                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[7].Value.ToString();
+                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[8].Value.ToString();
                                 grandTotal += decimal.Parse(total);
                             }
                         }
@@ -381,6 +416,7 @@ namespace Ajoor
                             AmountContributed = g.Sum(s => s.AmountContributed),
                             AmountCollected = g.Sum(s => s.AmountCollected),
                             Commission = g.OrderByDescending(s => s.TransactionId).FirstOrDefault().Commission,
+                            ExtraCommission = g.OrderByDescending(s => s.TransactionId).FirstOrDefault().ExtraCommission,
                             TotalCredit = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) > 0 ? g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) : 0,
                             TotalDebt = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) > 0 ? 0 : g.OrderByDescending(x => x.TransactionId).FirstOrDefault().TotalDebt,
                             CreatedBy = g.FirstOrDefault().CreatedBy,
@@ -445,7 +481,7 @@ namespace Ajoor
                     catch (Exception ex) { MessageBox.Show($"{Utilities.ERRORMESSAGE} \n Error details: {ex.Message}", "Superior Investment!", MessageBoxButtons.OK, MessageBoxIcon.Error); }
 
                 }));
-                txt_TotalAmountPayable.Invoke(new MethodInvoker(delegate
+                txt_TotalExtraCommission.Invoke(new MethodInvoker(delegate
                 {
                     try
                     {
@@ -455,6 +491,24 @@ namespace Ajoor
                             if (dgv_SummaryMonthlyView.Rows[i].Cells[6].Value != null)
                             {
                                 string total = dgv_SummaryMonthlyView.Rows[i].Cells[6].Value.ToString();
+                                grandTotal += decimal.Parse(total);
+                            }
+                        }
+                        txt_TotalExtraCommission.Text = Utilities.CurrencyFormat(grandTotal.ToString());
+                    }
+                    catch (Exception ex) { MessageBox.Show($"{Utilities.ERRORMESSAGE} \n Error details: {ex.Message}", "Superior Investment!", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+
+                }));
+                txt_TotalAmountPayable.Invoke(new MethodInvoker(delegate
+                {
+                    try
+                    {
+                        decimal grandTotal = 0m;
+                        for (int i = 0; i < dgv_SummaryMonthlyView.RowCount; i++)
+                        {
+                            if (dgv_SummaryMonthlyView.Rows[i].Cells[7].Value != null)
+                            {
+                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[7].Value.ToString();
                                 grandTotal += decimal.Parse(total);
                             }
                         }
@@ -470,9 +524,9 @@ namespace Ajoor
                         decimal grandTotal = 0m;
                         for (int i = 0; i < dgv_SummaryMonthlyView.RowCount; i++)
                         {
-                            if (dgv_SummaryMonthlyView.Rows[i].Cells[7].Value != null)
+                            if (dgv_SummaryMonthlyView.Rows[i].Cells[8].Value != null)
                             {
-                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[7].Value.ToString();
+                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[8].Value.ToString();
                                 grandTotal += decimal.Parse(total);
                             }
                         }
@@ -493,8 +547,8 @@ namespace Ajoor
         private void SuperAdminMonthlyView_Load(object sender, EventArgs e)
         {
             txt_TotalCredit.ReadOnly = true; txt_TotalDebit.ReadOnly = true;
-            txt_TotalCommission.ReadOnly = true; txt_TotalAmountPayable.ReadOnly = true;
-            txt_TotalDebt.ReadOnly = true;
+            txt_TotalCommission.ReadOnly = true; txt_TotalExtraCommission.ReadOnly = true;
+            txt_TotalDebt.ReadOnly = true; txt_TotalAmountPayable.ReadOnly = true;
             if (!bgw_SubAdmin.IsBusy)
             {
                 bgw_SubAdmin.RunWorkerAsync();
@@ -547,8 +601,9 @@ namespace Ajoor
                             AmountContributed = g.Sum(s => s.AmountContributed),
                             AmountCollected = g.Sum(s => s.AmountCollected),
                             Commission = g.Sum(s => s.Commission),
+                            ExtraCommission = g.Sum(s => s.ExtraCommission),
                             TotalCredit = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) > 0 ? g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) : 0,
-                            TotalDebt = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) > 0 ? 0 : g.OrderByDescending(x=>x.TransactionId).FirstOrDefault().TotalDebt,
+                            TotalDebt = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) > 0 ? 0 : g.OrderByDescending(x => x.TransactionId).FirstOrDefault().TotalDebt,
                             CreatedBy = g.FirstOrDefault().CreatedBy,
                             CreatedDate = g.FirstOrDefault().CreatedDate
                         }).ToList();
@@ -614,7 +669,7 @@ namespace Ajoor
                     catch (Exception ex) { MessageBox.Show($"{Utilities.ERRORMESSAGE} \n Error details: {ex.Message}", "Superior Investment!", MessageBoxButtons.OK, MessageBoxIcon.Error); }
 
                 }));
-                txt_TotalAmountPayable.Invoke(new MethodInvoker(delegate
+                txt_TotalExtraCommission.Invoke(new MethodInvoker(delegate
                 {
                     try
                     {
@@ -624,6 +679,24 @@ namespace Ajoor
                             if (dgv_SummaryMonthlyView.Rows[i].Cells[6].Value != null)
                             {
                                 string total = dgv_SummaryMonthlyView.Rows[i].Cells[6].Value.ToString();
+                                grandTotal += decimal.Parse(total);
+                            }
+                        }
+                        txt_TotalExtraCommission.Text = Utilities.CurrencyFormat(grandTotal.ToString());
+                    }
+                    catch (Exception ex) { MessageBox.Show($"{Utilities.ERRORMESSAGE} \n Error details: {ex.Message}", "Superior Investment!", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+
+                }));
+                txt_TotalAmountPayable.Invoke(new MethodInvoker(delegate
+                {
+                    try
+                    {
+                        decimal grandTotal = 0m;
+                        for (int i = 0; i < dgv_SummaryMonthlyView.RowCount; i++)
+                        {
+                            if (dgv_SummaryMonthlyView.Rows[i].Cells[7].Value != null)
+                            {
+                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[7].Value.ToString();
                                 grandTotal += decimal.Parse(total);
                             }
                         }
@@ -639,9 +712,9 @@ namespace Ajoor
                         decimal grandTotal = 0m;
                         for (int i = 0; i < dgv_SummaryMonthlyView.RowCount; i++)
                         {
-                            if (dgv_SummaryMonthlyView.Rows[i].Cells[7].Value != null)
+                            if (dgv_SummaryMonthlyView.Rows[i].Cells[8].Value != null)
                             {
-                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[7].Value.ToString();
+                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[8].Value.ToString();
                                 grandTotal += decimal.Parse(total);
                             }
                         }
@@ -651,6 +724,38 @@ namespace Ajoor
 
                 }));
                 e.Result = "Done";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{Utilities.ERRORMESSAGE} \n Error details: {ex.Message}", "Superior Investment!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnView_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dgv_SummaryMonthlyView.SelectedRows.Count > 0)
+                {
+                    if (dgv_SummaryMonthlyView.SelectedRows.Count > 1)
+                    {
+                        MessageBox.Show("Please edit customers one at a time!", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    else
+                    {
+                        long ID = long.Parse(dgv_SummaryMonthlyView.SelectedRows[0].Cells[0].Value.ToString());
+                        var customerId = _TransactionRepo.GetTransaction(ID).CustomerId;
+                        if (customerId > 0)
+                        {
+                            ViewCustomerTransactions viewCustomerTransactions_Form = new ViewCustomerTransactions(customerId);
+                            viewCustomerTransactions_Form.ShowDialog();
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Please select atleast one customer to edit!", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
             catch (Exception ex)
             {

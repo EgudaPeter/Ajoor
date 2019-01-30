@@ -1,9 +1,6 @@
-﻿using Ajoor.Core;
-using Ajoor.Repos;
-using Microsoft.SqlServer.Management.Common;
-using Microsoft.SqlServer.Management.Smo;
+﻿using Ajoor.BusinessLayer.Repos;
+using Ajoor.Core;
 using System;
-using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;

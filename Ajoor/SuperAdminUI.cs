@@ -1,5 +1,4 @@
 ﻿using Ajoor.Core;
-using Ajoor.Repos;
 using System;
 using System.Windows.Forms;
 using Microsoft.SqlServer.Management.Smo;
@@ -7,6 +6,7 @@ using Microsoft.SqlServer.Management.Common;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
+using Ajoor.BusinessLayer.Repos;
 
 namespace Ajoor
 {

@@ -1,6 +1,6 @@
-﻿using Ajoor.Core;
-using Ajoor.DTO;
-using Ajoor.Repos;
+﻿using Ajoor.BusinessLayer.DTO;
+using Ajoor.BusinessLayer.Repos;
+using Ajoor.Core;
 using System;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
