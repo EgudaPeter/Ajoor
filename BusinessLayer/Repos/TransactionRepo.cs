@@ -71,6 +71,7 @@ namespace Ajoor.BusinessLayer.Repos
                             TransactionType = transaction.TransactionType,
                             Date = transaction.Date,
                             Commission = transaction.Commission,
+                            ExtraCommission = transaction.ExtraCommission,
                             AmountPayable = transaction.AmountPayable,
                             Debt = 0m,
                             TotalDebt = 0m,
@@ -92,6 +93,7 @@ namespace Ajoor.BusinessLayer.Repos
                             TransactionType = transaction.TransactionType,
                             Date = transaction.Date,
                             Commission = transaction.Commission,
+                            ExtraCommission = transaction.ExtraCommission,
                             AmountPayable = transaction.AmountPayable,
                             Debt = record.Debt + diff,
                             TotalDebt = diff + record.TotalDebt,
@@ -117,6 +119,7 @@ namespace Ajoor.BusinessLayer.Repos
                             AmountCollected = transaction.AmountCollected,
                             TransactionType = transaction.TransactionType,
                             Date = transaction.Date,
+                            Commission = transaction.Commission,
                             ExtraCommission = transaction.ExtraCommission,
                             AmountPayable = transaction.AmountPayable,
                             Debt = 0m,
@@ -138,6 +141,7 @@ namespace Ajoor.BusinessLayer.Repos
                             AmountCollected = transaction.AmountCollected,
                             TransactionType = transaction.TransactionType,
                             Date = transaction.Date,
+                            Commission = transaction.Commission,
                             ExtraCommission = transaction.ExtraCommission,
                             AmountPayable = transaction.AmountPayable,
                             Debt = record.Debt + diff,
@@ -161,6 +165,7 @@ namespace Ajoor.BusinessLayer.Repos
                     TransactionType = transaction.TransactionType,
                     Date = transaction.Date,
                     Commission = transaction.Commission,
+                    ExtraCommission = transaction.ExtraCommission,
                     AmountPayable = 0m,
                     Debt = transaction.Debt,
                     TotalDebt = transaction.TotalDebt,
@@ -181,6 +186,7 @@ namespace Ajoor.BusinessLayer.Repos
                 Debt = 0m,
                 TotalDebt = 0m,
                 Commission = transaction.Commission,
+                ExtraCommission = transaction.ExtraCommission,
                 AmountPayable = transaction.AmountPayable,
                 CreatedBy = transaction.CreatedBy,
                 CreatedDate = transaction.CreatedDate
@@ -280,7 +286,7 @@ namespace Ajoor.BusinessLayer.Repos
             var query = from a in entities.cor_transactions
                         join b in entities.cor_customer on a.CustomerId equals b.CustomerId
 
-                        where a.TransactionType == "Debit"
+                        where a.TransactionType == "Debit" || a.TransactionType == "Commission Charge" || a.TransactionType == "Extra Commission Charge"
                         select new DebitTransactions()
                         {
                             TransactionId = a.TransactionId,

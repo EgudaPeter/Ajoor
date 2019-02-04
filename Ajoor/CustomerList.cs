@@ -22,11 +22,13 @@ namespace Ajoor
         {
             dgv_CustomerList.Invoke(new MethodInvoker(delegate { dgv_CustomerList.DataSource = _CustomerRepo.GetAllRecords().Where(x => x.CreatedBy == Utilities.USERNAME).ToList(); }));
             lb_Total.Invoke(new MethodInvoker(delegate { lb_Total.Text = dgv_CustomerList.RowCount.ToString(); }));
+            Cursor.Current = Cursors.Default;
             e.Result = "Done";
         }
 
         private void CustomerList_Load(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
             if (!bgwGetRecords.IsBusy)
             {
                 bgwGetRecords.RunWorkerAsync();

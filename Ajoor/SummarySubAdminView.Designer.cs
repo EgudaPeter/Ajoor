@@ -166,7 +166,6 @@
             // btn_Print
             // 
             this.btn_Print.BackColor = System.Drawing.Color.Green;
-            this.btn_Print.Enabled = false;
             this.btn_Print.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_Print.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_Print.ForeColor = System.Drawing.Color.White;

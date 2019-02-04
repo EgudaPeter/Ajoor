@@ -182,6 +182,7 @@
             // 
             // printSummary
             // 
+            this.printSummary.BeginPrint += new System.Drawing.Printing.PrintEventHandler(this.printSummary_BeginPrint);
             this.printSummary.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printSummary_PrintPage);
             // 
             // btnEClear
@@ -298,6 +299,7 @@
             // 
             // panel1
             // 
+            this.panel1.AutoSize = true;
             this.panel1.Controls.Add(this.btnView);
             this.panel1.Controls.Add(this.btn_Print);
             this.panel1.Controls.Add(this.btn_Cancel);
@@ -324,7 +326,6 @@
             // btn_Print
             // 
             this.btn_Print.BackColor = System.Drawing.Color.Green;
-            this.btn_Print.Enabled = false;
             this.btn_Print.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_Print.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_Print.ForeColor = System.Drawing.Color.White;
@@ -436,6 +437,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1114, 661);
             this.Controls.Add(this.txt_TotalExtraCommission);

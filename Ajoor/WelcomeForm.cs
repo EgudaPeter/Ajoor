@@ -35,7 +35,7 @@ namespace Ajoor
                 usageLock.FormClosed += (s, args) => Close();
                 usageLock.ShowDialog();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -70,11 +70,11 @@ namespace Ajoor
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 //MessageBox.Show($"{Utilities.ERRORMESSAGE} \n Error details: {ex.Message}", "Superior Investment!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-          
+
         }
     }
 }

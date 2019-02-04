@@ -74,8 +74,8 @@ namespace Ajoor
             }
             catch(Exception ex)
             {
-                string message = "config file does not exist. Please contact system developer";
-                MessageBox.Show(message, "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //string message = "config file does not exist. Please contact system developer";
+                MessageBox.Show(ex.Message, "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Application.Exit();
             }
         }
