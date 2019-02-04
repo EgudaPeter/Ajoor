@@ -1,9 +1,11 @@
 ﻿using Ajoor.BusinessLayer.Repos;
 using Ajoor.Core;
 using System;
+using System.Collections;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -14,6 +16,17 @@ namespace Ajoor
         CustomerRepo _CustomerRepo = new CustomerRepo();
         SubAdminRepo _SubAdminRepo = new SubAdminRepo();
         TransactionRepo _TransactionRepo = new TransactionRepo();
+
+        int iCellHeight = 0; //Used to get/set the datagridview cell height
+        int iTotalWidth = 0; //
+        int iCount = 0;
+        int iRow = 0;//Used as counter
+        bool bFirstPage = false; //Used to check whether we are printing first page
+        bool bNewPage = false;// Used to check whether we are printing a new page
+        int iHeaderHeight = 0; //Used for the header height
+        StringFormat strFormat; //Used to format the grid rows.
+        ArrayList arrColumnLefts = new ArrayList();//Used to save left coordinates of columns
+        ArrayList arrColumnWidths = new ArrayList();//Used to save column widths
         public Summary()
         {
             InitializeComponent();
@@ -57,7 +70,14 @@ namespace Ajoor
         {
             if (dgv_Summary.RowCount > 0)
             {
-                printSummary.Print();
+                PrintDialog printDialog = new PrintDialog();
+                printDialog.Document = printSummary;
+                printDialog.UseEXDialog = true;
+                if (DialogResult.OK == printDialog.ShowDialog())
+                {
+                    //printSummary.DocumentName = $"Monthly Summary {DateTime.Now}";
+                    printSummary.Print();
+                }
             }
             else
             {
@@ -65,17 +85,157 @@ namespace Ajoor
             }
         }
 
-        private void printSummary_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        private void printSummary_BeginPrint(object sender, PrintEventArgs e)
         {
             try
             {
-                int height = dgv_Summary.Height;
-                dgv_Summary.Height = (dgv_Summary.RowCount + 100) * dgv_Summary.RowTemplate.Height;
-                Bitmap bitmap = new Bitmap(dgv_Summary.Width, dgv_Summary.Height);
-                dgv_Summary.DrawToBitmap(bitmap, new Rectangle(0, 0, dgv_Summary.Width, dgv_Summary.Height));
-                e.Graphics.DrawImage(bitmap, 0, 0);
-                dgv_Summary.Height = height;
+                strFormat = new StringFormat();
+                strFormat.Alignment = StringAlignment.Near;
+                strFormat.LineAlignment = StringAlignment.Center;
+                strFormat.Trimming = StringTrimming.EllipsisCharacter;
 
+                arrColumnLefts.Clear();
+                arrColumnWidths.Clear();
+                //iCellHeight = 0;
+                //iCount = 0;
+                iRow = 0;
+                bFirstPage = true;
+                bNewPage = true;
+
+                // Calculating Total Widths
+                iTotalWidth = 0;
+                foreach (DataGridViewColumn dgvGridCol in dgv_Summary.Columns)
+                {
+                    iTotalWidth += dgvGridCol.Width;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{Utilities.ERRORMESSAGE} \n Error details: {ex.Message}", "Superior Investment!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void printSummary_PrintPage(object sender, PrintPageEventArgs e)
+        {
+            try
+            {
+                //Set the left margin
+                int iLeftMargin = e.MarginBounds.Left;
+                //Set the top margin
+                int iTopMargin = e.MarginBounds.Top;
+                //Whether more pages have to print or not
+                bool bMorePagesToPrint = false;
+                int iTmpWidth = 0;
+
+                //For the first page to print set the cell width and header height
+                if (bFirstPage)
+                {
+                    foreach (DataGridViewColumn GridCol in dgv_Summary.Columns)
+                    {
+                        iTmpWidth = (int)(Math.Floor(GridCol.Width /
+                            (double)iTotalWidth * iTotalWidth *
+                            ((double)e.MarginBounds.Width / iTotalWidth)));
+
+                        iHeaderHeight = (int)(e.Graphics.MeasureString(GridCol.HeaderText,
+                            GridCol.InheritedStyle.Font, iTmpWidth).Height) + 11;
+
+                        // Save width and height of headers
+                        arrColumnLefts.Add(iLeftMargin);
+                        arrColumnWidths.Add(iTmpWidth);
+                        iLeftMargin += iTmpWidth;
+                    }
+                }
+                //Loop till all the grid rows not get printed
+                while (iRow <= dgv_Summary.Rows.Count - 1)
+                {
+                    DataGridViewRow GridRow = dgv_Summary.Rows[iRow];
+                    //Set the cell height
+                    iCellHeight = GridRow.Height + 5;
+                    int iCount = 0;
+                    //Check whether the current page settings allows more rows to print
+                    if (iTopMargin + iCellHeight >= e.MarginBounds.Height + e.MarginBounds.Top)
+                    {
+                        bNewPage = true;
+                        bFirstPage = false;
+                        bMorePagesToPrint = true;
+                        break;
+                    }
+                    else
+                    {
+                        if (bNewPage)
+                        {
+                            //Draw Header
+                            e.Graphics.DrawString("Summary",
+                                new Font(dgv_Summary.Font, FontStyle.Bold),
+                                Brushes.Black, e.MarginBounds.Left,
+                                e.MarginBounds.Top - e.Graphics.MeasureString("Summary",
+                                new Font(dgv_Summary.Font, FontStyle.Bold),
+                                e.MarginBounds.Width).Height - 13);
+
+                            String strDate = DateTime.Now.ToLongDateString() + " " +
+                                DateTime.Now.ToShortTimeString();
+                            //Draw Date
+                            e.Graphics.DrawString(strDate,
+                                new Font(dgv_Summary.Font, FontStyle.Bold), Brushes.Black,
+                                e.MarginBounds.Left +
+                                (e.MarginBounds.Width - e.Graphics.MeasureString(strDate,
+                                new Font(dgv_Summary.Font, FontStyle.Bold),
+                                e.MarginBounds.Width).Width),
+                                e.MarginBounds.Top - e.Graphics.MeasureString("Summary",
+                                new Font(new Font(dgv_Summary.Font, FontStyle.Bold),
+                                FontStyle.Bold), e.MarginBounds.Width).Height - 13);
+
+                            //Draw Columns                 
+                            iTopMargin = e.MarginBounds.Top;
+                            foreach (DataGridViewColumn GridCol in dgv_Summary.Columns)
+                            {
+                                e.Graphics.FillRectangle(new SolidBrush(Color.LightGray),
+                                    new Rectangle((int)arrColumnLefts[iCount], iTopMargin,
+                                    (int)arrColumnWidths[iCount], iHeaderHeight));
+
+                                e.Graphics.DrawRectangle(Pens.Black,
+                                    new Rectangle((int)arrColumnLefts[iCount], iTopMargin,
+                                    (int)arrColumnWidths[iCount], iHeaderHeight));
+
+                                e.Graphics.DrawString(GridCol.HeaderText,
+                                    GridCol.InheritedStyle.Font,
+                                    new SolidBrush(GridCol.InheritedStyle.ForeColor),
+                                    new RectangleF((int)arrColumnLefts[iCount], iTopMargin,
+                                    (int)arrColumnWidths[iCount], iHeaderHeight), strFormat);
+                                iCount++;
+                            }
+                            bNewPage = false;
+                            iTopMargin += iHeaderHeight;
+                        }
+                        iCount = 0;
+                        //Draw Columns Contents                
+                        foreach (DataGridViewCell Cel in GridRow.Cells)
+                        {
+                            if (Cel.Value != null)
+                            {
+                                e.Graphics.DrawString(Cel.Value.ToString(),
+                                    Cel.InheritedStyle.Font,
+                                    new SolidBrush(Cel.InheritedStyle.ForeColor),
+                                    new RectangleF((int)arrColumnLefts[iCount],
+                                    (float)iTopMargin,
+                                    (int)arrColumnWidths[iCount], (float)iCellHeight),
+                                    strFormat);
+                            }
+                            //Drawing Cells Borders 
+                            e.Graphics.DrawRectangle(Pens.Black,
+                                new Rectangle((int)arrColumnLefts[iCount], iTopMargin,
+                                (int)arrColumnWidths[iCount], iCellHeight));
+                            iCount++;
+                        }
+                    }
+                    iRow++;
+                    iTopMargin += iCellHeight;
+                }
+                //If more lines exist, print another page.
+                if (bMorePagesToPrint)
+                    e.HasMorePages = true;
+                else
+                    e.HasMorePages = false;
             }
             catch (Exception ex)
             {

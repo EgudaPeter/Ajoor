@@ -182,6 +182,7 @@
             // 
             // printSummary
             // 
+            this.printSummary.BeginPrint += new System.Drawing.Printing.PrintEventHandler(this.printSummary_BeginPrint);
             this.printSummary.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printSummary_PrintPage);
             // 
             // btnEClear
