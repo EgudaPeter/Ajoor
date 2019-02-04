@@ -51,6 +51,7 @@ namespace Ajoor
                 switch (MessageBox.Show($"You are about to perform a restore operation on your database. Operation might take several minutes. Do you wish to continue?", "Superior Investment", MessageBoxButtons.YesNo, MessageBoxIcon.Information))
                 {
                     case DialogResult.Yes:
+                        Cursor.Current = Cursors.WaitCursor;
                         if (!bgwRestore.IsBusy)
                         {
                             bgwRestore.RunWorkerAsync();
@@ -68,7 +69,7 @@ namespace Ajoor
 
         private void ImportRecords()
         {
-            string conString = string.Empty;
+            string conString = string.Empty; var dir = @"C:/Ajoor App Database file";
             using (StreamReader reader = new StreamReader(connectionPath))
             {
                 while (!reader.EndOfStream)
@@ -84,7 +85,7 @@ namespace Ajoor
             rstDatabase.Action = RestoreActionType.Database;
             rstDatabase.Database = databaseName;
             string backupfileName = $"{databaseName}.bak";
-            string backedUpFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, backupfileName);
+            string backedUpFile = Path.Combine(dir, backupfileName);
             BackupDeviceItem bkpDevice = new BackupDeviceItem(backedUpFile, DeviceType.File);
             rstDatabase.Devices.Add(bkpDevice);
             rstDatabase.ReplaceDatabase = true;
@@ -122,13 +123,14 @@ namespace Ajoor
             {
                 lb_Progress.Invoke(new MethodInvoker(delegate
                 {
-                    lb_Progress.Text = "Please wait while system backs up  data...";
+                    lb_Progress.Text = "Please wait while system restores your data...";
                 }));
                 ImportRecords();
                 lb_Progress.Invoke(new MethodInvoker(delegate
                 {
                     lb_Progress.Text = string.Empty;
                 }));
+                Cursor.Current = Cursors.Default;
                 e.Result = "Done";
             }
             catch (Exception ex)

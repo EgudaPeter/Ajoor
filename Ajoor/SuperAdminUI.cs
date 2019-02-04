@@ -77,6 +77,7 @@ namespace Ajoor
         private void SuperAdminUI_Load(object sender, EventArgs e)
         {
             lb_LoggedIn.Text = $"Welcome {Utilities.USERNAME}";
+            Cursor.Current = Cursors.WaitCursor;
             if (!bgw_PullData.IsBusy)
             {
                 bgw_PullData.RunWorkerAsync();
@@ -115,6 +116,7 @@ namespace Ajoor
                 switch (MessageBox.Show($"You are about to perform a back-up operation on your database. Operation might take several minutes. Do you wish to continue?", "Superior Investment", MessageBoxButtons.YesNo, MessageBoxIcon.Information))
                 {
                     case DialogResult.Yes:
+                        Cursor.Current = Cursors.WaitCursor;
                         if (!bgwBackup.IsBusy)
                         {
                             bgwBackup.RunWorkerAsync();
@@ -134,7 +136,19 @@ namespace Ajoor
 
         private void ExportRecords()
         {
-
+            var dir = @"C:/Ajoor App Database file";
+            Directory.CreateDirectory(dir);
+            var fileName = "Ajo";
+            var path = $"{dir}/{fileName}.bak";
+            FileInfo fi = new FileInfo(path);
+            if (fi.Exists)
+            {
+                fi.Delete();
+            }
+            else
+            {
+                fi.Create();
+            }
             string conString = string.Empty;
             using (StreamReader reader = new StreamReader(connectionPath))
             {
@@ -145,7 +159,7 @@ namespace Ajoor
             }
             SqlConnection con = new SqlConnection(conString);
             string databaseName = "Ajo";
-            string destinationPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"{databaseName}.bak");
+            string destinationPath = Path.Combine(dir, $"{databaseName}.bak");
             ServerConnection connection = new ServerConnection(con);
             Server sqlServer = new Server(connection);
             Backup bkpDatabase = new Backup();
@@ -176,6 +190,7 @@ namespace Ajoor
                 {
                     lb_Progress.Text = string.Empty;
                 }));
+                Cursor.Current = Cursors.Default;
                 e.Result = "Done";
             }
             catch (Exception ex)
@@ -254,6 +269,7 @@ namespace Ajoor
                     MessageBox.Show($"{Utilities.ERRORMESSAGE} \n Error details: {ex.Message}", "Superior Investment!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }));
+            Cursor.Current = Cursors.Default;
         }
 
         private void btn_TransferCustomer_Click(object sender, EventArgs e)

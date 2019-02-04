@@ -28,8 +28,6 @@ C:\Ajoor\Ajoor\obj\Debug\Ajoor.exe
 C:\Ajoor\Ajoor\obj\Debug\Ajoor.pdb
 C:\Ajoor\Ajoor\obj\Debug\Ajoor.SuperAdminMonthlyView.resources
 C:\Ajoor\Ajoor\obj\Debug\Ajoor.SuperAdminCustomerList.resources
-C:\Ajoor\Ajoor\obj\Debug\Ajoor.SuperAdminCreditCustomer.resources
-C:\Ajoor\Ajoor\obj\Debug\Ajoor.SuperAdminDebitCustomer.resources
 C:\Ajoor\Ajoor\obj\Debug\Ajoor.EditCreditTransaction.resources
 C:\Ajoor\Ajoor\bin\Debug\Microsoft.SqlServer.AzureStorageEnum.dll
 C:\Ajoor\Ajoor\bin\Debug\Microsoft.SqlServer.BatchParserClient.dll

@@ -296,23 +296,11 @@
     <Compile Include="SuperAdminBalance.Designer.cs">
       <DependentUpon>SuperAdminBalance.cs</DependentUpon>
     </Compile>
-    <Compile Include="SuperAdminCreditCustomer.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SuperAdminCreditCustomer.Designer.cs">
-      <DependentUpon>SuperAdminCreditCustomer.cs</DependentUpon>
-    </Compile>
     <Compile Include="SuperAdminCustomerList.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SuperAdminCustomerList.Designer.cs">
       <DependentUpon>SuperAdminCustomerList.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SuperAdminDebitCustomer.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SuperAdminDebitCustomer.Designer.cs">
-      <DependentUpon>SuperAdminDebitCustomer.cs</DependentUpon>
     </Compile>
     <Compile Include="SuperAdminMonthlyView.cs">
       <SubType>Form</SubType>
@@ -406,14 +394,8 @@
     <EmbeddedResource Include="SuperAdminBalance.resx">
       <DependentUpon>SuperAdminBalance.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SuperAdminCreditCustomer.resx">
-      <DependentUpon>SuperAdminCreditCustomer.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="SuperAdminCustomerList.resx">
       <DependentUpon>SuperAdminCustomerList.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SuperAdminDebitCustomer.resx">
-      <DependentUpon>SuperAdminDebitCustomer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SuperAdminMonthlyView.resx">
       <DependentUpon>SuperAdminMonthlyView.cs</DependentUpon>

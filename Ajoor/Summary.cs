@@ -53,16 +53,34 @@ namespace Ajoor
             }
         }
 
-        private void printSummary_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
-        {
-            Bitmap bm = new Bitmap(dgv_Summary.Width, dgv_Summary.Height);
-            dgv_Summary.DrawToBitmap(bm, new Rectangle(0, 0, dgv_Summary.Width, dgv_Summary.Height));
-            e.Graphics.DrawImage(bm, 0, 0);
-        }
-
         private void btnPrint_Click(object sender, EventArgs e)
         {
-            printSummary.Print();
+            if (dgv_Summary.RowCount > 0)
+            {
+                printSummary.Print();
+            }
+            else
+            {
+                MessageBox.Show($"No data to print.", "Superior Investment!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void printSummary_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            try
+            {
+                int height = dgv_Summary.Height;
+                dgv_Summary.Height = (dgv_Summary.RowCount + 100) * dgv_Summary.RowTemplate.Height;
+                Bitmap bitmap = new Bitmap(dgv_Summary.Width, dgv_Summary.Height);
+                dgv_Summary.DrawToBitmap(bitmap, new Rectangle(0, 0, dgv_Summary.Width, dgv_Summary.Height));
+                e.Graphics.DrawImage(bitmap, 0, 0);
+                dgv_Summary.Height = height;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{Utilities.ERRORMESSAGE} \n Error details: {ex.Message}", "Superior Investment!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btn_Go_Click(object sender, EventArgs e)
@@ -241,7 +259,7 @@ namespace Ajoor
                     try
                     {
                         dgv_Summary.DataSource = _TransactionRepo.GetAllTransactions().Where(x => x.Date.Value >= dtp_Start.Value.Date && x.Date.Value <= dtp_End.Value.Date)
-                        .Select(x=> new
+                        .Select(x => new
                         {
                             CustomerName = x.CustomerName,
                             AccountNumber = x.AccountNumber,
@@ -551,7 +569,7 @@ namespace Ajoor
                             CapturedBy = x.CreatedBy
                         }).ToList();
                     }
-                    catch(Exception ex) { MessageBox.Show($"{Utilities.ERRORMESSAGE} \n Error details: {ex.Message}", "Superior Investment!", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+                    catch (Exception ex) { MessageBox.Show($"{Utilities.ERRORMESSAGE} \n Error details: {ex.Message}", "Superior Investment!", MessageBoxButtons.OK, MessageBoxIcon.Error); }
                 }));
                 lb_Total.Invoke(new MethodInvoker(delegate { lb_Total.Text = dgv_Summary.RowCount.ToString(); }));
 

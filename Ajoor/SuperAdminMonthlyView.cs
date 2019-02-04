@@ -118,22 +118,6 @@ namespace Ajoor
                             CreatedBy = g.FirstOrDefault().CreatedBy,
                             CreatedDate = g.FirstOrDefault().CreatedDate
                         }).ToList();
-
-                        //dgv_SummaryMonthlyView.DataSource = _TransactionRepo.GetAllTransactions().Where(x => x.Date.Value.Year >= dtp_Start.Value.Year && x.Date.Value.Month >= dtp_Start.Value.Month
-                        // && x.Date.Value.Day >= dtp_Start.Value.Day && x.Date.Value.Year <= dtp_End.Value.Year && x.Date.Value.Month <= dtp_End.Value.Month
-                        // && x.Date.Value.Day <= dtp_End.Value.Day).GroupBy(p => p.CustomerId).Select(g => new
-                        // {
-                        //     TransactionId = g.FirstOrDefault().TransactionId,
-                        //     Name = g.FirstOrDefault().CustomerName,
-                        //     AccountNumber = g.FirstOrDefault().AccountNumber,
-                        //     AmountContributed = g.Sum(s => s.AmountContributed),
-                        //     AmountCollected = g.Sum(s => s.AmountCollected),
-                        //     Commission = g.Sum(s => s.Commission),
-                        //     AmountPayable = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) > 0 ? g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) : 0,
-                        //     TotalDebt = g.Sum(s => s.TotalDebt) > 0 ? g.Sum(s => s.TotalDebt) + g.Sum(s => s.Commission) : g.Sum(s => s.TotalDebt),
-                        //     CreatedBy = g.FirstOrDefault().CreatedBy,
-                        //     CreatedDate = g.FirstOrDefault().CreatedDate
-                        // }).ToList();
                     }
                     catch (Exception ex)
                     {
@@ -142,6 +126,7 @@ namespace Ajoor
                 }));
                 lb_Total.Invoke(new MethodInvoker(delegate { lb_Total.Text = dgv_SummaryMonthlyView.RowCount.ToString(); }));
 
+
                 txt_TotalDebit.Invoke(new MethodInvoker(delegate
                 {
                     try
@@ -149,9 +134,9 @@ namespace Ajoor
                         decimal grandTotal = 0m;
                         for (int i = 0; i < dgv_SummaryMonthlyView.RowCount; i++)
                         {
-                            if (dgv_SummaryMonthlyView.Rows[i].Cells[4].Value != null)
+                            if (dgv_SummaryMonthlyView.Rows[i].Cells[3].Value != null)
                             {
-                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[4].Value.ToString();
+                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[3].Value.ToString();
                                 grandTotal += decimal.Parse(total);
                             }
                         }
@@ -167,9 +152,9 @@ namespace Ajoor
                         decimal grandTotal = 0m;
                         for (int i = 0; i < dgv_SummaryMonthlyView.RowCount; i++)
                         {
-                            if (dgv_SummaryMonthlyView.Rows[i].Cells[3].Value != null)
+                            if (dgv_SummaryMonthlyView.Rows[i].Cells[2].Value != null)
                             {
-                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[3].Value.ToString();
+                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[2].Value.ToString();
                                 grandTotal += decimal.Parse(total);
                             }
                         }
@@ -185,9 +170,9 @@ namespace Ajoor
                         decimal grandTotal = 0m;
                         for (int i = 0; i < dgv_SummaryMonthlyView.RowCount; i++)
                         {
-                            if (dgv_SummaryMonthlyView.Rows[i].Cells[5].Value != null)
+                            if (dgv_SummaryMonthlyView.Rows[i].Cells[4].Value != null)
                             {
-                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[5].Value.ToString();
+                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[4].Value.ToString();
                                 grandTotal += decimal.Parse(total);
                             }
                         }
@@ -203,9 +188,9 @@ namespace Ajoor
                         decimal grandTotal = 0m;
                         for (int i = 0; i < dgv_SummaryMonthlyView.RowCount; i++)
                         {
-                            if (dgv_SummaryMonthlyView.Rows[i].Cells[6].Value != null)
+                            if (dgv_SummaryMonthlyView.Rows[i].Cells[5].Value != null)
                             {
-                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[6].Value.ToString();
+                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[5].Value.ToString();
                                 grandTotal += decimal.Parse(total);
                             }
                         }
@@ -221,9 +206,9 @@ namespace Ajoor
                         decimal grandTotal = 0m;
                         for (int i = 0; i < dgv_SummaryMonthlyView.RowCount; i++)
                         {
-                            if (dgv_SummaryMonthlyView.Rows[i].Cells[7].Value != null)
+                            if (dgv_SummaryMonthlyView.Rows[i].Cells[6].Value != null)
                             {
-                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[7].Value.ToString();
+                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[6].Value.ToString();
                                 grandTotal += decimal.Parse(total);
                             }
                         }
@@ -239,9 +224,9 @@ namespace Ajoor
                         decimal grandTotal = 0m;
                         for (int i = 0; i < dgv_SummaryMonthlyView.RowCount; i++)
                         {
-                            if (dgv_SummaryMonthlyView.Rows[i].Cells[8].Value != null)
+                            if (dgv_SummaryMonthlyView.Rows[i].Cells[7].Value != null)
                             {
-                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[8].Value.ToString();
+                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[7].Value.ToString();
                                 grandTotal += decimal.Parse(total);
                             }
                         }
@@ -269,7 +254,7 @@ namespace Ajoor
                     {
                         dgv_SummaryMonthlyView.DataSource = _TransactionRepo.GetAllTransactions().Where(x => x.Date.Value >= dtp_Start.Value.Date && x.Date.Value <= dtp_End.Value.Date && x.CreatedBy == cmb_Subadmin.SelectedValue.ToString()).GroupBy(p => p.CustomerId).Select(g => new
                         {
-                            TransactionId = g.FirstOrDefault().TransactionId,
+                            //TransactionId = g.FirstOrDefault().TransactionId,
                             Name = g.FirstOrDefault().CustomerName,
                             AccountNumber = g.FirstOrDefault().AccountNumber,
                             AmountContributed = g.Sum(s => s.AmountContributed),
@@ -281,26 +266,11 @@ namespace Ajoor
                             CreatedBy = g.FirstOrDefault().CreatedBy,
                             CreatedDate = g.FirstOrDefault().CreatedDate
                         }).ToList();
-
-                        //dgv_SummaryMonthlyView.DataSource = _TransactionRepo.GetAllTransactions().Where(x => x.Date.Value.Year >= dtp_Start.Value.Year && x.Date.Value.Month >= dtp_Start.Value.Month
-                        // && x.Date.Value.Day >= dtp_Start.Value.Day && x.Date.Value.Year <= dtp_End.Value.Year && x.Date.Value.Month <= dtp_End.Value.Month
-                        // && x.Date.Value.Day <= dtp_End.Value.Day && x.CreatedBy == cmb_Subadmin.SelectedValue.ToString()).GroupBy(p => p.CustomerId).Select(g => new
-                        // {
-                        //     TransactionId = g.FirstOrDefault().TransactionId,
-                        //     Name = g.FirstOrDefault().CustomerName,
-                        //     AccountNumber = g.FirstOrDefault().AccountNumber,
-                        //     AmountContributed = g.Sum(s => s.AmountContributed),
-                        //     AmountCollected = g.Sum(s => s.AmountCollected),
-                        //     Commission = g.Sum(s => s.Commission),
-                        //     AmountPayable = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) > 0 ? g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) : 0,
-                        //     TotalDebt = g.Sum(s => s.TotalDebt) > 0 ? g.Sum(s => s.TotalDebt) + g.Sum(s => s.Commission) : g.Sum(s => s.TotalDebt),
-                        //     CreatedBy = g.FirstOrDefault().CreatedBy,
-                        //     CreatedDate = g.FirstOrDefault().CreatedDate
-                        // }).ToList();
                     }
                     catch (Exception ex) { MessageBox.Show($"{Utilities.ERRORMESSAGE} \n Error details: {ex.Message}", "Superior Investment!", MessageBoxButtons.OK, MessageBoxIcon.Error); }
                 }));
                 lb_Total.Invoke(new MethodInvoker(delegate { lb_Total.Text = dgv_SummaryMonthlyView.RowCount.ToString(); }));
+
 
                 txt_TotalDebit.Invoke(new MethodInvoker(delegate
                 {
@@ -309,9 +279,9 @@ namespace Ajoor
                         decimal grandTotal = 0m;
                         for (int i = 0; i < dgv_SummaryMonthlyView.RowCount; i++)
                         {
-                            if (dgv_SummaryMonthlyView.Rows[i].Cells[4].Value != null)
+                            if (dgv_SummaryMonthlyView.Rows[i].Cells[3].Value != null)
                             {
-                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[4].Value.ToString();
+                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[3].Value.ToString();
                                 grandTotal += decimal.Parse(total);
                             }
                         }
@@ -327,9 +297,9 @@ namespace Ajoor
                         decimal grandTotal = 0m;
                         for (int i = 0; i < dgv_SummaryMonthlyView.RowCount; i++)
                         {
-                            if (dgv_SummaryMonthlyView.Rows[i].Cells[3].Value != null)
+                            if (dgv_SummaryMonthlyView.Rows[i].Cells[2].Value != null)
                             {
-                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[3].Value.ToString();
+                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[2].Value.ToString();
                                 grandTotal += decimal.Parse(total);
                             }
                         }
@@ -345,9 +315,9 @@ namespace Ajoor
                         decimal grandTotal = 0m;
                         for (int i = 0; i < dgv_SummaryMonthlyView.RowCount; i++)
                         {
-                            if (dgv_SummaryMonthlyView.Rows[i].Cells[5].Value != null)
+                            if (dgv_SummaryMonthlyView.Rows[i].Cells[4].Value != null)
                             {
-                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[5].Value.ToString();
+                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[4].Value.ToString();
                                 grandTotal += decimal.Parse(total);
                             }
                         }
@@ -363,9 +333,9 @@ namespace Ajoor
                         decimal grandTotal = 0m;
                         for (int i = 0; i < dgv_SummaryMonthlyView.RowCount; i++)
                         {
-                            if (dgv_SummaryMonthlyView.Rows[i].Cells[6].Value != null)
+                            if (dgv_SummaryMonthlyView.Rows[i].Cells[5].Value != null)
                             {
-                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[6].Value.ToString();
+                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[5].Value.ToString();
                                 grandTotal += decimal.Parse(total);
                             }
                         }
@@ -381,9 +351,9 @@ namespace Ajoor
                         decimal grandTotal = 0m;
                         for (int i = 0; i < dgv_SummaryMonthlyView.RowCount; i++)
                         {
-                            if (dgv_SummaryMonthlyView.Rows[i].Cells[7].Value != null)
+                            if (dgv_SummaryMonthlyView.Rows[i].Cells[6].Value != null)
                             {
-                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[7].Value.ToString();
+                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[6].Value.ToString();
                                 grandTotal += decimal.Parse(total);
                             }
                         }
@@ -399,9 +369,9 @@ namespace Ajoor
                         decimal grandTotal = 0m;
                         for (int i = 0; i < dgv_SummaryMonthlyView.RowCount; i++)
                         {
-                            if (dgv_SummaryMonthlyView.Rows[i].Cells[8].Value != null)
+                            if (dgv_SummaryMonthlyView.Rows[i].Cells[7].Value != null)
                             {
-                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[8].Value.ToString();
+                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[7].Value.ToString();
                                 grandTotal += decimal.Parse(total);
                             }
                         }
@@ -429,7 +399,7 @@ namespace Ajoor
                     {
                         dgv_SummaryMonthlyView.DataSource = _TransactionRepo.GetAllTransactions().Where(x => x.CreatedBy == cmb_Subadmin.SelectedValue.ToString()).GroupBy(p => p.CustomerId).Select(g => new
                         {
-                            TransactionId = g.FirstOrDefault().TransactionId,
+                            //TransactionId = g.FirstOrDefault().TransactionId,
                             Name = g.FirstOrDefault().CustomerName,
                             AccountNumber = g.FirstOrDefault().AccountNumber,
                             AmountContributed = g.Sum(s => s.AmountContributed),
@@ -446,6 +416,7 @@ namespace Ajoor
                 }));
                 lb_Total.Invoke(new MethodInvoker(delegate { lb_Total.Text = dgv_SummaryMonthlyView.RowCount.ToString(); }));
 
+
                 txt_TotalDebit.Invoke(new MethodInvoker(delegate
                 {
                     try
@@ -453,9 +424,9 @@ namespace Ajoor
                         decimal grandTotal = 0m;
                         for (int i = 0; i < dgv_SummaryMonthlyView.RowCount; i++)
                         {
-                            if (dgv_SummaryMonthlyView.Rows[i].Cells[4].Value != null)
+                            if (dgv_SummaryMonthlyView.Rows[i].Cells[3].Value != null)
                             {
-                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[4].Value.ToString();
+                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[3].Value.ToString();
                                 grandTotal += decimal.Parse(total);
                             }
                         }
@@ -471,9 +442,9 @@ namespace Ajoor
                         decimal grandTotal = 0m;
                         for (int i = 0; i < dgv_SummaryMonthlyView.RowCount; i++)
                         {
-                            if (dgv_SummaryMonthlyView.Rows[i].Cells[3].Value != null)
+                            if (dgv_SummaryMonthlyView.Rows[i].Cells[2].Value != null)
                             {
-                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[3].Value.ToString();
+                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[2].Value.ToString();
                                 grandTotal += decimal.Parse(total);
                             }
                         }
@@ -489,9 +460,9 @@ namespace Ajoor
                         decimal grandTotal = 0m;
                         for (int i = 0; i < dgv_SummaryMonthlyView.RowCount; i++)
                         {
-                            if (dgv_SummaryMonthlyView.Rows[i].Cells[5].Value != null)
+                            if (dgv_SummaryMonthlyView.Rows[i].Cells[4].Value != null)
                             {
-                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[5].Value.ToString();
+                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[4].Value.ToString();
                                 grandTotal += decimal.Parse(total);
                             }
                         }
@@ -507,9 +478,9 @@ namespace Ajoor
                         decimal grandTotal = 0m;
                         for (int i = 0; i < dgv_SummaryMonthlyView.RowCount; i++)
                         {
-                            if (dgv_SummaryMonthlyView.Rows[i].Cells[6].Value != null)
+                            if (dgv_SummaryMonthlyView.Rows[i].Cells[5].Value != null)
                             {
-                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[6].Value.ToString();
+                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[5].Value.ToString();
                                 grandTotal += decimal.Parse(total);
                             }
                         }
@@ -525,9 +496,9 @@ namespace Ajoor
                         decimal grandTotal = 0m;
                         for (int i = 0; i < dgv_SummaryMonthlyView.RowCount; i++)
                         {
-                            if (dgv_SummaryMonthlyView.Rows[i].Cells[7].Value != null)
+                            if (dgv_SummaryMonthlyView.Rows[i].Cells[6].Value != null)
                             {
-                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[7].Value.ToString();
+                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[6].Value.ToString();
                                 grandTotal += decimal.Parse(total);
                             }
                         }
@@ -543,9 +514,9 @@ namespace Ajoor
                         decimal grandTotal = 0m;
                         for (int i = 0; i < dgv_SummaryMonthlyView.RowCount; i++)
                         {
-                            if (dgv_SummaryMonthlyView.Rows[i].Cells[8].Value != null)
+                            if (dgv_SummaryMonthlyView.Rows[i].Cells[7].Value != null)
                             {
-                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[8].Value.ToString();
+                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[7].Value.ToString();
                                 grandTotal += decimal.Parse(total);
                             }
                         }
@@ -602,23 +573,30 @@ namespace Ajoor
             ////Get the document
             //if (DialogResult.OK == printDialog.ShowDialog())
             //{
-            //    //printSummary.DocumentName = "Test Page Print";
+            //    printSummary.DocumentName = $"Monthly Summary {DateTime.Now}";
             //    printSummary.Print();
             //}
-            //printSummary.Print();
 
-            PrintDialog printdlg = new PrintDialog();
-            PrintPreviewDialog printPrvDlg = new PrintPreviewDialog();
+            //PrintDialog printdlg = new PrintDialog();
+            //PrintPreviewDialog printPrvDlg = new PrintPreviewDialog();
 
             // preview the assigned document or you can create a different previewButton for it
-            printPrvDlg.Document = printSummary;
-            printPrvDlg.ShowDialog(); // this shows the preview and then show the Printer Dlg below
+            //printPrvDlg.Document = printSummary;
+            //printPrvDlg.ShowDialog(); // this shows the preview and then show the Printer Dlg below
 
-            printdlg.Document = printSummary;
+            //printdlg.Document = printSummary;
 
-            if (printdlg.ShowDialog() == DialogResult.OK)
+            //if (printdlg.ShowDialog() == DialogResult.OK)
+            //{
+            //    printSummary.Print();
+            //}
+            if(dgv_SummaryMonthlyView.RowCount > 0)
             {
                 printSummary.Print();
+            }
+            else
+            {
+                MessageBox.Show($"No data to print.", "Superior Investment!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -653,134 +631,154 @@ namespace Ajoor
 
         private void printSummary_PrintPage(object sender, PrintPageEventArgs e)
         {
+
             //Bitmap bm = new Bitmap(dgv_SummaryMonthlyView.Width, dgv_SummaryMonthlyView.Height);
             //dgv_SummaryMonthlyView.DrawToBitmap(bm, new Rectangle(0, 0, dgv_SummaryMonthlyView.Width, dgv_SummaryMonthlyView.Height));
             //e.Graphics.DrawImage(bm, 0, 0);
-
             try
             {
-                //Set the left margin
-                int iLeftMargin = e.MarginBounds.Left;
-                //Set the top margin
-                int iTopMargin = e.MarginBounds.Top;
-                //Whether more pages have to print or not
-                bool bMorePagesToPrint = false;
-                int iTmpWidth = 0;
+                //Resize DataGridView to full height.
+                int height = dgv_SummaryMonthlyView.Height;
+                dgv_SummaryMonthlyView.Height = (dgv_SummaryMonthlyView.RowCount + 100) * dgv_SummaryMonthlyView.RowTemplate.Height;
 
-                //For the first page to print set the cell width and header height
-                if (bFirstPage)
-                {
-                    foreach (DataGridViewColumn GridCol in dgv_SummaryMonthlyView.Columns)
-                    {
-                        iTmpWidth = (int)(Math.Floor(GridCol.Width /
-                            (double)iTotalWidth * iTotalWidth *
-                            ((double)e.MarginBounds.Width / iTotalWidth)));
+                //Create a Bitmap and draw the DataGridView on it.
+                Bitmap bitmap = new Bitmap(dgv_SummaryMonthlyView.Width, dgv_SummaryMonthlyView.Height);
+                dgv_SummaryMonthlyView.DrawToBitmap(bitmap, new Rectangle(0, 0, dgv_SummaryMonthlyView.Width, dgv_SummaryMonthlyView.Height));
+                e.Graphics.DrawImage(bitmap, 0, 0);
 
-                        iHeaderHeight = (int)(e.Graphics.MeasureString(GridCol.HeaderText,
-                            GridCol.InheritedStyle.Font, iTmpWidth).Height) + 11;
+                //Resize DataGridView back to original height and width.
+                dgv_SummaryMonthlyView.Height = height;
 
-                        // Save width and height of headers
-                        arrColumnLefts.Add(iLeftMargin);
-                        arrColumnWidths.Add(iTmpWidth);
-                        iLeftMargin += iTmpWidth;
-                    }
-                }
-                //Loop till all the grid rows not get printed
-                while (iRow <= dgv_SummaryMonthlyView.Rows.Count - 1)
-                {
-                    DataGridViewRow GridRow = dgv_SummaryMonthlyView.Rows[iRow];
-                    //Set the cell height
-                    iCellHeight = GridRow.Height + 5;
-                    int iCount = 0;
-                    //Check whether the current page settings allows more rows to print
-                    if (iTopMargin + iCellHeight >= e.MarginBounds.Height + e.MarginBounds.Top)
-                    {
-                        bNewPage = true;
-                        bFirstPage = false;
-                        bMorePagesToPrint = true;
-                        break;
-                    }
-                    else
-                    {
-                        if (bNewPage)
-                        {
-                            //Draw Header
-                            e.Graphics.DrawString("Monthly Summary",
-                                new Font(dgv_SummaryMonthlyView.Font, FontStyle.Bold),
-                                Brushes.Black, e.MarginBounds.Left,
-                                e.MarginBounds.Top - e.Graphics.MeasureString("Monthly Summary",
-                                new Font(dgv_SummaryMonthlyView.Font, FontStyle.Bold),
-                                e.MarginBounds.Width).Height - 13);
-
-                            String strDate = DateTime.Now.ToLongDateString() + " " +
-                                DateTime.Now.ToShortTimeString();
-                            //Draw Date
-                            e.Graphics.DrawString(strDate,
-                                new Font(dgv_SummaryMonthlyView.Font, FontStyle.Bold), Brushes.Black,
-                                e.MarginBounds.Left +
-                                (e.MarginBounds.Width - e.Graphics.MeasureString(strDate,
-                                new Font(dgv_SummaryMonthlyView.Font, FontStyle.Bold),
-                                e.MarginBounds.Width).Width),
-                                e.MarginBounds.Top - e.Graphics.MeasureString("Summary",
-                                new Font(new Font(dgv_SummaryMonthlyView.Font, FontStyle.Bold),
-                                FontStyle.Bold), e.MarginBounds.Width).Height - 13);
-
-                            //Draw Columns                 
-                            iTopMargin = e.MarginBounds.Top;
-                            foreach (DataGridViewColumn GridCol in dgv_SummaryMonthlyView.Columns)
-                            {
-                                e.Graphics.FillRectangle(new SolidBrush(Color.LightGray),
-                                    new Rectangle((int)arrColumnLefts[iCount], iTopMargin,
-                                    (int)arrColumnWidths[iCount], iHeaderHeight));
-
-                                e.Graphics.DrawRectangle(Pens.Black,
-                                    new Rectangle((int)arrColumnLefts[iCount], iTopMargin,
-                                    (int)arrColumnWidths[iCount], iHeaderHeight));
-
-                                e.Graphics.DrawString(GridCol.HeaderText,
-                                    GridCol.InheritedStyle.Font,
-                                    new SolidBrush(GridCol.InheritedStyle.ForeColor),
-                                    new RectangleF((int)arrColumnLefts[iCount], iTopMargin,
-                                    (int)arrColumnWidths[iCount], iHeaderHeight), strFormat);
-                                iCount++;
-                            }
-                            bNewPage = false;
-                            iTopMargin += iHeaderHeight;
-                        }
-                        iCount = 0;
-                        //Draw Columns Contents                
-                        foreach (DataGridViewCell Cel in GridRow.Cells)
-                        {
-                            if (Cel.Value != null)
-                            {
-                                e.Graphics.DrawString(Cel.Value.ToString(),
-                                    Cel.InheritedStyle.Font,
-                                    new SolidBrush(Cel.InheritedStyle.ForeColor),
-                                    new RectangleF((int)arrColumnLefts[iCount],
-                                    (float)iTopMargin,
-                                    (int)arrColumnWidths[iCount], (float)iCellHeight),
-                                    strFormat);
-                            }
-                            //Drawing Cells Borders 
-                            e.Graphics.DrawRectangle(Pens.Black,
-                                new Rectangle((int)arrColumnLefts[iCount], iTopMargin,
-                                (int)arrColumnWidths[iCount], iCellHeight));
-                            iCount++;
-                        }
-                    }
-                    iRow++;
-                    iTopMargin += iCellHeight;
-                }
-                //If more lines exist, print another page.
-                if (bMorePagesToPrint)
-                    e.HasMorePages = true;
-                else
-                    e.HasMorePages = false;
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"{Utilities.ERRORMESSAGE} \n Error details: {ex.Message}", "Superior Investment!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+            //try
+            //{
+            //    //Set the left margin
+            //    int iLeftMargin = e.MarginBounds.Left;
+            //    //Set the top margin
+            //    int iTopMargin = e.MarginBounds.Top;
+            //    //Whether more pages have to print or not
+            //    bool bMorePagesToPrint = false;
+            //    int iTmpWidth = 0;
+
+            //    //For the first page to print set the cell width and header height
+            //    if (bFirstPage)
+            //    {
+            //        foreach (DataGridViewColumn GridCol in dgv_SummaryMonthlyView.Columns)
+            //        {
+            //            iTmpWidth = (int)(Math.Floor(GridCol.Width /
+            //                (double)iTotalWidth * iTotalWidth *
+            //                ((double)e.MarginBounds.Width / iTotalWidth)));
+
+            //            iHeaderHeight = (int)(e.Graphics.MeasureString(GridCol.HeaderText,
+            //                GridCol.InheritedStyle.Font, iTmpWidth).Height) + 11;
+
+            //            // Save width and height of headers
+            //            arrColumnLefts.Add(iLeftMargin);
+            //            arrColumnWidths.Add(iTmpWidth);
+            //            iLeftMargin += iTmpWidth;
+            //        }
+            //    }
+            //    //Loop till all the grid rows not get printed
+            //    while (iRow <= dgv_SummaryMonthlyView.Rows.Count - 1)
+            //    {
+            //        DataGridViewRow GridRow = dgv_SummaryMonthlyView.Rows[iRow];
+            //        //Set the cell height
+            //        iCellHeight = GridRow.Height + 5;
+            //        int iCount = 0;
+            //        //Check whether the current page settings allows more rows to print
+            //        if (iTopMargin + iCellHeight >= e.MarginBounds.Height + e.MarginBounds.Top)
+            //        {
+            //            bNewPage = true;
+            //            bFirstPage = false;
+            //            bMorePagesToPrint = true;
+            //            break;
+            //        }
+            //        else
+            //        {
+            //            if (bNewPage)
+            //            {
+            //                //Draw Header
+            //                e.Graphics.DrawString("Monthly Summary",
+            //                    new Font(dgv_SummaryMonthlyView.Font, FontStyle.Bold),
+            //                    Brushes.Black, e.MarginBounds.Left,
+            //                    e.MarginBounds.Top - e.Graphics.MeasureString("Monthly Summary",
+            //                    new Font(dgv_SummaryMonthlyView.Font, FontStyle.Bold),
+            //                    e.MarginBounds.Width).Height - 13);
+
+            //                String strDate = DateTime.Now.ToLongDateString() + " " +
+            //                    DateTime.Now.ToShortTimeString();
+            //                //Draw Date
+            //                e.Graphics.DrawString(strDate,
+            //                    new Font(dgv_SummaryMonthlyView.Font, FontStyle.Bold), Brushes.Black,
+            //                    e.MarginBounds.Left +
+            //                    (e.MarginBounds.Width - e.Graphics.MeasureString(strDate,
+            //                    new Font(dgv_SummaryMonthlyView.Font, FontStyle.Bold),
+            //                    e.MarginBounds.Width).Width),
+            //                    e.MarginBounds.Top - e.Graphics.MeasureString("Summary",
+            //                    new Font(new Font(dgv_SummaryMonthlyView.Font, FontStyle.Bold),
+            //                    FontStyle.Bold), e.MarginBounds.Width).Height - 13);
+
+            //                //Draw Columns                 
+            //                iTopMargin = e.MarginBounds.Top;
+            //                foreach (DataGridViewColumn GridCol in dgv_SummaryMonthlyView.Columns)
+            //                {
+            //                    e.Graphics.FillRectangle(new SolidBrush(Color.LightGray),
+            //                        new Rectangle((int)arrColumnLefts[iCount], iTopMargin,
+            //                        (int)arrColumnWidths[iCount], iHeaderHeight));
+
+            //                    e.Graphics.DrawRectangle(Pens.Black,
+            //                        new Rectangle((int)arrColumnLefts[iCount], iTopMargin,
+            //                        (int)arrColumnWidths[iCount], iHeaderHeight));
+
+            //                    e.Graphics.DrawString(GridCol.HeaderText,
+            //                        GridCol.InheritedStyle.Font,
+            //                        new SolidBrush(GridCol.InheritedStyle.ForeColor),
+            //                        new RectangleF((int)arrColumnLefts[iCount], iTopMargin,
+            //                        (int)arrColumnWidths[iCount], iHeaderHeight), strFormat);
+            //                    iCount++;
+            //                }
+            //                bNewPage = false;
+            //                iTopMargin += iHeaderHeight;
+            //            }
+            //            iCount = 0;
+            //            //Draw Columns Contents                
+            //            foreach (DataGridViewCell Cel in GridRow.Cells)
+            //            {
+            //                if (Cel.Value != null)
+            //                {
+            //                    e.Graphics.DrawString(Cel.Value.ToString(),
+            //                        Cel.InheritedStyle.Font,
+            //                        new SolidBrush(Cel.InheritedStyle.ForeColor),
+            //                        new RectangleF((int)arrColumnLefts[iCount],
+            //                        (float)iTopMargin,
+            //                        (int)arrColumnWidths[iCount], (float)iCellHeight),
+            //                        strFormat);
+            //                }
+            //                //Drawing Cells Borders 
+            //                e.Graphics.DrawRectangle(Pens.Black,
+            //                    new Rectangle((int)arrColumnLefts[iCount], iTopMargin,
+            //                    (int)arrColumnWidths[iCount], iCellHeight));
+            //                iCount++;
+            //            }
+            //        }
+            //        iRow++;
+            //        iTopMargin += iCellHeight;
+            //    }
+            //    //If more lines exist, print another page.
+            //    if (bMorePagesToPrint)
+            //        e.HasMorePages = true;
+            //    else
+            //        e.HasMorePages = false;
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show($"{Utilities.ERRORMESSAGE} \n Error details: {ex.Message}", "Superior Investment!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
         }
 
         private void bgw_PullData_DoWork(object sender, DoWorkEventArgs e)
@@ -793,7 +791,7 @@ namespace Ajoor
                     {
                         dgv_SummaryMonthlyView.DataSource = _TransactionRepo.GetAllTransactions().GroupBy(p => p.CustomerId).Select(g => new
                         {
-                            TransactionId = g.FirstOrDefault().TransactionId,
+                            //TransactionId = g.FirstOrDefault().TransactionId,
                             Name = g.FirstOrDefault().CustomerName,
                             AccountNumber = g.FirstOrDefault().AccountNumber,
                             AmountContributed = g.Sum(s => s.AmountContributed),
@@ -820,9 +818,9 @@ namespace Ajoor
                         decimal grandTotal = 0m;
                         for (int i = 0; i < dgv_SummaryMonthlyView.RowCount; i++)
                         {
-                            if (dgv_SummaryMonthlyView.Rows[i].Cells[4].Value != null)
+                            if (dgv_SummaryMonthlyView.Rows[i].Cells[3].Value != null)
                             {
-                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[4].Value.ToString();
+                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[3].Value.ToString();
                                 grandTotal += decimal.Parse(total);
                             }
                         }
@@ -838,9 +836,9 @@ namespace Ajoor
                         decimal grandTotal = 0m;
                         for (int i = 0; i < dgv_SummaryMonthlyView.RowCount; i++)
                         {
-                            if (dgv_SummaryMonthlyView.Rows[i].Cells[3].Value != null)
+                            if (dgv_SummaryMonthlyView.Rows[i].Cells[2].Value != null)
                             {
-                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[3].Value.ToString();
+                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[2].Value.ToString();
                                 grandTotal += decimal.Parse(total);
                             }
                         }
@@ -856,9 +854,9 @@ namespace Ajoor
                         decimal grandTotal = 0m;
                         for (int i = 0; i < dgv_SummaryMonthlyView.RowCount; i++)
                         {
-                            if (dgv_SummaryMonthlyView.Rows[i].Cells[5].Value != null)
+                            if (dgv_SummaryMonthlyView.Rows[i].Cells[4].Value != null)
                             {
-                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[5].Value.ToString();
+                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[4].Value.ToString();
                                 grandTotal += decimal.Parse(total);
                             }
                         }
@@ -874,9 +872,9 @@ namespace Ajoor
                         decimal grandTotal = 0m;
                         for (int i = 0; i < dgv_SummaryMonthlyView.RowCount; i++)
                         {
-                            if (dgv_SummaryMonthlyView.Rows[i].Cells[6].Value != null)
+                            if (dgv_SummaryMonthlyView.Rows[i].Cells[5].Value != null)
                             {
-                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[6].Value.ToString();
+                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[5].Value.ToString();
                                 grandTotal += decimal.Parse(total);
                             }
                         }
@@ -892,9 +890,9 @@ namespace Ajoor
                         decimal grandTotal = 0m;
                         for (int i = 0; i < dgv_SummaryMonthlyView.RowCount; i++)
                         {
-                            if (dgv_SummaryMonthlyView.Rows[i].Cells[7].Value != null)
+                            if (dgv_SummaryMonthlyView.Rows[i].Cells[6].Value != null)
                             {
-                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[7].Value.ToString();
+                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[6].Value.ToString();
                                 grandTotal += decimal.Parse(total);
                             }
                         }
@@ -910,9 +908,9 @@ namespace Ajoor
                         decimal grandTotal = 0m;
                         for (int i = 0; i < dgv_SummaryMonthlyView.RowCount; i++)
                         {
-                            if (dgv_SummaryMonthlyView.Rows[i].Cells[8].Value != null)
+                            if (dgv_SummaryMonthlyView.Rows[i].Cells[7].Value != null)
                             {
-                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[8].Value.ToString();
+                                string total = dgv_SummaryMonthlyView.Rows[i].Cells[7].Value.ToString();
                                 grandTotal += decimal.Parse(total);
                             }
                         }
@@ -942,8 +940,7 @@ namespace Ajoor
                     }
                     else
                     {
-                        long ID = long.Parse(dgv_SummaryMonthlyView.SelectedRows[0].Cells[0].Value.ToString());
-                        var customerId = _TransactionRepo.GetTransaction(ID).CustomerId;
+                        long customerId = long.Parse(dgv_SummaryMonthlyView.SelectedRows[0].Cells[1].Value.ToString());
                         if (customerId > 0)
                         {
                             ViewCustomerTransactions viewCustomerTransactions_Form = new ViewCustomerTransactions(customerId);

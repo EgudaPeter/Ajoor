@@ -45,13 +45,13 @@
             this.btn_Cancel = new System.Windows.Forms.Button();
             this.btn_Debit = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btn_ExtraCommision = new System.Windows.Forms.Button();
             this.btn_ChargeCommission = new System.Windows.Forms.Button();
             this.bgwGetRecords = new System.ComponentModel.BackgroundWorker();
             this.cmb_Customers = new System.Windows.Forms.ComboBox();
             this.dgv_CustomerTransactions = new System.Windows.Forms.DataGridView();
             this.label5 = new System.Windows.Forms.Label();
             this.txt_TotalCredit = new System.Windows.Forms.TextBox();
-            this.btn_ExtraCommision = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_CustomerTransactions)).BeginInit();
             this.SuspendLayout();
@@ -215,6 +215,20 @@
             this.panel1.Size = new System.Drawing.Size(152, 277);
             this.panel1.TabIndex = 95;
             // 
+            // btn_ExtraCommision
+            // 
+            this.btn_ExtraCommision.BackColor = System.Drawing.Color.SteelBlue;
+            this.btn_ExtraCommision.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_ExtraCommision.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_ExtraCommision.ForeColor = System.Drawing.Color.White;
+            this.btn_ExtraCommision.Location = new System.Drawing.Point(7, 143);
+            this.btn_ExtraCommision.Name = "btn_ExtraCommision";
+            this.btn_ExtraCommision.Size = new System.Drawing.Size(142, 59);
+            this.btn_ExtraCommision.TabIndex = 5;
+            this.btn_ExtraCommision.Text = "Charge Extra Commission";
+            this.btn_ExtraCommision.UseVisualStyleBackColor = false;
+            this.btn_ExtraCommision.Click += new System.EventHandler(this.btn_ExtraCommision_Click);
+            // 
             // btn_ChargeCommission
             // 
             this.btn_ChargeCommission.BackColor = System.Drawing.Color.RoyalBlue;
@@ -274,24 +288,12 @@
             this.txt_TotalCredit.Size = new System.Drawing.Size(306, 27);
             this.txt_TotalCredit.TabIndex = 110;
             // 
-            // btn_ExtraCommision
-            // 
-            this.btn_ExtraCommision.BackColor = System.Drawing.Color.SteelBlue;
-            this.btn_ExtraCommision.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_ExtraCommision.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_ExtraCommision.ForeColor = System.Drawing.Color.White;
-            this.btn_ExtraCommision.Location = new System.Drawing.Point(7, 143);
-            this.btn_ExtraCommision.Name = "btn_ExtraCommision";
-            this.btn_ExtraCommision.Size = new System.Drawing.Size(142, 59);
-            this.btn_ExtraCommision.TabIndex = 5;
-            this.btn_ExtraCommision.Text = "Charge Extra Commission";
-            this.btn_ExtraCommision.UseVisualStyleBackColor = false;
-            this.btn_ExtraCommision.Click += new System.EventHandler(this.btn_ExtraCommision_Click);
-            // 
             // DebitCustomer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1114, 711);
             this.Controls.Add(this.label5);
