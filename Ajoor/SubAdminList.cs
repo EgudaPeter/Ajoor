@@ -20,11 +20,13 @@ namespace Ajoor
         {
             dgv_SubAdminList.Invoke(new MethodInvoker(delegate { dgv_SubAdminList.DataSource = _SubAdminRepo.GetAllRecords().ToList(); }));
             lb_Total.Invoke(new MethodInvoker(delegate { lb_Total.Text = dgv_SubAdminList.RowCount.ToString(); }));
+            Cursor.Current = Cursors.Default;
             e.Result = "Done";
         }
 
         private void SubAdminList_Load(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
             if (!bgwGetRecords.IsBusy)
             {
                 bgwGetRecords.RunWorkerAsync();
@@ -98,7 +100,7 @@ namespace Ajoor
         {
             if (dgv_SubAdminList.SelectedRows.Count > 0)
             {
-                if(dgv_SubAdminList.SelectedRows.Count > 1)
+                if (dgv_SubAdminList.SelectedRows.Count > 1)
                 {
                     MessageBox.Show("Please edit records one at a time!", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
@@ -106,7 +108,7 @@ namespace Ajoor
                 {
                     long ID = long.Parse(dgv_SubAdminList.SelectedRows[0].Cells[0].Value.ToString());
                     var record = _SubAdminRepo.GetSubAdmin(ID);
-                    if(record != null)
+                    if (record != null)
                     {
                         EditSubAdmin editSubAdmin = new EditSubAdmin(record);
                         if (editSubAdmin.ShowDialog() != DialogResult.Yes)

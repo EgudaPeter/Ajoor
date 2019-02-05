@@ -46,7 +46,7 @@ namespace Ajoor
                     txt_Password.Text = string.Empty; txt_Password.Focus();
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -79,6 +79,11 @@ namespace Ajoor
             {
                 btn_Login_Click(this, new EventArgs());
             }
+        }
+
+        private void Login_Load(object sender, EventArgs e)
+        {
+            lb_Copyright.Text = $"Copyright © {DateTime.Now.Year}";
         }
     }
 }

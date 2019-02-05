@@ -28,7 +28,6 @@ C:\Ajoor\Ajoor\obj\Debug\Ajoor.exe
 C:\Ajoor\Ajoor\obj\Debug\Ajoor.pdb
 C:\Ajoor\Ajoor\obj\Debug\Ajoor.SuperAdminMonthlyView.resources
 C:\Ajoor\Ajoor\obj\Debug\Ajoor.SuperAdminCustomerList.resources
-C:\Ajoor\Ajoor\obj\Debug\Ajoor.EditCreditTransaction.resources
 C:\Ajoor\Ajoor\bin\Debug\Microsoft.SqlServer.AzureStorageEnum.dll
 C:\Ajoor\Ajoor\bin\Debug\Microsoft.SqlServer.BatchParserClient.dll
 C:\Ajoor\Ajoor\bin\Debug\Microsoft.SqlServer.ConnectionInfo.dll
@@ -96,3 +95,4 @@ C:\Ajoor\Ajoor\bin\Debug\DataLayer.dll
 C:\Ajoor\Ajoor\bin\Debug\BusinessLayer.pdb
 C:\Ajoor\Ajoor\bin\Debug\DataLayer.pdb
 C:\Ajoor\Ajoor\obj\Debug\Ajoor.ViewCustomerTransactions.resources
+C:\Ajoor\Ajoor\obj\Debug\Ajoor.RestorePassword.resources

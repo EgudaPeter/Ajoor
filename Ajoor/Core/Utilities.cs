@@ -11,6 +11,7 @@ namespace Ajoor.Core
     {
         static public string KEY = string.Empty;
         static public string USERNAME = string.Empty;
+        static public bool RESTOREPASSWORD = false;
         static public string ERRORMESSAGE = "An error has occured! Please contact system developer!";
 
         public static bool EnsureCurrencyOnly(string str)
@@ -18,7 +19,7 @@ namespace Ajoor.Core
             int count = 0;
             foreach (char c in str)
             {
-                if (char.IsDigit(c) || c==',' || c=='.')
+                if (char.IsDigit(c) || c == ',' || c == '.')
                     count++;
             }
             if (str.Length == count)
@@ -31,7 +32,7 @@ namespace Ajoor.Core
             decimal value;
             if (decimal.TryParse(str, out value))
             {
-                if(value == 0m)
+                if (value == 0m)
                 {
                     str = "0.00";
                 }

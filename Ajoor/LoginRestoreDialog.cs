@@ -48,18 +48,25 @@ namespace Ajoor
                     }
                 }
 
-                switch (MessageBox.Show($"You are about to perform a restore operation on your database. Operation might take several minutes. Do you wish to continue?", "Superior Investment", MessageBoxButtons.YesNo, MessageBoxIcon.Information))
+                RestorePassword restorePassword_form = new RestorePassword();
+                restorePassword_form.ShowDialog();
+
+                if (Utilities.RESTOREPASSWORD == true)
                 {
-                    case DialogResult.Yes:
-                        Cursor.Current = Cursors.WaitCursor;
-                        if (!bgwRestore.IsBusy)
-                        {
-                            bgwRestore.RunWorkerAsync();
-                        }
-                        break;
-                    case DialogResult.No:
-                        return;
+                    switch (MessageBox.Show($"You are about to perform a restore operation on your database. Operation might take several minutes. \n\nDo you wish to continue?", "Superior Investment", MessageBoxButtons.YesNo, MessageBoxIcon.Information))
+                    {
+                        case DialogResult.Yes:
+                            Cursor.Current = Cursors.WaitCursor;
+                            if (!bgwRestore.IsBusy)
+                            {
+                                bgwRestore.RunWorkerAsync();
+                            }
+                            break;
+                        case DialogResult.No:
+                            return;
+                    }
                 }
+                Utilities.RESTOREPASSWORD = false;
             }
             catch (Exception ex)
             {

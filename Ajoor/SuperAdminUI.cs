@@ -77,6 +77,7 @@ namespace Ajoor
         private void SuperAdminUI_Load(object sender, EventArgs e)
         {
             lb_LoggedIn.Text = $"Welcome {Utilities.USERNAME}";
+            lb_Copyright.Text = $"Copyright © {DateTime.Now.Year}";
             Cursor.Current = Cursors.WaitCursor;
             if (!bgw_PullData.IsBusy)
             {
@@ -88,32 +89,7 @@ namespace Ajoor
         {
             try
             {
-                //Backup sqlBackup = new Backup(); 
-                //sqlBackup.Action = BackupActionType.Database;
-                //sqlBackup.BackupSetDescription = "BackUp of:" + databaseName + "on" + DateTime.Now.ToShortDateString();
-                //sqlBackup.BackupSetName = "FullBackUp";
-                //sqlBackup.Database = databaseName;
-                //string backupfileName = $"{databaseName}.bak";
-                //string destinationPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, backupfileName);
-                //BackupDeviceItem deviceItem = new BackupDeviceItem($@"{destinationPath}", DeviceType.File);              
-                //ServerConnection connection = new ServerConnection(con);                  
-                //Server sqlServer = new Server(connection);
-                //sqlServer.ConnectionContext.StatementTimeout = 60 * 60;
-                //Database db = sqlServer.Databases[databaseName];
-                //sqlBackup.Initialize = true;
-                //sqlBackup.Checksum = true;
-                //sqlBackup.ContinueAfterError = true;   
-                //sqlBackup.Devices.Add(deviceItem); 
-                //sqlBackup.Incremental = false;
-                //sqlBackup.ExpirationDate = DateTime.Now.AddDays(3);                
-                //sqlBackup.LogTruncation = BackupTruncateLogType.Truncate;
-                //sqlBackup.FormatMedia = false;                  
-                //sqlBackup.SqlBackup(sqlServer);  
-                //sqlBackup.Devices.Remove(deviceItem);
-                //MessageBox.Show($"Back-up successful!", "Superior Investment!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-
-                switch (MessageBox.Show($"You are about to perform a back-up operation on your database. Operation might take several minutes. Do you wish to continue?", "Superior Investment", MessageBoxButtons.YesNo, MessageBoxIcon.Information))
+                switch (MessageBox.Show($"You are about to perform a back-up operation on your database. Operation might take several minutes. \n\nDo you wish to continue?", "Superior Investment", MessageBoxButtons.YesNo, MessageBoxIcon.Information))
                 {
                     case DialogResult.Yes:
                         Cursor.Current = Cursors.WaitCursor;
@@ -125,8 +101,6 @@ namespace Ajoor
                     case DialogResult.No:
                         return;
                 }
-
-
             }
             catch (Exception ex)
             {

@@ -128,7 +128,7 @@ namespace Ajoor
                             {
                                 var debt = decimal.Parse(txt_AmountCollected.Text) - customerTransaction.AmountPayable;
                                 var debtMoney = Utilities.CurrencyFormat(debt.ToString());
-                                switch (MessageBox.Show($"You are about to loan {debtMoney} to {customer.FullName}. Do you wish to continue?", "Superior Investment", MessageBoxButtons.YesNo, MessageBoxIcon.Information))
+                                switch (MessageBox.Show($"You are about to loan {debtMoney} to {customer.FullName}. \n\nDo you wish to continue?", "Superior Investment", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
                                 {
                                     case DialogResult.Yes:
                                         Transactions transactions = new Transactions()
@@ -169,7 +169,7 @@ namespace Ajoor
                         {
                             var debt = decimal.Parse(txt_AmountCollected.Text);
                             var debtMoney = Utilities.CurrencyFormat(debt.ToString());
-                            switch (MessageBox.Show($"You are about to loan {debtMoney} to {customer.FullName}. Do you wish to continue?", "Superior Investment", MessageBoxButtons.YesNo, MessageBoxIcon.Information))
+                            switch (MessageBox.Show($"You are about to loan {debtMoney} to {customer.FullName}. \n\nDo you wish to continue?", "Superior Investment", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
                             {
                                 case DialogResult.Yes:
                                     Transactions transactions = new Transactions()
@@ -329,7 +329,7 @@ namespace Ajoor
                             AmountCollected = 0m,
                             TransactionType = "Extra Commission Charge",
                             Date = DateTime.Now,
-                            Commission =0m,
+                            Commission = 0m,
                             ExtraCommission = customer.Commission,
                             AmountPayable = 0m,
                             Debt = transactionRecord != null ? transactionRecord.Debt : customer.Commission,

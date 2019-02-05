@@ -37,7 +37,7 @@
             this.btn_Login = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.txt_Password = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lb_Copyright = new System.Windows.Forms.Label();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -88,10 +88,10 @@
             // 
             // btn_Exit
             // 
-            this.btn_Exit.BackColor = System.Drawing.Color.Red;
+            this.btn_Exit.BackColor = System.Drawing.Color.White;
             this.btn_Exit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_Exit.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_Exit.ForeColor = System.Drawing.Color.White;
+            this.btn_Exit.ForeColor = System.Drawing.Color.Black;
             this.btn_Exit.Location = new System.Drawing.Point(177, 42);
             this.btn_Exit.Margin = new System.Windows.Forms.Padding(4);
             this.btn_Exit.Name = "btn_Exit";
@@ -137,26 +137,24 @@
             this.txt_Password.TabIndex = 2;
             this.txt_Password.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_Password_KeyDown);
             // 
-            // label3
+            // lb_Copyright
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(105, 451);
-            this.label3.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(138, 18);
-            this.label3.TabIndex = 31;
-            this.label3.Text = "Copyright © 2018";
+            this.lb_Copyright.AutoSize = true;
+            this.lb_Copyright.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_Copyright.Location = new System.Drawing.Point(125, 453);
+            this.lb_Copyright.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lb_Copyright.Name = "lb_Copyright";
+            this.lb_Copyright.Size = new System.Drawing.Size(0, 18);
+            this.lb_Copyright.TabIndex = 31;
             // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(397, 489);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.lb_Copyright);
             this.Controls.Add(this.txt_Password);
             this.Controls.Add(this.txt_Username);
             this.Controls.Add(this.label1);
@@ -172,6 +170,7 @@
             this.Name = "Login";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login";
+            this.Load += new System.EventHandler(this.Login_Load);
             this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -188,6 +187,6 @@
         private System.Windows.Forms.TextBox txt_Password;
         private System.Windows.Forms.Button btn_Exit;
         private System.Windows.Forms.Button btn_Login;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lb_Copyright;
     }
 }
