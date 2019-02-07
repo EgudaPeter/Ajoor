@@ -64,7 +64,7 @@ namespace Ajoor
             {
                 if (dgv_SubAdminList.SelectedRows.Count > 0)
                 {
-                    switch (MessageBox.Show("Delete selected sub admin(s)?", "Superior Investment", MessageBoxButtons.YesNo, MessageBoxIcon.Information))
+                    switch (MessageBox.Show("You are about to delete selected sub admin(s). \n\nThis process will also delete the records created by the selected sub admin(s).\n\nWould you like to proceed?", "Superior Investment", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
                     {
                         case DialogResult.Yes:
                             List<long> IDs = new List<long>();

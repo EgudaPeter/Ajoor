@@ -149,9 +149,10 @@ namespace Ajoor
                 {
                     if (dgv_Customers.SelectedRows.Count > 0)
                     {
-                        switch (MessageBox.Show("You are about to transfer selected customer(s) to the selected sub-admin. Proceed?", "Superior Investment", MessageBoxButtons.YesNo, MessageBoxIcon.Information))
+                        switch (MessageBox.Show("You are about to transfer selected customer(s) to the selected sub-admin.\n\nThis process will also transfer the transactional records of the selected customer(s) to the selected sub-admin. \n\nWould you like to Proceed?", "Superior Investment", MessageBoxButtons.YesNo, MessageBoxIcon.Information))
                         {
                             case DialogResult.Yes:
+                                Cursor.Current = Cursors.WaitCursor;
                                 if (!bgw_TransferCustomers.IsBusy)
                                 {
                                     bgw_TransferCustomers.RunWorkerAsync();
@@ -190,6 +191,7 @@ namespace Ajoor
                 {
                     lb_Progress.Text = string.Empty;
                 }));
+                Cursor.Current = Cursors.WaitCursor;
                 e.Result = "Done";
             }
             catch (Exception ex)
