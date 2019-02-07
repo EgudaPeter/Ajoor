@@ -1,5 +1,3 @@
-C:\Ajoor\BusinessLayer\obj\Debug\BusinessLayer.csprojAssemblyReference.cache
-C:\Ajoor\BusinessLayer\obj\Debug\BusinessLayer.csproj.CoreCompileInputs.cache
 C:\Ajoor\BusinessLayer\bin\Debug\BusinessLayer.dll
 C:\Ajoor\BusinessLayer\bin\Debug\BusinessLayer.pdb
 C:\Ajoor\BusinessLayer\bin\Debug\Ajoor.exe
@@ -30,6 +28,6 @@ C:\Ajoor\BusinessLayer\bin\Debug\Microsoft.SqlServer.SqlEnum.xml
 C:\Ajoor\BusinessLayer\bin\Debug\Microsoft.SqlServer.Dmf.Common.xml
 C:\Ajoor\BusinessLayer\bin\Debug\Microsoft.SqlServer.ServiceBrokerEnum.xml
 C:\Ajoor\BusinessLayer\bin\Debug\Microsoft.SqlServer.RegSvrEnum.xml
-C:\Ajoor\BusinessLayer\obj\Debug\BusinessLayer.csproj.CopyComplete
 C:\Ajoor\BusinessLayer\obj\Debug\BusinessLayer.dll
 C:\Ajoor\BusinessLayer\obj\Debug\BusinessLayer.pdb
+C:\Ajoor\BusinessLayer\obj\Debug\BusinessLayer.csprojResolveAssemblyReference.cache

@@ -1,11 +1,9 @@
-C:\Ajoor\DataLayer\obj\Debug\DataLayer.csprojAssemblyReference.cache
-C:\Ajoor\DataLayer\obj\Debug\DataLayer.csproj.CoreCompileInputs.cache
 C:\Ajoor\DataLayer\bin\Debug\DataLayer.dll
 C:\Ajoor\DataLayer\bin\Debug\DataLayer.pdb
 C:\Ajoor\DataLayer\bin\Debug\EntityFramework.dll
 C:\Ajoor\DataLayer\bin\Debug\EntityFramework.SqlServer.dll
 C:\Ajoor\DataLayer\bin\Debug\EntityFramework.xml
 C:\Ajoor\DataLayer\bin\Debug\EntityFramework.SqlServer.xml
-C:\Ajoor\DataLayer\obj\Debug\DataLayer.csproj.CopyComplete
 C:\Ajoor\DataLayer\obj\Debug\DataLayer.dll
 C:\Ajoor\DataLayer\obj\Debug\DataLayer.pdb
+C:\Ajoor\DataLayer\obj\Debug\DataLayer.csprojResolveAssemblyReference.cache

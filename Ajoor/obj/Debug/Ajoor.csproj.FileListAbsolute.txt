@@ -85,9 +85,6 @@ C:\Ajoor\Ajoor\bin\Debug\Microsoft.SqlServer.WmiEnum.xml
 C:\Ajoor\Ajoor\obj\Debug\Ajoor.LoginRestoreDialog.resources
 C:\Ajoor\Ajoor\obj\Debug\Ajoor.SuperAdminBalance.resources
 C:\Ajoor\Ajoor\bin\Debug\Microsoft.SqlServer.BatchParser.dll
-C:\Ajoor\Ajoor\obj\Debug\Ajoor.csprojAssemblyReference.cache
-C:\Ajoor\Ajoor\obj\Debug\Ajoor.csproj.CoreCompileInputs.cache
-C:\Ajoor\Ajoor\obj\Debug\Ajoor.csproj.CopyComplete
 C:\Ajoor\Ajoor\obj\Debug\Ajoor.SummarySubAdminView.resources
 C:\Ajoor\Ajoor\obj\Debug\Ajoor.TransferCustomers.resources
 C:\Ajoor\Ajoor\bin\Debug\BusinessLayer.dll
@@ -96,3 +93,4 @@ C:\Ajoor\Ajoor\bin\Debug\BusinessLayer.pdb
 C:\Ajoor\Ajoor\bin\Debug\DataLayer.pdb
 C:\Ajoor\Ajoor\obj\Debug\Ajoor.ViewCustomerTransactions.resources
 C:\Ajoor\Ajoor\obj\Debug\Ajoor.RestorePassword.resources
+C:\Ajoor\Ajoor\obj\Debug\Ajoor.csprojResolveAssemblyReference.cache
