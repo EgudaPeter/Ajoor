@@ -87,24 +87,17 @@ namespace Ajoor
 
         private void btn_ExportRecords_Click(object sender, EventArgs e)
         {
-            try
+            switch (MessageBox.Show($"You are about to perform a back-up operation on your database. Operation might take several minutes. \n\nDo you wish to continue?", "Superior Investment", MessageBoxButtons.YesNo, MessageBoxIcon.Information))
             {
-                switch (MessageBox.Show($"You are about to perform a back-up operation on your database. Operation might take several minutes. \n\nDo you wish to continue?", "Superior Investment", MessageBoxButtons.YesNo, MessageBoxIcon.Information))
-                {
-                    case DialogResult.Yes:
-                        Cursor.Current = Cursors.WaitCursor;
-                        if (!bgwBackup.IsBusy)
-                        {
-                            bgwBackup.RunWorkerAsync();
-                        }
-                        break;
-                    case DialogResult.No:
-                        return;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"{Utilities.ERRORMESSAGE} \n Error details: {ex.Message}", "Superior Investment!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                case DialogResult.Yes:
+                    Cursor.Current = Cursors.WaitCursor;
+                    if (!bgwBackup.IsBusy)
+                    {
+                        bgwBackup.RunWorkerAsync();
+                    }
+                    break;
+                case DialogResult.No:
+                    return;
             }
         }
 
@@ -118,10 +111,11 @@ namespace Ajoor
             if (fi.Exists)
             {
                 fi.Delete();
+                using (Stream str = fi.Create()) { }
             }
             else
             {
-                fi.Create();
+                using (Stream str = fi.Create()) { }
             }
             string conString = string.Empty;
             using (StreamReader reader = new StreamReader(connectionPath))

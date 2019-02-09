@@ -3,6 +3,7 @@ using Ajoor.Core;
 using System;
 using System.IO;
 using System.Linq;
+using System.Management;
 using System.Windows.Forms;
 
 namespace Ajoor
@@ -11,6 +12,7 @@ namespace Ajoor
     {
         static string screenPath = Application.StartupPath + "/Welcome.Screen.config.txt";
         static string connectionPath = $"{Application.StartupPath}/Connection.config.txt";
+        static string filePath = Application.StartupPath + "/SystemKey.config.txt";
         static string showDialog = string.Empty;
         SuperAdminRepo _SuperAdminRepo = new SuperAdminRepo();
 
@@ -54,19 +56,51 @@ namespace Ajoor
                 }
                 if (showDialog == "True")
                 {
-                    if (_SuperAdminRepo.GetAllRecords().Count() > 0)
+                    if (File.Exists(filePath))
                     {
-                        Login login_Form = new Login();
-                        Hide();
-                        login_Form.FormClosed += (s, args) => Close();
-                        login_Form.ShowDialog();
-                    }
-                    else
-                    {
-                        RegisterSuperAdmin registerSuperAdmin_Form = new RegisterSuperAdmin();
-                        Hide();
-                        registerSuperAdmin_Form.FormClosed += (s, args) => Close();
-                        registerSuperAdmin_Form.ShowDialog();
+                        using (StreamReader reader = new StreamReader(filePath))
+                        {
+                            while (!reader.EndOfStream)
+                            {
+                                Utilities.KEY = reader.ReadLine();
+                            }
+                        }
+                        if (Utilities.KEY != string.Empty)
+                        {
+                            Utilities.KEY = Cryptography.Decrypt(Utilities.KEY, "SuperiorInvestment#");
+                            string cpuInfo = string.Empty;
+                            ManagementClass mc = new ManagementClass("win32_processor");
+                            ManagementObjectCollection moc = mc.GetInstances();
+                            foreach (ManagementObject mo in moc)
+                            {
+                                cpuInfo = mo.Properties["processorID"].Value.ToString();
+                                break;
+                            }
+                            if (Utilities.KEY == cpuInfo)
+                            {
+                                if (_SuperAdminRepo.GetAllRecords().Count() > 0)
+                                {
+                                    Login login_Form = new Login();
+                                    Hide();
+                                    login_Form.FormClosed += (s, args) => Close();
+                                    login_Form.ShowDialog();
+                                }
+                                else
+                                {
+                                    RegisterSuperAdmin registerSuperAdmin_Form = new RegisterSuperAdmin();
+                                    Hide();
+                                    registerSuperAdmin_Form.FormClosed += (s, args) => this.Close();
+                                    registerSuperAdmin_Form.ShowDialog();
+                                }
+                            }
+                            else
+                            {
+                                UsageLock usageLock = new UsageLock();
+                                Hide();
+                                usageLock.FormClosed += (s, args) => Close();
+                                usageLock.ShowDialog();
+                            }
+                        }
                     }
                 }
             }

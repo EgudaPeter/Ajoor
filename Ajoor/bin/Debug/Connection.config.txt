@@ -1,1 +1,1 @@
-server =LAG-SOFTWARE-02; database = master; uid = sa; pwd = vaug;
+server =THE-MACHINE\THEMACHINESVR; database = master; uid = sa; pwd = vaug;
