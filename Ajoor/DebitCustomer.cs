@@ -118,6 +118,11 @@ namespace Ajoor
                                 if (_TransactionRepo.DebitTransaction(transactions))
                                 {
                                     MessageBox.Show("Customer debited successfully!", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    var totalDebt = _TransactionRepo.GetAllTransactions()
+                                           .OrderByDescending(x => x.TransactionId).Where(x => x.CustomerId == customer.CustomerId).FirstOrDefault().TotalDebt.ToString();
+                                    var totalCredit = _TransactionRepo.GetAllTransactions()
+                                        .OrderByDescending(x => x.TransactionId).Where(x => x.CustomerId == customer.CustomerId).FirstOrDefault().AmountPayable.ToString();
+                                    txt_TotalDebt.Text = Utilities.CurrencyFormat(totalDebt); txt_TotalCredit.Text = Utilities.CurrencyFormat(totalCredit);
                                     if (!bgwGetRecords.IsBusy)
                                     {
                                         bgwGetRecords.RunWorkerAsync();

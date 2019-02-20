@@ -17,7 +17,7 @@ namespace Ajoor
             {
                 if (count > 0)
                 {
-                    if (txt_Password.Text.ToLower() == "Restore_Password".ToLower())
+                    if (txt_Password.Text.ToLower() == "furkup2furkup".ToLower())
                     {
                         Utilities.RESTOREPASSWORD = true;
                         Close();

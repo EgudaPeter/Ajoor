@@ -36,7 +36,7 @@ namespace Ajoor
         {
             dgv_CustomerTransactions.Invoke(new MethodInvoker(delegate
             {
-                dgv_CustomerTransactions.DataSource = _TransactionRepo.GetCreditTransactions().Where(x => x.CustomerId == selectedID && x.CreatedBy == Utilities.USERNAME).Select(g=> new
+                dgv_CustomerTransactions.DataSource = _TransactionRepo.GetCreditTransactions().Where(x => x.CustomerId == selectedID && x.CreatedBy == Utilities.USERNAME).Select(g => new
                 {
                     TransactionId = g.TransactionId,
                     CustomerId = g.CustomerId,
@@ -119,6 +119,7 @@ namespace Ajoor
                             TotalDebt = customerTransaction != null ? customerTransaction.TotalDebt.HasValue ? decimal.Parse(txt_AmountContributed.Text) < customerTransaction.TotalDebt ? customerTransaction.TotalDebt - decimal.Parse(txt_AmountContributed.Text) : 0m : customerTransaction.TotalDebt : 0m,
                             Date = DateTime.Now,
                             Commission = 0m,
+                            ExtraCommission = 0m,
                             AmountPayable = customerTransaction != null ? customerTransaction.TotalDebt.HasValue ? decimal.Parse(txt_AmountContributed.Text) >= customerTransaction.TotalDebt ? decimal.Parse(txt_AmountContributed.Text) - customerTransaction.TotalDebt : 0m : decimal.Parse(txt_AmountContributed.Text) : decimal.Parse(txt_AmountContributed.Text),
                             CreatedBy = Utilities.USERNAME,
                             CreatedDate = DateTime.Now
