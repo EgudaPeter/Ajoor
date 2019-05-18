@@ -103,13 +103,10 @@ namespace Ajoor
                     {
                         dgv_SummaryMonthlyView.DataSource = _TransactionRepo.GetAllTransactions().Where(x => x.Date.Value >= dtp_Start.Value.Date && x.Date.Value <= dtp_End.Value.Date).GroupBy(p => p.CustomerId).Select(g => new
                         {
-                            //TransactionId = g.FirstOrDefault().TransactionId,
                             Name = g.FirstOrDefault().CustomerName,
                             AccountNumber = g.FirstOrDefault().AccountNumber,
-                            AmountContributed = g.Sum(s => s.AmountContributed),
-                            AmountCollected = g.Sum(s => s.AmountCollected),
-                            //Commission = g.OrderByDescending(s => s.TransactionId).Where(x => x.TransactionType == "Commission Charge").Where(x => x.CreatedDate.Value.Month == DateTime.Now.Month).FirstOrDefault() != null ? g.OrderByDescending(s => s.TransactionId).Where(x => x.CreatedDate.Value.Month == DateTime.Now.Month).FirstOrDefault().Commission : 0,
-                            //ExtraCommission = g.OrderByDescending(s => s.TransactionId).Where(x => x.TransactionType == "Extra Commission Charge").Where(x => x.CreatedDate.Value.Month == DateTime.Now.Month).FirstOrDefault() != null ? g.OrderByDescending(s => s.TransactionId).Where(x => x.CreatedDate.Value.Month == DateTime.Now.Month).FirstOrDefault().ExtraCommission : 0,
+                            TotalSavings = g.Sum(s => s.AmountContributed),
+                            TotalWithdrawals = g.Sum(s => s.AmountCollected),
                             Commission = g.OrderByDescending(s => s.TransactionId).Where(x => x.Commission > 0).FirstOrDefault().Commission != null ? g.OrderByDescending(s => s.TransactionId).Where(x => x.Commission > 0).FirstOrDefault().Commission : 0,
                             ExtraCommission = g.OrderByDescending(s => s.TransactionId).Where(x => x.ExtraCommission > 0).FirstOrDefault().ExtraCommission != null ? g.OrderByDescending(s => s.TransactionId).Where(x => x.ExtraCommission > 0).FirstOrDefault().ExtraCommission : 0,
                             TotalCredit = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) > 0 ? g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) : 0,
@@ -253,13 +250,10 @@ namespace Ajoor
                     {
                         dgv_SummaryMonthlyView.DataSource = _TransactionRepo.GetAllTransactions().Where(x => x.Date.Value >= dtp_Start.Value.Date && x.Date.Value <= dtp_End.Value.Date && x.CreatedBy == cmb_Subadmin.SelectedValue.ToString()).GroupBy(p => p.CustomerId).Select(g => new
                         {
-                            //TransactionId = g.FirstOrDefault().TransactionId,
                             Name = g.FirstOrDefault().CustomerName,
                             AccountNumber = g.FirstOrDefault().AccountNumber,
-                            AmountContributed = g.Sum(s => s.AmountContributed),
-                            AmountCollected = g.Sum(s => s.AmountCollected),
-                            //Commission = g.OrderByDescending(s => s.TransactionId).Where(x => x.TransactionType == "Commission Charge").Where(x => x.CreatedDate.Value.Month == DateTime.Now.Month).FirstOrDefault() != null ? g.OrderByDescending(s => s.TransactionId).Where(x => x.CreatedDate.Value.Month == DateTime.Now.Month).FirstOrDefault().Commission : 0,
-                            //ExtraCommission = g.OrderByDescending(s => s.TransactionId).Where(x => x.TransactionType == "Extra Commission Charge").Where(x => x.CreatedDate.Value.Month == DateTime.Now.Month).FirstOrDefault() != null ? g.OrderByDescending(s => s.TransactionId).Where(x => x.CreatedDate.Value.Month == DateTime.Now.Month).FirstOrDefault().ExtraCommission : 0,
+                            TotalSavings = g.Sum(s => s.AmountContributed),
+                            TotalWithdrawals = g.Sum(s => s.AmountCollected),
                             Commission = g.OrderByDescending(s => s.TransactionId).Where(x => x.Commission > 0).FirstOrDefault().Commission != null ? g.OrderByDescending(s => s.TransactionId).Where(x => x.Commission > 0).FirstOrDefault().Commission : 0,
                             ExtraCommission = g.OrderByDescending(s => s.TransactionId).Where(x => x.ExtraCommission > 0).FirstOrDefault().ExtraCommission != null ? g.OrderByDescending(s => s.TransactionId).Where(x => x.ExtraCommission > 0).FirstOrDefault().ExtraCommission : 0,
                             TotalCredit = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) > 0 ? g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) : 0,
@@ -400,15 +394,16 @@ namespace Ajoor
                     {
                         dgv_SummaryMonthlyView.DataSource = _TransactionRepo.GetAllTransactions().Where(x => x.CreatedBy == cmb_Subadmin.SelectedValue.ToString()).GroupBy(p => p.CustomerId).Select(g => new
                         {
-                            //TransactionId = g.FirstOrDefault().TransactionId,
                             Name = g.FirstOrDefault().CustomerName,
                             AccountNumber = g.FirstOrDefault().AccountNumber,
-                            AmountContributed = g.Sum(s => s.AmountContributed),
-                            AmountCollected = g.Sum(s => s.AmountCollected),
-                            //Commission = g.OrderByDescending(s => s.TransactionId).Where(x => x.TransactionType == "Commission Charge").Where(x => x.CreatedDate.Value.Month == DateTime.Now.Month).FirstOrDefault() != null ? g.OrderByDescending(s => s.TransactionId).Where(x => x.CreatedDate.Value.Month == DateTime.Now.Month).FirstOrDefault().Commission : 0,
-                            //ExtraCommission = g.OrderByDescending(s => s.TransactionId).Where(x => x.TransactionType == "Extra Commission Charge").Where(x => x.CreatedDate.Value.Month == DateTime.Now.Month).FirstOrDefault() != null ? g.OrderByDescending(s => s.TransactionId).Where(x => x.CreatedDate.Value.Month == DateTime.Now.Month).FirstOrDefault().ExtraCommission : 0,
-                            Commission = g.OrderByDescending(s => s.TransactionId).Where(x => x.TransactionType == "Commission Charge").Where(x => x.CreatedDate.Value.Month == DateTime.Now.Month && x.Commission > 0).FirstOrDefault() != null ? g.OrderByDescending(s => s.TransactionId).Where(x => x.CreatedDate.Value.Month == DateTime.Now.Month && x.Commission > 0).FirstOrDefault().Commission : 0,
-                            ExtraCommission = g.OrderByDescending(s => s.TransactionId).Where(x => x.TransactionType == "Extra Commission Charge").Where(x => x.CreatedDate.Value.Month == DateTime.Now.Month && x.ExtraCommission > 0).FirstOrDefault() != null ? g.OrderByDescending(s => s.TransactionId).Where(x => x.CreatedDate.Value.Month == DateTime.Now.Month && x.ExtraCommission > 0).FirstOrDefault().ExtraCommission : 0,
+                            TotalSavings = g.Where(s => s.CreatedDate.Value.Month == DateTime.Now.Month).Sum(s => s.AmountContributed) != null ? g.Where(s => s.CreatedDate.Value.Month == DateTime.Now.Month).Sum(s => s.AmountContributed) : 0,
+                            TotalWithdrawals = g.Where(s => s.CreatedDate.Value.Month == DateTime.Now.Month).Sum(s => s.AmountCollected) != null ? g.Where(s => s.CreatedDate.Value.Month == DateTime.Now.Month).Sum(s => s.AmountCollected) : 0,
+                            Commission = g.Where(s => s.CreatedDate.Value.Month == DateTime.Now.Month && s.TransactionType == "Commission Charge" && s.Commission > 0).FirstOrDefault() != null ? g.Where(s => s.CreatedDate.Value.Month == DateTime.Now.Month && s.TransactionType == "Commission Charge" && s.Commission > 0).FirstOrDefault().Commission : 0,
+                            ExtraCommission = g.Where(s => s.CreatedDate.Value.Month == DateTime.Now.Month && s.TransactionType == "Extra Commission Charge" && s.ExtraCommission > 0).FirstOrDefault() != null ? g.Where(s => s.CreatedDate.Value.Month == DateTime.Now.Month && s.TransactionType == "Extra Commission Charge" && s.ExtraCommission > 0).FirstOrDefault().ExtraCommission : 0,
+                            //TotalSavings = g.Sum(s => s.AmountContributed),
+                            //TotalWithdrawals = g.Sum(s => s.AmountCollected),
+                            //Commission = g.OrderByDescending(s => s.TransactionId).Where(x => x.TransactionType == "Commission Charge").Where(x => x.CreatedDate.Value.Month == DateTime.Now.Month && x.Commission > 0).FirstOrDefault() != null ? g.OrderByDescending(s => s.TransactionId).Where(x => x.CreatedDate.Value.Month == DateTime.Now.Month && x.Commission > 0).FirstOrDefault().Commission : 0,
+                            //ExtraCommission = g.OrderByDescending(s => s.TransactionId).Where(x => x.TransactionType == "Extra Commission Charge").Where(x => x.CreatedDate.Value.Month == DateTime.Now.Month && x.ExtraCommission > 0).FirstOrDefault() != null ? g.OrderByDescending(s => s.TransactionId).Where(x => x.CreatedDate.Value.Month == DateTime.Now.Month && x.ExtraCommission > 0).FirstOrDefault().ExtraCommission : 0,
                             TotalCredit = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) > 0 ? g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) : 0,
                             TotalDebt = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) > 0 ? 0 : g.OrderByDescending(x => x.TransactionId).FirstOrDefault().TotalDebt,
                             CreatedBy = g.FirstOrDefault().CreatedBy,
@@ -552,7 +547,7 @@ namespace Ajoor
                 bgw_PullData.RunWorkerAsync();
             }
         }
-         
+
         private void bwg_SubAdmin_DoWork(object sender, DoWorkEventArgs e)
         {
             cmb_Subadmin.Invoke(new MethodInvoker(delegate
@@ -755,13 +750,14 @@ namespace Ajoor
                     {
                         dgv_SummaryMonthlyView.DataSource = _TransactionRepo.GetAllTransactions().GroupBy(p => p.CustomerId).Select(g => new
                         {
-                            //TransactionId = g.FirstOrDefault().TransactionId,
                             Name = g.FirstOrDefault().CustomerName,
                             AccountNumber = g.FirstOrDefault().AccountNumber,
-                            AmountContributed = g.Sum(s => s.AmountContributed),
-                            AmountCollected = g.Sum(s => s.AmountCollected),
-                            Commission = g.OrderByDescending(s => s.TransactionId).Where(x => x.TransactionType == "Commission Charge").Where(x => x.CreatedDate.Value.Month == DateTime.Now.Month && x.Commission > 0).FirstOrDefault() != null ? g.OrderByDescending(s => s.TransactionId).Where(x => x.CreatedDate.Value.Month == DateTime.Now.Month && x.Commission > 0).FirstOrDefault().Commission : 0,
-                            ExtraCommission = g.OrderByDescending(s => s.TransactionId).Where(x => x.TransactionType == "Extra Commission Charge").Where(x => x.CreatedDate.Value.Month == DateTime.Now.Month && x.ExtraCommission > 0).FirstOrDefault() != null ? g.OrderByDescending(s => s.TransactionId).Where(x => x.CreatedDate.Value.Month == DateTime.Now.Month && x.ExtraCommission > 0).FirstOrDefault().ExtraCommission : 0,
+                            TotalSavings = g.Where(s => s.CreatedDate.Value.Month == DateTime.Now.Month).Sum(s => s.AmountContributed) != null ? g.Where(s => s.CreatedDate.Value.Month == DateTime.Now.Month).Sum(s => s.AmountContributed) : 0,
+                            TotalWithdrawals = g.Where(s => s.CreatedDate.Value.Month == DateTime.Now.Month).Sum(s => s.AmountCollected) != null ? g.Where(s => s.CreatedDate.Value.Month == DateTime.Now.Month).Sum(s => s.AmountCollected) : 0,
+                            Commission = g.Where(s => s.CreatedDate.Value.Month == DateTime.Now.Month && s.TransactionType == "Commission Charge" && s.Commission > 0).FirstOrDefault() != null ? g.Where(s => s.CreatedDate.Value.Month == DateTime.Now.Month && s.TransactionType == "Commission Charge" && s.Commission > 0).FirstOrDefault().Commission : 0,
+                            ExtraCommission = g.Where(s => s.CreatedDate.Value.Month == DateTime.Now.Month && s.TransactionType == "Extra Commission Charge" && s.ExtraCommission > 0).FirstOrDefault() != null ? g.Where(s => s.CreatedDate.Value.Month == DateTime.Now.Month && s.TransactionType == "Extra Commission Charge" && s.ExtraCommission > 0).FirstOrDefault().ExtraCommission : 0,
+                            //Commission = g.OrderByDescending(s => s.TransactionId).Where(x => x.TransactionType == "Commission Charge").Where(x => x.CreatedDate.Value.Month == DateTime.Now.Month && x.Commission > 0).FirstOrDefault() != null ? g.OrderByDescending(s => s.TransactionId).Where(x => x.CreatedDate.Value.Month == DateTime.Now.Month && x.Commission > 0).FirstOrDefault().Commission : 0,
+                            //ExtraCommission = g.OrderByDescending(s => s.TransactionId).Where(x => x.TransactionType == "Extra Commission Charge").Where(x => x.CreatedDate.Value.Month == DateTime.Now.Month && x.ExtraCommission > 0).FirstOrDefault() != null ? g.OrderByDescending(s => s.TransactionId).Where(x => x.CreatedDate.Value.Month == DateTime.Now.Month && x.ExtraCommission > 0).FirstOrDefault().ExtraCommission : 0,
                             TotalCredit = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) > 0 ? g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) : 0,
                             TotalDebt = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) > 0 ? 0 : g.OrderByDescending(x => x.TransactionId).FirstOrDefault().TotalDebt,
                             CreatedBy = g.FirstOrDefault().CreatedBy,

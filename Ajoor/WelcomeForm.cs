@@ -10,9 +10,9 @@ namespace Ajoor
 {
     public partial class WelcomeForm : Form
     {
-        static string screenPath = Application.StartupPath + "/Welcome.Screen.config.txt";
+        static string screenPath = $"{Application.StartupPath}/Welcome.Screen.config.txt";
         static string connectionPath = $"{Application.StartupPath}/Connection.config.txt";
-        static string filePath = Application.StartupPath + "/SystemKey.config.txt";
+        static string filePath = $"{Application.StartupPath}/SystemKey.config.txt";
         static string showDialog = string.Empty;
         SuperAdminRepo _SuperAdminRepo = new SuperAdminRepo();
 
