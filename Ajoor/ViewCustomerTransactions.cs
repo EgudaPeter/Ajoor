@@ -16,19 +16,28 @@ namespace Ajoor
     {
         TransactionRepo _TransactionRepo = new TransactionRepo();
         CustomerRepo _CustomerRepo = new CustomerRepo();
+        long _customerAcctNumber = 0;
         long _customerId = 0;
-        public ViewCustomerTransactions(long customerId)
+        public ViewCustomerTransactions(long customerAcctNumber)
         {
-            InitializeComponent(); _customerId = customerId;
+            InitializeComponent(); _customerAcctNumber = customerAcctNumber;
         }
 
         private void ViewCustomerTransactions_Load(object sender, EventArgs e)
         {
-            var customer = _CustomerRepo.GetCustomer(_customerId);
-            lbCustomerName.Text = customer.FullName;
-            if (!bgw_PullData.IsBusy)
+            try
             {
-                bgw_PullData.RunWorkerAsync();
+                var customer = _CustomerRepo.GetCustomerWithAccountNumber(_customerAcctNumber);
+                _customerId = customer.CustomerId;
+                lbCustomerName.Text = customer.FullName;
+                if (!bgw_PullData.IsBusy)
+                {
+                    bgw_PullData.RunWorkerAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{Utilities.ERRORMESSAGE} \n Error details: {ex.Message}", "Superior Investment!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

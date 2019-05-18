@@ -66,9 +66,36 @@ namespace Ajoor.BusinessLayer.Repos
             recordToUpdate.CreatedBy = customer.CreatedBy;
             return entities.SaveChanges() > 0;
         }
+
         public Customer GetCustomer(long customerId)
         {
             var model = entities.cor_customer.Find(customerId);
+            if (model != null)
+            {
+                Customer customer = new Customer()
+                {
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    FullName = model.FullName,
+                    AccountNumber = model.AccountNumber,
+                    PhoneNumber = model.PhoneNumber,
+                    CustomerId = model.CustomerId,
+                    Product = model.Product,
+                    CreatedBy = model.CreatedBy,
+                    CreatedDate = model.CreatedDate,
+                    Email = model.Email,
+                    Commission = model.Commission,
+                    UpdateDate = model.UpdateDate,
+                    UpdatedBy = model.UpdatedBy
+                };
+                return customer;
+            }
+            return null;
+        }
+
+        public Customer GetCustomerWithAccountNumber(long customerAccountNumber)
+        {
+            var model = entities.cor_customer.Where(x=>x.AccountNumber == customerAccountNumber).FirstOrDefault();
             if (model != null)
             {
                 Customer customer = new Customer()
@@ -126,7 +153,7 @@ namespace Ajoor.BusinessLayer.Repos
             }
             return false;
         }
-
+         
         public bool DoesEmailExists(string email)
         {
             if (entities.cor_customer.Any(x => x.Email == email))
