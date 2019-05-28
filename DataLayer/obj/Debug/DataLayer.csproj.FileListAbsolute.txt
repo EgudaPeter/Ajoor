@@ -7,3 +7,4 @@ C:\Ajoor\DataLayer\bin\Debug\EntityFramework.SqlServer.xml
 C:\Ajoor\DataLayer\obj\Debug\DataLayer.dll
 C:\Ajoor\DataLayer\obj\Debug\DataLayer.pdb
 C:\Ajoor\DataLayer\obj\Debug\DataLayer.csprojResolveAssemblyReference.cache
+C:\Ajoor\DataLayer\bin\Debug\DataLayer.dll.config

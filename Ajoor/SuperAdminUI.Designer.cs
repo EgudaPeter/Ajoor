@@ -280,7 +280,7 @@
             this.groupBox1.ForeColor = System.Drawing.Color.Black;
             this.groupBox1.Location = new System.Drawing.Point(368, 175);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(273, 127);
+            this.groupBox1.Size = new System.Drawing.Size(264, 127);
             this.groupBox1.TabIndex = 36;
             this.groupBox1.TabStop = false;
             // 
@@ -317,7 +317,7 @@
             this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Location = new System.Drawing.Point(914, 357);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(259, 122);
+            this.groupBox2.Size = new System.Drawing.Size(212, 122);
             this.groupBox2.TabIndex = 37;
             this.groupBox2.TabStop = false;
             // 
@@ -337,9 +337,9 @@
             this.label11.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.Location = new System.Drawing.Point(39, 28);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(214, 26);
+            this.label11.Size = new System.Drawing.Size(167, 26);
             this.label11.TabIndex = 3;
-            this.label11.Text = "Total Amount Collected";
+            this.label11.Text = "Total Withdrawals";
             // 
             // groupBox3
             // 
@@ -351,7 +351,7 @@
             this.groupBox3.Controls.Add(this.label7);
             this.groupBox3.Location = new System.Drawing.Point(368, 357);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(264, 122);
+            this.groupBox3.Size = new System.Drawing.Size(150, 122);
             this.groupBox3.TabIndex = 37;
             this.groupBox3.TabStop = false;
             // 
@@ -371,9 +371,9 @@
             this.label7.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(22, 28);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(236, 26);
+            this.label7.Size = new System.Drawing.Size(122, 26);
             this.label7.TabIndex = 3;
-            this.label7.Text = "Total Amount Contributed";
+            this.label7.Text = "Total Savings";
             // 
             // groupBox4
             // 
@@ -385,7 +385,7 @@
             this.groupBox4.Controls.Add(this.label10);
             this.groupBox4.Location = new System.Drawing.Point(914, 175);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(270, 127);
+            this.groupBox4.Size = new System.Drawing.Size(261, 127);
             this.groupBox4.TabIndex = 37;
             this.groupBox4.TabStop = false;
             // 

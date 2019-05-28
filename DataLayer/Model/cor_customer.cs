@@ -27,5 +27,6 @@ namespace DataLayer.Model
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdateDate { get; set; }
         public string Product { get; set; }
+        public string CustomerCredentials { get; set; }
     }
 }

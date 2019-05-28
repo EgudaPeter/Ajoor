@@ -35,6 +35,7 @@
     <EntitySetMapping Name="cor_customer">
       <EntityTypeMapping TypeName="AjoModel.cor_customer">
         <MappingFragment StoreEntitySet="cor_customer">
+          <ScalarProperty Name="CustomerCredentials" ColumnName="CustomerCredentials" />
           <ScalarProperty Name="Product" ColumnName="Product" />
           <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
           <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />

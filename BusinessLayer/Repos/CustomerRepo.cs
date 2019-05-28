@@ -132,6 +132,7 @@ namespace Ajoor.BusinessLayer.Repos
                             PhoneNumber = item.PhoneNumber,
                             Email = item.Email,
                             Product = item.Product,
+                            CustomerCredentials = item.CustomerCredentials,
                             Commission = item.Commission,
                             CreatedBy = item.CreatedBy,
                             CreatedDate = item.CreatedDate,

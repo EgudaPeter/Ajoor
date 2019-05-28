@@ -23,10 +23,10 @@ namespace Ajoor
         {
             cmb_Customers.Invoke(new MethodInvoker(delegate
             {
-                cmb_Customers.DataSource = _CustomerRepo.GetAllRecords().Where(x => x.CreatedBy == Utilities.USERNAME).Select(x => new { x.CustomerId, x.LastName, x.FirstName, x.AccountNumber, x.FullName }).ToList();
+                cmb_Customers.DataSource = _CustomerRepo.GetAllRecords().Where(x => x.CreatedBy == Utilities.USERNAME).Select(x => new { x.CustomerId, x.CustomerCredentials }).ToList();
                 cmb_Customers.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
                 cmb_Customers.AutoCompleteSource = AutoCompleteSource.ListItems;
-                cmb_Customers.DisplayMember = "FullName";
+                cmb_Customers.DisplayMember = "CustomerCredentials";
                 cmb_Customers.ValueMember = "CustomerId";
                 cmb_Customers.SelectedIndex = -1;
             }));

@@ -18,6 +18,7 @@
           <Property Name="Product" Type="varchar(max)" />
           <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Commission" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="CustomerCredentials" Type="varchar" MaxLength="500" />
           <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="UpdatedBy" Type="varchar" MaxLength="50" />
@@ -154,6 +155,7 @@
           <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="UpdateDate" Type="DateTime" Precision="3" />
           <Property Name="Product" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerCredentials" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="cor_sub_admin_login_log">
           <Key>
@@ -231,6 +233,7 @@
           <EntitySetMapping Name="cor_customer">
             <EntityTypeMapping TypeName="AjoModel.cor_customer">
               <MappingFragment StoreEntitySet="cor_customer">
+                <ScalarProperty Name="CustomerCredentials" ColumnName="CustomerCredentials" />
                 <ScalarProperty Name="Product" ColumnName="Product" />
                 <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />

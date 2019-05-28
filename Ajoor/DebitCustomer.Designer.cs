@@ -254,6 +254,7 @@
             this.cmb_Customers.Location = new System.Drawing.Point(12, 103);
             this.cmb_Customers.Name = "cmb_Customers";
             this.cmb_Customers.Size = new System.Drawing.Size(306, 27);
+            this.cmb_Customers.Sorted = true;
             this.cmb_Customers.TabIndex = 99;
             this.cmb_Customers.SelectedIndexChanged += new System.EventHandler(this.cmb_Customers_SelectedIndexChanged);
             // 

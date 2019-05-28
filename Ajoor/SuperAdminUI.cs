@@ -225,7 +225,7 @@ namespace Ajoor
                 }
             }));
 
-            label11.Invoke(new MethodInvoker(delegate
+            lb_TotalAmountCollected.Invoke(new MethodInvoker(delegate
             {
                 try
                 {

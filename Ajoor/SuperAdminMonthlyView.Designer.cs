@@ -66,6 +66,12 @@
             this.txt_TotalExtraCommission = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.bgw_PullReport_SubAdminOnly = new System.ComponentModel.BackgroundWorker();
+            this.cmb_Customers = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.bgw_PullReport_CustomerOnly = new System.ComponentModel.BackgroundWorker();
+            this.bgw_PullReport_SubAdminAndCustomerOnly = new System.ComponentModel.BackgroundWorker();
+            this.bgw_PullReport_DatesAndSubAdminAndCustomerOnly = new System.ComponentModel.BackgroundWorker();
+            this.bgw_DatesAndCustomerOnly = new System.ComponentModel.BackgroundWorker();
             this.groupBox2.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_SummaryMonthlyView)).BeginInit();
@@ -250,6 +256,8 @@
             // groupBox2
             // 
             this.groupBox2.BackColor = System.Drawing.Color.White;
+            this.groupBox2.Controls.Add(this.cmb_Customers);
+            this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Controls.Add(this.cmb_Subadmin);
             this.groupBox2.Controls.Add(this.label12);
             this.groupBox2.Controls.Add(this.label8);
@@ -433,6 +441,41 @@
             // 
             this.bgw_PullReport_SubAdminOnly.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgw_PullReport_SubAdminOnly_DoWork);
             // 
+            // cmb_Customers
+            // 
+            this.cmb_Customers.FormattingEnabled = true;
+            this.cmb_Customers.Location = new System.Drawing.Point(407, 44);
+            this.cmb_Customers.Name = "cmb_Customers";
+            this.cmb_Customers.Size = new System.Drawing.Size(237, 22);
+            this.cmb_Customers.TabIndex = 37;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.ForeColor = System.Drawing.Color.Black;
+            this.label10.Location = new System.Drawing.Point(332, 47);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(71, 14);
+            this.label10.TabIndex = 36;
+            this.label10.Text = "Customers";
+            // 
+            // bgw_PullReport_CustomerOnly
+            // 
+            this.bgw_PullReport_CustomerOnly.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgw_PullReport_CustomerOnly_DoWork);
+            // 
+            // bgw_PullReport_SubAdminAndCustomerOnly
+            // 
+            this.bgw_PullReport_SubAdminAndCustomerOnly.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgw_PullReport_SubAdminAndCustomerOnly_DoWork);
+            // 
+            // bgw_PullReport_DatesAndSubAdminAndCustomerOnly
+            // 
+            this.bgw_PullReport_DatesAndSubAdminAndCustomerOnly.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgw_PullReport_DatesAndSubAdminAndCustomerOnly_DoWork);
+            // 
+            // bgw_DatesAndCustomerOnly
+            // 
+            this.bgw_DatesAndCustomerOnly.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgw_DatesAndCustomerOnly_DoWork);
+            // 
             // SuperAdminMonthlyView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -516,5 +559,11 @@
         private System.Windows.Forms.Label label9;
         private System.ComponentModel.BackgroundWorker bgw_PullReport_SubAdminOnly;
         private System.Windows.Forms.Button btnView;
+        private System.Windows.Forms.ComboBox cmb_Customers;
+        private System.Windows.Forms.Label label10;
+        private System.ComponentModel.BackgroundWorker bgw_PullReport_CustomerOnly;
+        private System.ComponentModel.BackgroundWorker bgw_PullReport_SubAdminAndCustomerOnly;
+        private System.ComponentModel.BackgroundWorker bgw_PullReport_DatesAndSubAdminAndCustomerOnly;
+        private System.ComponentModel.BackgroundWorker bgw_DatesAndCustomerOnly;
     }
 }

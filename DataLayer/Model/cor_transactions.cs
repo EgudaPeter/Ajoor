@@ -11,7 +11,7 @@ namespace DataLayer.Model
 {
     using System;
     using System.Collections.Generic;
-
+    
     public partial class cor_transactions
     {
         public long TransactionId { get; set; }
@@ -21,11 +21,11 @@ namespace DataLayer.Model
         public Nullable<decimal> AmountCollected { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
         public Nullable<decimal> Commission { get; set; }
-        public Nullable<decimal> ExtraCommission { get; set; }
         public Nullable<decimal> AmountPayable { get; set; }
         public Nullable<decimal> Debt { get; set; }
         public Nullable<decimal> TotalDebt { get; set; }
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
+        public Nullable<decimal> ExtraCommission { get; set; }
     }
 }

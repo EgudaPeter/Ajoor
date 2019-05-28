@@ -31,3 +31,4 @@ C:\Ajoor\BusinessLayer\bin\Debug\Microsoft.SqlServer.RegSvrEnum.xml
 C:\Ajoor\BusinessLayer\obj\Debug\BusinessLayer.dll
 C:\Ajoor\BusinessLayer\obj\Debug\BusinessLayer.pdb
 C:\Ajoor\BusinessLayer\obj\Debug\BusinessLayer.csprojResolveAssemblyReference.cache
+C:\Ajoor\BusinessLayer\bin\Debug\DataLayer.dll.config
