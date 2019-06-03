@@ -95,3 +95,4 @@ C:\Ajoor\Ajoor\obj\Debug\Ajoor.ViewCustomerTransactions.resources
 C:\Ajoor\Ajoor\obj\Debug\Ajoor.RestorePassword.resources
 C:\Ajoor\Ajoor\obj\Debug\Ajoor.csprojResolveAssemblyReference.cache
 C:\Ajoor\Ajoor\bin\Debug\DataLayer.dll.config
+C:\Ajoor\Ajoor\bin\Debug\BusinessLayer.dll.config

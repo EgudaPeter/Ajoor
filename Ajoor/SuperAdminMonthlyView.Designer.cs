@@ -48,6 +48,8 @@
             this.btn_Cancel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cmb_Customers = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.cmb_Subadmin = new System.Windows.Forms.ComboBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
@@ -66,12 +68,11 @@
             this.txt_TotalExtraCommission = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.bgw_PullReport_SubAdminOnly = new System.ComponentModel.BackgroundWorker();
-            this.cmb_Customers = new System.Windows.Forms.ComboBox();
-            this.label10 = new System.Windows.Forms.Label();
             this.bgw_PullReport_CustomerOnly = new System.ComponentModel.BackgroundWorker();
             this.bgw_PullReport_SubAdminAndCustomerOnly = new System.ComponentModel.BackgroundWorker();
             this.bgw_PullReport_DatesAndSubAdminAndCustomerOnly = new System.ComponentModel.BackgroundWorker();
             this.bgw_DatesAndCustomerOnly = new System.ComponentModel.BackgroundWorker();
+            this.btn_EndMonth = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_SummaryMonthlyView)).BeginInit();
@@ -235,7 +236,7 @@
             this.btn_Cancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_Cancel.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_Cancel.ForeColor = System.Drawing.Color.Black;
-            this.btn_Cancel.Location = new System.Drawing.Point(7, 215);
+            this.btn_Cancel.Location = new System.Drawing.Point(7, 281);
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(142, 59);
             this.btn_Cancel.TabIndex = 3;
@@ -275,6 +276,25 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Controls";
             // 
+            // cmb_Customers
+            // 
+            this.cmb_Customers.FormattingEnabled = true;
+            this.cmb_Customers.Location = new System.Drawing.Point(407, 44);
+            this.cmb_Customers.Name = "cmb_Customers";
+            this.cmb_Customers.Size = new System.Drawing.Size(237, 22);
+            this.cmb_Customers.TabIndex = 37;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.ForeColor = System.Drawing.Color.Black;
+            this.label10.Location = new System.Drawing.Point(332, 47);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(71, 14);
+            this.label10.TabIndex = 36;
+            this.label10.Text = "Customers";
+            // 
             // cmb_Subadmin
             // 
             this.cmb_Subadmin.FormattingEnabled = true;
@@ -308,18 +328,19 @@
             // panel1
             // 
             this.panel1.AutoSize = true;
+            this.panel1.Controls.Add(this.btn_EndMonth);
             this.panel1.Controls.Add(this.btnView);
             this.panel1.Controls.Add(this.btn_Print);
             this.panel1.Controls.Add(this.btn_Cancel);
             this.panel1.Controls.Add(this.btn_Go);
             this.panel1.Location = new System.Drawing.Point(955, 222);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(152, 289);
+            this.panel1.Size = new System.Drawing.Size(152, 350);
             this.panel1.TabIndex = 135;
             // 
             // btnView
             // 
-            this.btnView.BackColor = System.Drawing.Color.Red;
+            this.btnView.BackColor = System.Drawing.Color.DimGray;
             this.btnView.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnView.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnView.ForeColor = System.Drawing.Color.White;
@@ -441,25 +462,6 @@
             // 
             this.bgw_PullReport_SubAdminOnly.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgw_PullReport_SubAdminOnly_DoWork);
             // 
-            // cmb_Customers
-            // 
-            this.cmb_Customers.FormattingEnabled = true;
-            this.cmb_Customers.Location = new System.Drawing.Point(407, 44);
-            this.cmb_Customers.Name = "cmb_Customers";
-            this.cmb_Customers.Size = new System.Drawing.Size(237, 22);
-            this.cmb_Customers.TabIndex = 37;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Arial Rounded MT Bold", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.ForeColor = System.Drawing.Color.Black;
-            this.label10.Location = new System.Drawing.Point(332, 47);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(71, 14);
-            this.label10.TabIndex = 36;
-            this.label10.Text = "Customers";
-            // 
             // bgw_PullReport_CustomerOnly
             // 
             this.bgw_PullReport_CustomerOnly.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgw_PullReport_CustomerOnly_DoWork);
@@ -475,6 +477,20 @@
             // bgw_DatesAndCustomerOnly
             // 
             this.bgw_DatesAndCustomerOnly.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgw_DatesAndCustomerOnly_DoWork);
+            // 
+            // btn_EndMonth
+            // 
+            this.btn_EndMonth.BackColor = System.Drawing.Color.DimGray;
+            this.btn_EndMonth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_EndMonth.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_EndMonth.ForeColor = System.Drawing.Color.White;
+            this.btn_EndMonth.Location = new System.Drawing.Point(7, 215);
+            this.btn_EndMonth.Name = "btn_EndMonth";
+            this.btn_EndMonth.Size = new System.Drawing.Size(142, 59);
+            this.btn_EndMonth.TabIndex = 151;
+            this.btn_EndMonth.Text = "End Month";
+            this.btn_EndMonth.UseVisualStyleBackColor = false;
+            this.btn_EndMonth.Click += new System.EventHandler(this.btn_EndMonth_Click);
             // 
             // SuperAdminMonthlyView
             // 
@@ -565,5 +581,6 @@
         private System.ComponentModel.BackgroundWorker bgw_PullReport_SubAdminAndCustomerOnly;
         private System.ComponentModel.BackgroundWorker bgw_PullReport_DatesAndSubAdminAndCustomerOnly;
         private System.ComponentModel.BackgroundWorker bgw_DatesAndCustomerOnly;
+        private System.Windows.Forms.Button btn_EndMonth;
     }
 }

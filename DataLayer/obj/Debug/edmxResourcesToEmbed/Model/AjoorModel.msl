@@ -75,6 +75,7 @@
     <EntitySetMapping Name="cor_transactions">
       <EntityTypeMapping TypeName="AjoModel.cor_transactions">
         <MappingFragment StoreEntitySet="cor_transactions">
+          <ScalarProperty Name="EOMBalance" ColumnName="EOMBalance" />
           <ScalarProperty Name="ExtraCommission" ColumnName="ExtraCommission" />
           <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
           <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />

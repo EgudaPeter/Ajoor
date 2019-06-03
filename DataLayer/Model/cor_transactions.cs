@@ -27,5 +27,6 @@ namespace DataLayer.Model
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<decimal> ExtraCommission { get; set; }
+        public Nullable<decimal> EOMBalance { get; set; }
     }
 }

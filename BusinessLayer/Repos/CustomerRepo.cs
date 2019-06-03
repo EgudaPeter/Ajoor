@@ -19,6 +19,7 @@ namespace Ajoor.BusinessLayer.Repos
                 Email = customer.Email,
                 Product = customer.Product,
                 Commission = customer.Commission,
+                CustomerCredentials = $"{customer.FirstName} {customer.LastName}-{customer.AccountNumber}",
                 CreatedBy = customer.CreatedBy,
                 CreatedDate = customer.CreatedDate,
                 PhoneNumber = customer.PhoneNumber
@@ -54,6 +55,7 @@ namespace Ajoor.BusinessLayer.Repos
                 updateModel.Product = customer.Product;
                 updateModel.PhoneNumber = customer.PhoneNumber;
                 updateModel.Commission = customer.Commission;
+                updateModel.CustomerCredentials = $"{customer.FirstName} {customer.LastName}-{updateModel.AccountNumber}";
                 updateModel.UpdatedBy = customer.UpdatedBy;
                 updateModel.UpdateDate = customer.UpdateDate;
             }

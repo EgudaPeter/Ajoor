@@ -280,7 +280,7 @@
             this.groupBox1.ForeColor = System.Drawing.Color.Black;
             this.groupBox1.Location = new System.Drawing.Point(368, 175);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(264, 127);
+            this.groupBox1.Size = new System.Drawing.Size(258, 127);
             this.groupBox1.TabIndex = 36;
             this.groupBox1.TabStop = false;
             // 
@@ -385,7 +385,7 @@
             this.groupBox4.Controls.Add(this.label10);
             this.groupBox4.Location = new System.Drawing.Point(914, 175);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(261, 127);
+            this.groupBox4.Size = new System.Drawing.Size(255, 127);
             this.groupBox4.TabIndex = 37;
             this.groupBox4.TabStop = false;
             // 

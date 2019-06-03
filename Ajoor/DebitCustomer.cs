@@ -312,7 +312,7 @@ namespace Ajoor
                 }
             }
             catch (Exception ex)
-            { }
+            { MessageBox.Show($"{Utilities.ERRORMESSAGE} \n Error details: {ex.Message}", "Superior Investment!", MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
 
         private void btn_ExtraCommision_Click(object sender, EventArgs e)

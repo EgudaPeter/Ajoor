@@ -1,5 +1,8 @@
 ﻿using Ajoor.BusinessLayer.DTO;
+using BusinessLayer.DTO;
 using DataLayer.Model;
+using EntityFramework.BulkInsert.Extensions;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Ajoor.BusinessLayer.Repos
@@ -27,6 +30,7 @@ namespace Ajoor.BusinessLayer.Repos
                 AmountPayable = transaction.AmountPayable,
                 TotalDebt = transaction.TotalDebt,
                 Debt = 0m,
+                EOMBalance = 0m,
                 CreatedBy = transaction.CreatedBy,
                 CreatedDate = transaction.CreatedDate
             };
@@ -75,6 +79,7 @@ namespace Ajoor.BusinessLayer.Repos
                             AmountPayable = transaction.AmountPayable,
                             Debt = 0m,
                             TotalDebt = 0m,
+                            EOMBalance = 0m,
                             CreatedBy = transaction.CreatedBy,
                             CreatedDate = transaction.CreatedDate
                         };
@@ -96,6 +101,7 @@ namespace Ajoor.BusinessLayer.Repos
                             ExtraCommission = transaction.ExtraCommission,
                             AmountPayable = transaction.AmountPayable,
                             Debt = record.Debt + diff,
+                            EOMBalance = 0m,
                             TotalDebt = diff + record.TotalDebt,
                             CreatedBy = transaction.CreatedBy,
                             CreatedDate = transaction.CreatedDate
@@ -124,6 +130,7 @@ namespace Ajoor.BusinessLayer.Repos
                             AmountPayable = transaction.AmountPayable,
                             Debt = 0m,
                             TotalDebt = 0m,
+                            EOMBalance = 0m,
                             CreatedBy = transaction.CreatedBy,
                             CreatedDate = transaction.CreatedDate
                         };
@@ -146,6 +153,7 @@ namespace Ajoor.BusinessLayer.Repos
                             AmountPayable = transaction.AmountPayable,
                             Debt = record.Debt + diff,
                             TotalDebt = diff + record.TotalDebt,
+                            EOMBalance = 0m,
                             CreatedBy = transaction.CreatedBy,
                             CreatedDate = transaction.CreatedDate
                         };
@@ -168,6 +176,7 @@ namespace Ajoor.BusinessLayer.Repos
                     ExtraCommission = transaction.ExtraCommission,
                     AmountPayable = 0m,
                     Debt = transaction.Debt,
+                    EOMBalance = 0m,
                     TotalDebt = transaction.TotalDebt,
                     CreatedBy = transaction.CreatedBy,
                     CreatedDate = transaction.CreatedDate
@@ -188,10 +197,38 @@ namespace Ajoor.BusinessLayer.Repos
                 Commission = transaction.Commission,
                 ExtraCommission = transaction.ExtraCommission,
                 AmountPayable = transaction.AmountPayable,
+                EOMBalance = 0m,
                 CreatedBy = transaction.CreatedBy,
                 CreatedDate = transaction.CreatedDate
             };
             entities.cor_transactions.Add(modelWithoutDebt);
+            return entities.SaveChanges() > 0;
+        }
+
+        public bool EndOfMonthTransaction(List<EndOfMonthTransactions> transactions)
+        {
+            List<cor_transactions> listOfTransactions = new List<cor_transactions>();
+            foreach (var item in transactions)
+            {
+                var transaction = new cor_transactions()
+                {
+                    CustomerId = item.CustomerId,
+                    AmountContributed = item.AmountContributed,
+                    AmountCollected = item.AmountCollected,
+                    TransactionType = item.TransactionType,
+                    Date = item.Date,
+                    Commission = item.Commission,
+                    ExtraCommission = item.ExtraCommission,
+                    AmountPayable = item.AmountPayable,
+                    Debt = item.Debt,
+                    EOMBalance = item.EOMBalance,
+                    TotalDebt = item.TotalDebt,
+                    CreatedBy = item.CreatedBy,
+                    CreatedDate = item.CreatedDate
+                };
+                listOfTransactions.Add(transaction);
+            }
+            entities.cor_transactions.AddRange(listOfTransactions);
             return entities.SaveChanges() > 0;
         }
 
@@ -230,14 +267,11 @@ namespace Ajoor.BusinessLayer.Repos
         {
             var query = from a in entities.cor_transactions
                         join b in entities.cor_customer on a.CustomerId equals b.CustomerId
-                        //join c in entities.cor_sub_admin on a.CreatedBy equals c.Username
-                        //join d in entities.cor_super_admin on a.CreatedBy equals d.Username
                         select new Transactions()
                         {
                             TransactionId = a.TransactionId,
                             CustomerId = a.CustomerId,
                             CustomerName = b.FullName,
-                            //CapturerName = c.FullName,
                             AccountNumber = b.AccountNumber,
                             TransactionType = a.TransactionType,
                             AmountContributed = a.AmountContributed,
@@ -247,11 +281,10 @@ namespace Ajoor.BusinessLayer.Repos
                             ExtraCommission = a.ExtraCommission,
                             AmountPayable = a.AmountPayable,
                             Debt = a.Debt,
+                            EOMBalance = a.EOMBalance,
                             TotalDebt = a.TotalDebt,
                             CreatedBy = a.CreatedBy,
                             CreatedDate = a.CreatedDate,
-                            //UpdatedBy = a.UpdatedBy,
-                            //UpdatedDate = a.UpdatedDate
                         };
             return query.AsQueryable();
         }
@@ -271,12 +304,30 @@ namespace Ajoor.BusinessLayer.Repos
                             AmountContributed = a.AmountContributed,
                             TransactionType = a.TransactionType,
                             Date = a.Date,
-                            //Commission = a.Commission,
                             AmountPayable = a.AmountPayable,
                             CreatedBy = a.CreatedBy,
-                            CreatedDate = a.CreatedDate,
-                            //UpdatedBy = a.UpdatedBy,
-                            //UpdatedDate = a.UpdatedDate
+                            CreatedDate = a.CreatedDate
+                        };
+            return query.AsQueryable();
+        }
+
+        public IQueryable<EndOfMonthTransactions> GetEndOfMonthTransactions()
+        {
+
+            var query = from a in entities.cor_transactions
+                        join b in entities.cor_customer on a.CustomerId equals b.CustomerId
+
+                        where a.TransactionType == "End Of Month"
+                        select new EndOfMonthTransactions()
+                        {
+                            TransactionId = a.TransactionId,
+                            CustomerId = a.CustomerId,
+                            CustomerName = b.FullName,
+                            TransactionType = a.TransactionType,
+                            Date = a.Date,
+                            EOMBalance = a.EOMBalance,
+                            CreatedBy = a.CreatedBy,
+                            CreatedDate = a.CreatedDate
                         };
             return query.AsQueryable();
         }
@@ -302,8 +353,6 @@ namespace Ajoor.BusinessLayer.Repos
                             TotalDebt = a.TotalDebt,
                             CreatedBy = a.CreatedBy,
                             CreatedDate = a.CreatedDate,
-                            //UpdatedBy = a.UpdatedBy,
-                            //UpdatedDate = a.UpdatedDate
                         };
             return query.AsQueryable();
         }
