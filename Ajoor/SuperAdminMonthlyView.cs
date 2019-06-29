@@ -142,8 +142,8 @@ namespace Ajoor
                             TotalWithdrawals = g.Sum(s => s.AmountCollected),
                             Commission = g.OrderByDescending(s => s.TransactionId).Where(x => x.Commission > 0).FirstOrDefault().Commission != null ? g.OrderByDescending(s => s.TransactionId).Where(x => x.Commission > 0).FirstOrDefault().Commission : 0,
                             ExtraCommission = g.OrderByDescending(s => s.TransactionId).Where(x => x.ExtraCommission > 0).FirstOrDefault().ExtraCommission != null ? g.OrderByDescending(s => s.TransactionId).Where(x => x.ExtraCommission > 0).FirstOrDefault().ExtraCommission : 0,
-                            TotalCredit = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) > 0 ? g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) : 0,
-                            TotalDebt = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) > 0 ? 0 : g.OrderByDescending(x => x.TransactionId).FirstOrDefault().TotalDebt,
+                            TotalCredit = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission) + g.Sum(s => s.ExtraCommission)) > 0 ? g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission) + g.Sum(s => s.ExtraCommission)) : 0,
+                            TotalDebt = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission) + g.Sum(s => s.ExtraCommission)) > 0 ? 0 : g.OrderByDescending(x => x.TransactionId).FirstOrDefault().TotalDebt,
                             CreatedBy = g.FirstOrDefault().CreatedBy,
                             CreatedDate = g.FirstOrDefault().CreatedDate
                         }).ToList();
@@ -289,8 +289,8 @@ namespace Ajoor
                             TotalWithdrawals = g.Sum(s => s.AmountCollected),
                             Commission = g.OrderByDescending(s => s.TransactionId).Where(x => x.Commission > 0).FirstOrDefault().Commission != null ? g.OrderByDescending(s => s.TransactionId).Where(x => x.Commission > 0).FirstOrDefault().Commission : 0,
                             ExtraCommission = g.OrderByDescending(s => s.TransactionId).Where(x => x.ExtraCommission > 0).FirstOrDefault().ExtraCommission != null ? g.OrderByDescending(s => s.TransactionId).Where(x => x.ExtraCommission > 0).FirstOrDefault().ExtraCommission : 0,
-                            TotalCredit = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) > 0 ? g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) : 0,
-                            TotalDebt = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) > 0 ? 0 : g.OrderByDescending(x => x.TransactionId).FirstOrDefault().TotalDebt,
+                            TotalCredit = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission) + g.Sum(s => s.ExtraCommission)) > 0 ? g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission) + g.Sum(s => s.ExtraCommission)) : 0,
+                            TotalDebt = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission) + g.Sum(s => s.ExtraCommission)) > 0 ? 0 : g.OrderByDescending(x => x.TransactionId).FirstOrDefault().TotalDebt,
                             CreatedBy = g.FirstOrDefault().CreatedBy,
                             CreatedDate = g.FirstOrDefault().CreatedDate
                         }).ToList();
@@ -437,8 +437,8 @@ namespace Ajoor
                             //TotalWithdrawals = g.Sum(s => s.AmountCollected),
                             //Commission = g.OrderByDescending(s => s.TransactionId).Where(x => x.TransactionType == "Commission Charge").Where(x => x.CreatedDate.Value.Month == DateTime.Now.Month && x.Commission > 0).FirstOrDefault() != null ? g.OrderByDescending(s => s.TransactionId).Where(x => x.CreatedDate.Value.Month == DateTime.Now.Month && x.Commission > 0).FirstOrDefault().Commission : 0,
                             //ExtraCommission = g.OrderByDescending(s => s.TransactionId).Where(x => x.TransactionType == "Extra Commission Charge").Where(x => x.CreatedDate.Value.Month == DateTime.Now.Month && x.ExtraCommission > 0).FirstOrDefault() != null ? g.OrderByDescending(s => s.TransactionId).Where(x => x.CreatedDate.Value.Month == DateTime.Now.Month && x.ExtraCommission > 0).FirstOrDefault().ExtraCommission : 0,
-                            TotalCredit = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) > 0 ? g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) : 0,
-                            TotalDebt = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) > 0 ? 0 : g.OrderByDescending(x => x.TransactionId).FirstOrDefault().TotalDebt,
+                            TotalCredit = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission) + g.Sum(s => s.ExtraCommission)) > 0 ? g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission) + g.Sum(s => s.ExtraCommission)) : 0,
+                            TotalDebt = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission) + g.Sum(s => s.ExtraCommission)) > 0 ? 0 : g.OrderByDescending(x => x.TransactionId).FirstOrDefault().TotalDebt,
                             CreatedBy = g.FirstOrDefault().CreatedBy,
                             CreatedDate = g.FirstOrDefault().CreatedDate
                         }).ToList();
@@ -800,8 +800,8 @@ namespace Ajoor
                             TotalWithdrawals = g.Where(s => s.CreatedDate.Value.Month == DateTime.Now.Month).Sum(s => s.AmountCollected) != null ? g.Where(s => s.CreatedDate.Value.Month == DateTime.Now.Month).Sum(s => s.AmountCollected) : 0,
                             Commission = g.Where(s => s.CreatedDate.Value.Month == DateTime.Now.Month && s.TransactionType == "Commission Charge" && s.Commission > 0).FirstOrDefault() != null ? g.Where(s => s.CreatedDate.Value.Month == DateTime.Now.Month && s.TransactionType == "Commission Charge" && s.Commission > 0).FirstOrDefault().Commission : 0,
                             ExtraCommission = g.Where(s => s.CreatedDate.Value.Month == DateTime.Now.Month && s.TransactionType == "Extra Commission Charge" && s.ExtraCommission > 0).FirstOrDefault() != null ? g.Where(s => s.CreatedDate.Value.Month == DateTime.Now.Month && s.TransactionType == "Extra Commission Charge" && s.ExtraCommission > 0).FirstOrDefault().ExtraCommission : 0,
-                            TotalCredit = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) > 0 ? g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) : 0,
-                            TotalDebt = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) > 0 ? 0 : g.OrderByDescending(x => x.TransactionId).Where(x => x.TransactionType != "End Of Month").FirstOrDefault().TotalDebt,
+                            TotalCredit = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission) + g.Sum(s => s.ExtraCommission)) > 0 ? g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission) + g.Sum(s => s.ExtraCommission)) : 0,
+                            TotalDebt = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission) + g.Sum(s => s.ExtraCommission)) > 0 ? 0 : g.OrderByDescending(x => x.TransactionId).Where(x => x.TransactionType != "End Of Month").FirstOrDefault().TotalDebt,
                             CreatedBy = g.FirstOrDefault().CreatedBy,
                             CreatedDate = g.FirstOrDefault().CreatedDate
                         }).ToList();
@@ -977,8 +977,8 @@ namespace Ajoor
                             TotalWithdrawals = g.Sum(s => s.AmountCollected),
                             Commission = g.OrderByDescending(s => s.TransactionId).Where(x => x.Commission > 0).FirstOrDefault().Commission != null ? g.OrderByDescending(s => s.TransactionId).Where(x => x.Commission > 0).FirstOrDefault().Commission : 0,
                             ExtraCommission = g.OrderByDescending(s => s.TransactionId).Where(x => x.ExtraCommission > 0).FirstOrDefault().ExtraCommission != null ? g.OrderByDescending(s => s.TransactionId).Where(x => x.ExtraCommission > 0).FirstOrDefault().ExtraCommission : 0,
-                            TotalCredit = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) > 0 ? g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) : 0,
-                            TotalDebt = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) > 0 ? 0 : g.OrderByDescending(x => x.TransactionId).FirstOrDefault().TotalDebt,
+                            TotalCredit = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission) + g.Sum(s => s.ExtraCommission)) > 0 ? g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission) + g.Sum(s => s.ExtraCommission)) : 0,
+                            TotalDebt = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission) + g.Sum(s => s.ExtraCommission)) > 0 ? 0 : g.OrderByDescending(x => x.TransactionId).FirstOrDefault().TotalDebt,
                             CreatedBy = g.FirstOrDefault().CreatedBy,
                             CreatedDate = g.FirstOrDefault().CreatedDate
                         }).ToList();
@@ -1124,8 +1124,8 @@ namespace Ajoor
                             TotalWithdrawals = g.Sum(s => s.AmountCollected),
                             Commission = g.OrderByDescending(s => s.TransactionId).Where(x => x.Commission > 0).FirstOrDefault().Commission != null ? g.OrderByDescending(s => s.TransactionId).Where(x => x.Commission > 0).FirstOrDefault().Commission : 0,
                             ExtraCommission = g.OrderByDescending(s => s.TransactionId).Where(x => x.ExtraCommission > 0).FirstOrDefault().ExtraCommission != null ? g.OrderByDescending(s => s.TransactionId).Where(x => x.ExtraCommission > 0).FirstOrDefault().ExtraCommission : 0,
-                            TotalCredit = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) > 0 ? g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) : 0,
-                            TotalDebt = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) > 0 ? 0 : g.OrderByDescending(x => x.TransactionId).FirstOrDefault().TotalDebt,
+                            TotalCredit = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission) + g.Sum(s => s.ExtraCommission)) > 0 ? g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission) + g.Sum(s => s.ExtraCommission)) : 0,
+                            TotalDebt = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission) + g.Sum(s => s.ExtraCommission)) > 0 ? 0 : g.OrderByDescending(x => x.TransactionId).FirstOrDefault().TotalDebt,
                             CreatedBy = g.FirstOrDefault().CreatedBy,
                             CreatedDate = g.FirstOrDefault().CreatedDate
                         }).ToList();
@@ -1271,8 +1271,8 @@ namespace Ajoor
                             TotalWithdrawals = g.Sum(s => s.AmountCollected),
                             Commission = g.OrderByDescending(s => s.TransactionId).Where(x => x.Commission > 0).FirstOrDefault().Commission != null ? g.OrderByDescending(s => s.TransactionId).Where(x => x.Commission > 0).FirstOrDefault().Commission : 0,
                             ExtraCommission = g.OrderByDescending(s => s.TransactionId).Where(x => x.ExtraCommission > 0).FirstOrDefault().ExtraCommission != null ? g.OrderByDescending(s => s.TransactionId).Where(x => x.ExtraCommission > 0).FirstOrDefault().ExtraCommission : 0,
-                            TotalCredit = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) > 0 ? g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) : 0,
-                            TotalDebt = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) > 0 ? 0 : g.OrderByDescending(x => x.TransactionId).FirstOrDefault().TotalDebt,
+                            TotalCredit = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission) + g.Sum(s => s.ExtraCommission)) > 0 ? g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission) + g.Sum(s => s.ExtraCommission)) : 0,
+                            TotalDebt = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission) + g.Sum(s => s.ExtraCommission)) > 0 ? 0 : g.OrderByDescending(x => x.TransactionId).FirstOrDefault().TotalDebt,
                             CreatedBy = g.FirstOrDefault().CreatedBy,
                             CreatedDate = g.FirstOrDefault().CreatedDate
                         }).ToList();
@@ -1415,8 +1415,8 @@ namespace Ajoor
                             TotalWithdrawals = g.Sum(s => s.AmountCollected),
                             Commission = g.OrderByDescending(s => s.TransactionId).Where(x => x.Commission > 0).FirstOrDefault().Commission != null ? g.OrderByDescending(s => s.TransactionId).Where(x => x.Commission > 0).FirstOrDefault().Commission : 0,
                             ExtraCommission = g.OrderByDescending(s => s.TransactionId).Where(x => x.ExtraCommission > 0).FirstOrDefault().ExtraCommission != null ? g.OrderByDescending(s => s.TransactionId).Where(x => x.ExtraCommission > 0).FirstOrDefault().ExtraCommission : 0,
-                            TotalCredit = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) > 0 ? g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) : 0,
-                            TotalDebt = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) > 0 ? 0 : g.OrderByDescending(x => x.TransactionId).FirstOrDefault().TotalDebt,
+                            TotalCredit = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission) + g.Sum(s => s.ExtraCommission)) > 0 ? g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission) + g.Sum(s => s.ExtraCommission)) : 0,
+                            TotalDebt = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission) + g.Sum(s => s.ExtraCommission)) > 0 ? 0 : g.OrderByDescending(x => x.TransactionId).FirstOrDefault().TotalDebt,
                             CreatedBy = g.FirstOrDefault().CreatedBy,
                             CreatedDate = g.FirstOrDefault().CreatedDate
                         }).ToList();
