@@ -86,7 +86,7 @@ namespace Ajoor.BusinessLayer.Core
             return result;
         }
 
-        public static string getMonthName(int monthNumber)
+        public static string GetMonthName(int monthNumber)
         {
             switch (monthNumber)
             {
@@ -114,8 +114,9 @@ namespace Ajoor.BusinessLayer.Core
                     return "November";
                 case 12:
                     return "December";
+                default:
+                    return "December";
             }
-            return string.Empty;
         }
 
         public static void InitSpeaker()
@@ -143,6 +144,13 @@ namespace Ajoor.BusinessLayer.Core
         public static void DisposeSpeaker(SpeechSynthesizer speaker)
         {
             speaker.Dispose();
+        }
+
+        public static string GetLastDateOfPreviousMonth()
+        {
+            var numberOfDaysInCurrentMonth = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month - 1);
+            var dateInStringFormat = $"{numberOfDaysInCurrentMonth}-{DateTime.Now.Month - 1}-{DateTime.Now.Year}";
+            return dateInStringFormat;
         }
     }
 }

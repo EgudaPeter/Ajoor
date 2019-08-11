@@ -120,6 +120,15 @@ namespace Ajoor
                         var customer = _CustomerRepo.GetCustomer(int.Parse(cmb_Customers.SelectedValue.ToString()));
                         var customerTransaction = _TransactionRepo.GetAllTransactions()
                           .OrderByDescending(x => x.TransactionId).Where(x => x.CustomerId == customer.CustomerId).FirstOrDefault();
+                        DateTime date = new DateTime();
+                        if (!_TransactionRepo.HasMonthBeenClosed(DateTime.Now.Month - 1))
+                        {
+                            date = DateTime.Parse(Utilities.GetLastDateOfPreviousMonth());
+                        }
+                        else
+                        {
+                            date = DateTime.Now;
+                        }
                         Transactions transactions = new Transactions()
                         {
                             CustomerId = int.Parse(cmb_Customers.SelectedValue.ToString()),
@@ -127,12 +136,12 @@ namespace Ajoor
                             AmountCollected = 0m,
                             TransactionType = "Credit",
                             TotalDebt = customerTransaction != null ? customerTransaction.TotalDebt.HasValue ? decimal.Parse(txt_AmountContributed.Text) < customerTransaction.TotalDebt ? customerTransaction.TotalDebt - decimal.Parse(txt_AmountContributed.Text) : 0m : customerTransaction.TotalDebt : 0m,
-                            Date = DateTime.Now,
+                            Date = date,
                             Commission = 0m,
                             ExtraCommission = 0m,
                             AmountPayable = customerTransaction != null ? customerTransaction.TotalDebt.HasValue ? decimal.Parse(txt_AmountContributed.Text) >= customerTransaction.TotalDebt ? decimal.Parse(txt_AmountContributed.Text) - customerTransaction.TotalDebt : 0m : decimal.Parse(txt_AmountContributed.Text) : decimal.Parse(txt_AmountContributed.Text),
                             CreatedBy = Utilities.USERNAME,
-                            CreatedDate = DateTime.Now
+                            CreatedDate = date
                         };
                         if (_TransactionRepo.CreditTransaction(transactions))
                         {

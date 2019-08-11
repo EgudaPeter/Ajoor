@@ -272,7 +272,7 @@ namespace Ajoor
                     var daysLeftInCurrentMonth = numberOfDaysInCurrentMonth - dayInCurrentMonth;
                     if (daysLeftInCurrentMonth <= numberOfDaysToStartRemindingUser)
                     {
-                        var monthName = Utilities.getMonthName(DateTime.Now.Month);
+                        var monthName = Utilities.GetMonthName(DateTime.Now.Month);
                         if (settings.ReminderOptions.Equals(Utilities.REMINDEROPTION_USEVOICE))
                         {
                             Utilities.InitSpeaker();
@@ -350,8 +350,8 @@ namespace Ajoor
                         var dayInCurrentMonth = DateTime.Now.Day;
                         var numberOfDaysAllowedInFlexibleMode = int.Parse(settings.DaysToAllowForFlexibleClosingOfMonth);
                         var daysLeftInFlexibleMode = numberOfDaysAllowedInFlexibleMode - dayInCurrentMonth;
-                        var monthName = Utilities.getMonthName(DateTime.Now.Month);
-                        var previousMonthName = Utilities.getMonthName(DateTime.Now.Month - 1);
+                        var monthName = Utilities.GetMonthName(DateTime.Now.Month);
+                        var previousMonthName = Utilities.GetMonthName(DateTime.Now.Month - 1);
                         if (dayInCurrentMonth <= numberOfDaysAllowedInFlexibleMode)
                         {
                             if (settings.ReminderOptions.Equals(Utilities.REMINDEROPTION_USEVOICE))

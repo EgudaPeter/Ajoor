@@ -12,8 +12,8 @@ namespace BusinessLayer.Core
         {
             try
             {
-                string monthName = Utilities.getMonthName(DateTime.Now.Month);
-                string previousMonthName = Utilities.getMonthName(DateTime.Now.Month - 1);
+                string monthName = Utilities.GetMonthName(DateTime.Now.Month);
+                string previousMonthName = Utilities.GetMonthName(DateTime.Now.Month - 1);
                 TransactionRepo _TransactionRepo = new TransactionRepo();
                 switch (e.Result.Text)
                 {

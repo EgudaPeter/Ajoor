@@ -578,7 +578,9 @@ namespace Ajoor
             var dayInCurrentMonth = DateTime.Now.Day;
             var numberOfDaysToStartRemindingUser = int.Parse(settings.DaysToRemindForClosingMonth);
             var daysLeftInCurrentMonth = numberOfDaysInCurrentMonth - dayInCurrentMonth;
-            if(daysLeftInCurrentMonth == 0)
+            var numberOfDaysAllowedInFlexibleMode = int.Parse(settings.DaysToAllowForFlexibleClosingOfMonth);
+            var daysLeftInFlexibleMode = numberOfDaysAllowedInFlexibleMode - dayInCurrentMonth;
+            if (daysLeftInCurrentMonth == 0)
             {
                 if (_TransactionRepo.HasMonthBeenClosed(DateTime.Now.Month))
                 {
@@ -587,6 +589,18 @@ namespace Ajoor
                 else
                 {
                     btn_EndMonth.Enabled = true;
+                }
+            }
+
+            if (daysLeftInFlexibleMode == 0)
+            {
+                if (!_TransactionRepo.HasMonthBeenClosed(DateTime.Now.Month - 1))
+                {
+                    btn_EndMonthFlexibleMode.Enabled = true;
+                }
+                else
+                {
+                    btn_EndMonthFlexibleMode.Enabled = false;
                 }
             }
 
@@ -1570,10 +1584,10 @@ namespace Ajoor
             try
             {
                 var presentMonth = DateTime.Now.Month;
-                var monthName = Utilities.getMonthName(presentMonth);
+                var monthName = Utilities.GetMonthName(presentMonth);
                 if (!_TransactionRepo.HasMonthBeenClosed(presentMonth))
                 {
-                    switch (MessageBox.Show($"You are about to end the month of {monthName}. \n\nThis operation might take several minutes. Do you wish to continue?", "Superior Investment", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
+                    switch (MessageBox.Show($"You are about to close the month of {monthName}. \n\nThis operation might take several minutes. Do you wish to continue?", "Superior Investment", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
                     {
                         case DialogResult.Yes:
                             Cursor.Current = Cursors.WaitCursor;
@@ -1647,6 +1661,44 @@ namespace Ajoor
                 {
                     bgw_PullData.RunWorkerAsync();
                 }
+            }
+        }
+
+        private void btn_EndMonthFlexibleMode_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var previousMonth = DateTime.Now.Month - 1;
+                var monthName = Utilities.GetMonthName(previousMonth);
+                if (!_TransactionRepo.HasMonthBeenClosed(previousMonth))
+                {
+                    switch (MessageBox.Show($"You are about to close the previous month of {monthName}. \n\nThis operation might take several minutes. Do you wish to continue?", "Superior Investment", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
+                    {
+                        case DialogResult.Yes:
+                            Cursor.Current = Cursors.WaitCursor;
+                            if (_TransactionRepo.ClosePreviousMonthOperation())
+                            {
+                                MessageBox.Show($"The previous month of {monthName} has been closed successfully!", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                btn_EndMonthFlexibleMode.Enabled = false;
+                                if (!bgw_PullData.IsBusy)
+                                {
+                                    bgw_PullData.RunWorkerAsync();
+                                }
+                            }
+                            Cursor.Current = Cursors.Default;
+                            break;
+                        case DialogResult.No:
+                            return;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show($"The previous month of {monthName} has been closed already!", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{Utilities.ERRORMESSAGE} \n Error details: {ex.Message}", "Superior Investment!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

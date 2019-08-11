@@ -407,9 +407,7 @@ namespace Ajoor.BusinessLayer.Repos
                 TotalDebt = g.OrderByDescending(s => s.TransactionId).FirstOrDefault().TotalDebt > 0 ? g.OrderByDescending(s => s.TransactionId).FirstOrDefault().TotalDebt : 0,
             }).ToList();
             List<EndOfMonthTransactions> eomTransactions = new List<EndOfMonthTransactions>();
-            var numberOfDaysInCurrentMonth = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month - 1);
-            var dateInStringFormat = $"{numberOfDaysInCurrentMonth}-{DateTime.Now.Month - 1}-{DateTime.Now.Year}";
-            var date = DateTime.Parse(dateInStringFormat);
+            var date = DateTime.Parse(Utilities.GetLastDateOfPreviousMonth());
             foreach (var record in records)
             {
                 EndOfMonthTransactions transaction = new EndOfMonthTransactions()
@@ -443,6 +441,7 @@ namespace Ajoor.BusinessLayer.Repos
 
         public bool HasMonthBeenClosed(int month)
         {
+            month = month == 0 ? 12 : month;
             var eoms = GetEndOfMonthTransactions().Where(x => x.CreatedDate.Value.Month == month).ToList();
             if (eoms.Count == 0)
             {

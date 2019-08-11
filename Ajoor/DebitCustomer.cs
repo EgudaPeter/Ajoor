@@ -111,6 +111,15 @@ namespace Ajoor
                         var customer = _CustomerRepo.GetCustomer(int.Parse(cmb_Customers.SelectedValue.ToString()));
                         var customerTransaction = _TransactionRepo.GetAllTransactions()
                             .OrderByDescending(x => x.TransactionId).Where(x => x.CustomerId == customer.CustomerId).FirstOrDefault();
+                        DateTime date = new DateTime();
+                        if (!_TransactionRepo.HasMonthBeenClosed(DateTime.Now.Month - 1))
+                        {
+                            date = DateTime.Parse(Utilities.GetLastDateOfPreviousMonth());
+                        }
+                        else
+                        {
+                            date = DateTime.Now;
+                        }
                         if (customerTransaction != null)
                         {
                             if (decimal.Parse(txt_AmountCollected.Text) <= customerTransaction.AmountPayable)
@@ -121,12 +130,12 @@ namespace Ajoor
                                     AmountContributed = 0m,
                                     AmountCollected = decimal.Parse(txt_AmountCollected.Text),
                                     TransactionType = "Debit",
-                                    Date = DateTime.Now,
+                                    Date = date,
                                     Commission = 0m,
                                     ExtraCommission = 0m,
                                     AmountPayable = decimal.Parse(txt_AmountCollected.Text),
                                     CreatedBy = Utilities.USERNAME,
-                                    CreatedDate = DateTime.Now
+                                    CreatedDate = date
                                 };
                                 if (_TransactionRepo.DebitTransaction(transactions))
                                 {
@@ -155,14 +164,14 @@ namespace Ajoor
                                             AmountContributed = 0m,
                                             AmountCollected = decimal.Parse(txt_AmountCollected.Text),
                                             TransactionType = "Debit",
-                                            Date = DateTime.Now,
+                                            Date = date,
                                             Commission = 0m,
                                             ExtraCommission = 0m,
                                             AmountPayable = decimal.Parse(txt_AmountCollected.Text),
                                             Debt = debt,
                                             TotalDebt = customerTransaction.TotalDebt.HasValue ? customerTransaction.TotalDebt + debt : debt,
                                             CreatedBy = Utilities.USERNAME,
-                                            CreatedDate = DateTime.Now
+                                            CreatedDate = date
                                         };
                                         if (_TransactionRepo.DebitTransaction(transactions))
                                         {
@@ -196,14 +205,14 @@ namespace Ajoor
                                         AmountContributed = 0m,
                                         AmountCollected = decimal.Parse(txt_AmountCollected.Text),
                                         TransactionType = "Debit",
-                                        Date = DateTime.Now,
+                                        Date = date,
                                         Commission = 0m,
                                         ExtraCommission = 0m,
                                         AmountPayable = decimal.Parse(txt_AmountCollected.Text),
                                         Debt = debt,
                                         TotalDebt = customerTransaction != null ? customerTransaction.TotalDebt + debt : debt,
                                         CreatedBy = Utilities.USERNAME,
-                                        CreatedDate = DateTime.Now
+                                        CreatedDate = date
                                     };
                                     if (_TransactionRepo.DebitTransaction(transactions))
                                     {
@@ -283,6 +292,15 @@ namespace Ajoor
                     var customer = _CustomerRepo.GetCustomer(customerId);
                     var commission = _TransactionRepo.GetAllTransactions().Where(x => x.CustomerId == customerId && x.Commission == customer.Commission && x.Date.Value.Month == DateTime.Now.Month).FirstOrDefault();
                     var transactionRecord = _TransactionRepo.GetDebitTransactions().Where(x => x.CustomerId == customerId).OrderByDescending(p => p.TransactionId).FirstOrDefault();
+                    DateTime date = new DateTime();
+                    if (!_TransactionRepo.HasMonthBeenClosed(DateTime.Now.Month - 1))
+                    {
+                        date = DateTime.Parse(Utilities.GetLastDateOfPreviousMonth());
+                    }
+                    else
+                    {
+                        date = DateTime.Now;
+                    }
                     if (commission == null)
                     {
                         Transactions transactions = new Transactions()
@@ -291,14 +309,14 @@ namespace Ajoor
                             AmountContributed = 0m,
                             AmountCollected = 0m,
                             TransactionType = "Commission Charge",
-                            Date = DateTime.Now,
+                            Date = date,
                             Commission = customer.Commission,
                             ExtraCommission = 0m,
                             AmountPayable = 0m,
                             Debt = transactionRecord != null ? transactionRecord.Debt : customer.Commission,
                             TotalDebt = transactionRecord != null ? transactionRecord.TotalDebt + customer.Commission : customer.Commission,
                             CreatedBy = Utilities.USERNAME,
-                            CreatedDate = DateTime.Now
+                            CreatedDate = date
                         };
                         if (_TransactionRepo.DebitTransaction(transactions))
                         {
@@ -338,6 +356,15 @@ namespace Ajoor
                     var customer = _CustomerRepo.GetCustomer(customerId);
                     var extraCommission = _TransactionRepo.GetAllTransactions().Where(x => x.CustomerId == customerId && x.ExtraCommission == customer.Commission && x.Date.Value.Month == DateTime.Now.Month).FirstOrDefault();
                     var transactionRecord = _TransactionRepo.GetDebitTransactions().Where(x => x.CustomerId == customerId).OrderByDescending(p => p.TransactionId).FirstOrDefault();
+                    DateTime date = new DateTime();
+                    if (!_TransactionRepo.HasMonthBeenClosed(DateTime.Now.Month - 1))
+                    {
+                        date = DateTime.Parse(Utilities.GetLastDateOfPreviousMonth());
+                    }
+                    else
+                    {
+                        date = DateTime.Now;
+                    }
                     if (extraCommission == null)
                     {
                         Transactions transactions = new Transactions()
@@ -346,14 +373,14 @@ namespace Ajoor
                             AmountContributed = 0m,
                             AmountCollected = 0m,
                             TransactionType = "Extra Commission Charge",
-                            Date = DateTime.Now,
+                            Date = date,
                             Commission = 0m,
                             ExtraCommission = customer.Commission,
                             AmountPayable = 0m,
                             Debt = transactionRecord != null ? transactionRecord.Debt : customer.Commission,
                             TotalDebt = transactionRecord != null ? transactionRecord.TotalDebt + customer.Commission : customer.Commission,
                             CreatedBy = Utilities.USERNAME,
-                            CreatedDate = DateTime.Now
+                            CreatedDate = date
                         };
                         if (_TransactionRepo.DebitTransaction(transactions))
                         {
