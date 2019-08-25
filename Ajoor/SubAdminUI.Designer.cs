@@ -38,7 +38,7 @@
             this.btn_Debit = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.lb_LoggedIn = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lb_Copyright = new System.Windows.Forms.Label();
             this.panel_Controls.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -160,17 +160,17 @@
             this.lb_LoggedIn.Size = new System.Drawing.Size(0, 29);
             this.lb_LoggedIn.TabIndex = 5;
             // 
-            // label3
+            // lb_Copyright
             // 
-            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(509, 453);
-            this.label3.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(138, 18);
-            this.label3.TabIndex = 32;
-            this.label3.Text = "Copyright © 2018";
+            this.lb_Copyright.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.lb_Copyright.AutoSize = true;
+            this.lb_Copyright.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_Copyright.Location = new System.Drawing.Point(509, 453);
+            this.lb_Copyright.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.lb_Copyright.Name = "lb_Copyright";
+            this.lb_Copyright.Size = new System.Drawing.Size(138, 18);
+            this.lb_Copyright.TabIndex = 32;
+            this.lb_Copyright.Text = "Copyright © 2018";
             // 
             // SubAdminUI
             // 
@@ -180,7 +180,7 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1248, 480);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.lb_Copyright);
             this.Controls.Add(this.lb_LoggedIn);
             this.Controls.Add(this.panel_Controls);
             this.Controls.Add(this.label1);
@@ -202,7 +202,7 @@
         private System.Windows.Forms.Panel panel_Controls;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lb_LoggedIn;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lb_Copyright;
         private System.Windows.Forms.Button btn_Logout;
         private System.Windows.Forms.Button btn_ChangePassword;
         private System.Windows.Forms.Button btn_CreateCustomer;

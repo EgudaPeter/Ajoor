@@ -152,5 +152,11 @@ namespace Ajoor.BusinessLayer.Core
             var dateInStringFormat = $"{numberOfDaysInCurrentMonth}-{DateTime.Now.Month - 1}-{DateTime.Now.Year}";
             return dateInStringFormat;
         }
+
+        public enum Modes
+        {
+            NonFlexible = 0,
+            Flexible = 1
+        }
     }
 }

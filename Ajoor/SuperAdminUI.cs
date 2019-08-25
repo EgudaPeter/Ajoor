@@ -8,6 +8,8 @@ using System.IO;
 using System.Linq;
 using Ajoor.BusinessLayer.Repos;
 using BusinessLayer.Repos;
+using BusinessLayer.DTO;
+using static Ajoor.BusinessLayer.Core.Utilities;
 
 namespace Ajoor
 {
@@ -78,16 +80,11 @@ namespace Ajoor
 
         private void SuperAdminUI_Load(object sender, EventArgs e)
         {
-            lb_LoggedIn.Text = $"Welcome {Utilities.USERNAME}";
+            lb_LoggedIn.Text = $"Welcome {USERNAME}";
             lb_Copyright.Text = $"Copyright © {DateTime.Now.Year}";
             if (!bgw_PullData.IsBusy)
             {
                 bgw_PullData.RunWorkerAsync();
-            }
-
-            if (!bgw_EndOfMonthOperations.IsBusy)
-            {
-                bgw_EndOfMonthOperations.RunWorkerAsync();
             }
         }
 
@@ -170,7 +167,7 @@ namespace Ajoor
             catch (Exception ex)
             {
                 e.Result = ex.Message;
-                MessageBox.Show($"{Utilities.ERRORMESSAGE} \n Error details: {ex.Message}", "Superior Investment!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"{ERRORMESSAGE} \n Error details: {ex.Message}", "Superior Investment!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 lb_Progress.Invoke(new MethodInvoker(delegate
                 {
                     lb_Progress.Text = string.Empty;
@@ -182,7 +179,7 @@ namespace Ajoor
         {
             if (!e.Result.ToString().Equals("Done"))
             {
-                MessageBox.Show($"{Utilities.ERRORMESSAGE} \n Error details: {e.Result.ToString()}", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"{ERRORMESSAGE} \n Error details: {e.Result.ToString()}", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
@@ -198,11 +195,11 @@ namespace Ajoor
                 try
                 {
                     var count = _SubAdminRepo.GetAllRecords().Count();
-                    lb_TotalSubAdmin.Text = Utilities.CurrencyFormat(count.ToString());
+                    lb_TotalSubAdmin.Text = CurrencyFormat(count.ToString());
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"{Utilities.ERRORMESSAGE} \n Error details: {ex.Message}", "Superior Investment!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"{ERRORMESSAGE} \n Error details: {ex.Message}", "Superior Investment!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }));
 
@@ -211,11 +208,11 @@ namespace Ajoor
                 try
                 {
                     var count = _CustomerRepo.GetAllRecords().Count();
-                    lb_TotalCustomers.Text = Utilities.CurrencyFormat(count.ToString());
+                    lb_TotalCustomers.Text = CurrencyFormat(count.ToString());
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"{Utilities.ERRORMESSAGE} \n Error details: {ex.Message}", "Superior Investment!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"{ERRORMESSAGE} \n Error details: {ex.Message}", "Superior Investment!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }));
 
@@ -224,11 +221,11 @@ namespace Ajoor
                 try
                 {
                     var count = _TransactionRepo.GetCreditTransactions().Sum(x => x.AmountContributed) == null ? 0 : _TransactionRepo.GetCreditTransactions().Sum(x => x.AmountContributed);
-                    lb_TotalAmountContributed.Text = Utilities.CurrencyFormat(count.ToString());
+                    lb_TotalAmountContributed.Text = CurrencyFormat(count.ToString());
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"{Utilities.ERRORMESSAGE} \n Error details: {ex.Message}", "Superior Investment!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"{ERRORMESSAGE} \n Error details: {ex.Message}", "Superior Investment!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }));
 
@@ -237,11 +234,11 @@ namespace Ajoor
                 try
                 {
                     var count = _TransactionRepo.GetDebitTransactions().Sum(x => x.AmountCollected) == null ? 0 : _TransactionRepo.GetDebitTransactions().Sum(x => x.AmountCollected);
-                    lb_TotalAmountCollected.Text = Utilities.CurrencyFormat(count.ToString());
+                    lb_TotalAmountCollected.Text = CurrencyFormat(count.ToString());
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"{Utilities.ERRORMESSAGE} \n Error details: {ex.Message}", "Superior Investment!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"{ERRORMESSAGE} \n Error details: {ex.Message}", "Superior Investment!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }));
             Cursor.Current = Cursors.Default;
@@ -259,6 +256,14 @@ namespace Ajoor
             settingsForm.ShowDialog();
         }
 
+        private void bgw_PullData_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        {
+            if (!bgw_EndOfMonthOperations.IsBusy)
+            {
+                bgw_EndOfMonthOperations.RunWorkerAsync();
+            }
+        }
+
         private void bgw_EndOfMonthOperations_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             try
@@ -266,190 +271,255 @@ namespace Ajoor
                 var settings = _SettingsRepo.GetConfig();
                 if (settings.AllowReminderForClosingMonth)
                 {
-                    var numberOfDaysInCurrentMonth = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
-                    var dayInCurrentMonth = DateTime.Now.Day;
-                    var numberOfDaysToStartRemindingUser = int.Parse(settings.DaysToRemindForClosingMonth);
-                    var daysLeftInCurrentMonth = numberOfDaysInCurrentMonth - dayInCurrentMonth;
-                    if (daysLeftInCurrentMonth <= numberOfDaysToStartRemindingUser)
-                    {
-                        var monthName = Utilities.GetMonthName(DateTime.Now.Month);
-                        if (settings.ReminderOptions.Equals(Utilities.REMINDEROPTION_USEVOICE))
-                        {
-                            Utilities.InitSpeaker();
-                            switch (daysLeftInCurrentMonth)
-                            {
-                                case 0:
-                                    if (!_TransactionRepo.HasMonthBeenClosed(DateTime.Now.Month))
-                                    {
-                                        Utilities.speaker.Speak($"Hello {Utilities.USERNAME}. Today is the last day to close this month of {monthName}. Would you like me to close the month of {monthName}?");
-                                        Utilities.InitEngine();
-                                    }
-                                    else
-                                    {
-                                        Utilities.DisposeSpeaker(Utilities.speaker);
-                                    }
-                                    break;
-                                case 1:
-                                    Utilities.speaker.Speak($"Hello {Utilities.USERNAME}. You have {daysLeftInCurrentMonth} day left to close this month of {monthName}.");
-                                    Utilities.speaker.Speak($"Good bye.");
-                                    Utilities.DisposeSpeaker(Utilities.speaker);
-                                    break;
-                                default:
-                                    Utilities.speaker.Speak($"Hello {Utilities.USERNAME}. Including today, you have {daysLeftInCurrentMonth} days left to close this month of {monthName}.");
-                                    Utilities.speaker.Speak($"Good bye.");
-                                    Utilities.DisposeSpeaker(Utilities.speaker);
-                                    break;
-
-                            }
-                        }
-
-                        if (settings.ReminderOptions.Equals(Utilities.REMINDEROPTION_USEDIALOG))
-                        {
-                            switch (daysLeftInCurrentMonth)
-                            {
-                                case 0:
-                                    if (!_TransactionRepo.HasMonthBeenClosed(DateTime.Now.Month))
-                                    {
-                                        switch (MessageBox.Show($"Hello {Utilities.USERNAME}. Today is the last day to close this month of {monthName}. \n\nWould you like me to close the month of {monthName} now?", "Superior Investment", MessageBoxButtons.YesNo, MessageBoxIcon.Information))
-                                        {
-                                            case DialogResult.Yes:
-                                                MessageBox.Show($"Alright {Utilities.USERNAME}. I am about to close the month. This might take some time. \n\nPlease note that once the month has been closed, no postings will allowed anymore for the day.", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                                UseWaitCursor = true;
-                                                if (_TransactionRepo.CloseMonthOperation())
-                                                {
-                                                    MessageBox.Show($"Month of {monthName} has been closed. \n\nGood bye.", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                                }
-                                                UseWaitCursor = false;
-                                                break;
-                                            case DialogResult.No:
-                                                MessageBox.Show($"Alright {Utilities.USERNAME}. Please endeavour to close the month today. \n\nGood bye.", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                                break;
-                                        }
-                                    }
-                                    break;
-                                case 1:
-                                    MessageBox.Show($"Hello {Utilities.USERNAME}. You have {daysLeftInCurrentMonth} day left to close this month of {monthName}. \n\nGood bye.", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                    break;
-                                default:
-                                    MessageBox.Show($"Hello {Utilities.USERNAME}. Including today, you have {daysLeftInCurrentMonth} days left to close this month of {monthName}. \n\nGood bye.", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                    break;
-
-                            }
-                        }
-                    }
+                    AllowNonFlexibleClosingOfMonthOperation(settings);
                 }
-
-                if (_TransactionRepo.HasMonthBeenClosed(DateTime.Now.Month - 1))
-                {
-                    return;
-                }
-                else
+                if (!_TransactionRepo.HasMonthBeenClosed(DateTime.Now.Month - 1))
                 {
                     if (settings.AllowFlexibleClosingOfMonth)
                     {
-                        var dayInCurrentMonth = DateTime.Now.Day;
-                        var numberOfDaysAllowedInFlexibleMode = int.Parse(settings.DaysToAllowForFlexibleClosingOfMonth);
-                        var daysLeftInFlexibleMode = numberOfDaysAllowedInFlexibleMode - dayInCurrentMonth;
-                        var monthName = Utilities.GetMonthName(DateTime.Now.Month);
-                        var previousMonthName = Utilities.GetMonthName(DateTime.Now.Month - 1);
-                        if (dayInCurrentMonth <= numberOfDaysAllowedInFlexibleMode)
-                        {
-                            if (settings.ReminderOptions.Equals(Utilities.REMINDEROPTION_USEVOICE))
-                            {
-                                Utilities.InitSpeaker();
-                                switch (daysLeftInFlexibleMode)
-                                {
-                                    case 0:
-                                        if (!_TransactionRepo.HasMonthBeenClosed(DateTime.Now.Month - 1))
-                                        {
-                                            Utilities.speaker.Speak($"Hello {Utilities.USERNAME}. Today is the last day in the new month of {monthName} to close the previous month of {previousMonthName}. Would you like me to close the previous month of {previousMonthName}?");
-                                            Utilities.InitEngine();
-                                        }
-                                        else
-                                        {
-                                            Utilities.DisposeSpeaker(Utilities.speaker);
-                                        }
-                                        break;
-                                    case 1:
-                                        Utilities.speaker.Speak($"Hello {Utilities.USERNAME}. You have {daysLeftInFlexibleMode} day left in the new month of {monthName} to close the previous month of {previousMonthName}.");
-                                        Utilities.speaker.Speak($"Good bye.");
-                                        Utilities.DisposeSpeaker(Utilities.speaker);
-                                        break;
-                                    default:
-                                        Utilities.speaker.Speak($"Hello {Utilities.USERNAME}. Including today, you have {daysLeftInFlexibleMode} days left in the new month of {monthName} to close the previous month of {previousMonthName}.");
-                                        Utilities.speaker.Speak($"Good bye.");
-                                        Utilities.DisposeSpeaker(Utilities.speaker);
-                                        break;
-
-                                }
-                            }
-
-                            if (settings.ReminderOptions.Equals(Utilities.REMINDEROPTION_USEDIALOG))
-                            {
-                                switch (daysLeftInFlexibleMode)
-                                {
-                                    case 0:
-                                        if (!_TransactionRepo.HasMonthBeenClosed(DateTime.Now.Month - 1))
-                                        {
-                                            switch (MessageBox.Show($"Hello {Utilities.USERNAME}. Today is the last day in the new month of {monthName} to close the previous month of {previousMonthName}. \n\nWould you like me to close the previous month of {previousMonthName} now?", "Superior Investment", MessageBoxButtons.YesNo, MessageBoxIcon.Information))
-                                            {
-                                                case DialogResult.Yes:
-                                                    MessageBox.Show($"Alright {Utilities.USERNAME}. I am about to close the previous month of {previousMonthName}. \n\nThis might take some time.", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                                    UseWaitCursor = true;
-                                                    if (_TransactionRepo.ClosePreviousMonthOperation())
-                                                    {
-                                                        MessageBox.Show($"Previous month of {previousMonthName} has been closed. \n\nGood bye.", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                                    }
-                                                    UseWaitCursor = false;
-                                                    break;
-                                                case DialogResult.No:
-                                                    MessageBox.Show($"Alright {Utilities.USERNAME}. But Please endeavour to close the previous month of {previousMonthName} today. \n\nGood bye.", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                                    break;
-                                            }
-                                        }
-                                        break;
-                                    case 1:
-                                        MessageBox.Show($"Hello {Utilities.USERNAME}. You have {daysLeftInFlexibleMode} day left in the new month of {monthName} to close the previous month of {previousMonthName}. \n\nGood bye.", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                        break;
-                                    default:
-                                        MessageBox.Show($"Hello {Utilities.USERNAME}. Including today, you have {daysLeftInFlexibleMode} days left in the new month of {monthName} to close the previous month of {previousMonthName}. \n\nGood bye.", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                        break;
-
-                                }
-                            }
-                        }
-                        else
-                        {
-                            if (!_TransactionRepo.HasMonthBeenClosed(DateTime.Now.Month - 1))
-                            {
-                                if (settings.ReminderOptions.Equals(Utilities.REMINDEROPTION_USEVOICE))
-                                {
-                                    Utilities.InitSpeaker();
-                                    Utilities.speaker.Speak($"Hello {Utilities.USERNAME}. You have surpassed the maximum days available to close the previous month of {previousMonthName}. I am forcefully closing the previous month now.");
-                                    Utilities.speaker.Speak($"Closing previous month of {previousMonthName}");
-                                    UseWaitCursor = true;
-                                    _TransactionRepo.ClosePreviousMonthOperation();
-                                    UseWaitCursor = false;
-                                    Utilities.speaker.Speak($"Previous month of {previousMonthName} has been closed.");
-                                    Utilities.speaker.Speak($"Good bye.");
-                                    Utilities.DisposeSpeaker(Utilities.speaker);
-                                }
-                                if (settings.ReminderOptions.Equals(Utilities.REMINDEROPTION_USEDIALOG))
-                                {
-                                    MessageBox.Show($"Hello {Utilities.USERNAME}. You have surpassed the maximum days available to close the previous month of {previousMonthName}. \n\nI am forcefully closing the previous month now.", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                    UseWaitCursor = true;
-                                    _TransactionRepo.ClosePreviousMonthOperation();
-                                    UseWaitCursor = false;
-                                    MessageBox.Show($"Month of {previousMonthName} has been closed. \n\nGood bye.", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                }
-                            }
-                        }
+                        AllowFlexibleClosingOfMonthOperation(settings);
                     }
+                }
+                else
+                {
+                    return;
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"{Utilities.ERRORMESSAGE} \n Error details: {ex.Message}", "Superior Investment!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"{ERRORMESSAGE} \n Error details: {ex.Message}", "Superior Investment!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void AllowNonFlexibleClosingOfMonthOperation(SettingsConfig settings)
+        {
+            var numberOfDaysInCurrentMonth = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
+            var dayInCurrentMonth = DateTime.Now.Day;
+            var numberOfDaysToStartRemindingUser = int.Parse(settings.DaysToRemindForClosingMonth);
+            var daysLeftInCurrentMonth = numberOfDaysInCurrentMonth - dayInCurrentMonth;
+            if (daysLeftInCurrentMonth <= numberOfDaysToStartRemindingUser)
+            {
+                var monthName = GetMonthName(DateTime.Now.Month);
+                if (settings.ReminderOptions.Equals(REMINDEROPTION_USEVOICE))
+                {
+                    ReminderOptionUseVoiceOperation(daysLeftInCurrentMonth, monthName, string.Empty, Modes.NonFlexible);
+                }
+
+                if (settings.ReminderOptions.Equals(REMINDEROPTION_USEDIALOG))
+                {
+                    ReminderOptionUseDialogOperation(daysLeftInCurrentMonth, monthName, string.Empty, Modes.NonFlexible);
+                }
+            }
+        }
+
+        private void AllowFlexibleClosingOfMonthOperation(SettingsConfig settings)
+        {
+            var dayInCurrentMonth = DateTime.Now.Day;
+            var numberOfDaysAllowedInFlexibleMode = int.Parse(settings.DaysToAllowForFlexibleClosingOfMonth);
+            var daysLeftInFlexibleMode = numberOfDaysAllowedInFlexibleMode - dayInCurrentMonth;
+            var monthName = GetMonthName(DateTime.Now.Month);
+            var previousMonthName = GetMonthName(DateTime.Now.Month - 1);
+            if (dayInCurrentMonth <= numberOfDaysAllowedInFlexibleMode)
+            {
+                if (settings.ReminderOptions.Equals(REMINDEROPTION_USEVOICE))
+                {
+                    ReminderOptionUseVoiceOperation(daysLeftInFlexibleMode, monthName, previousMonthName, Modes.Flexible);
+                }
+
+                if (settings.ReminderOptions.Equals(REMINDEROPTION_USEDIALOG))
+                {
+                    ReminderOptionUseDialogOperation(daysLeftInFlexibleMode, monthName, previousMonthName, Modes.Flexible);
+                }
+            }
+            else
+            {
+                ForcefullyCloseMonth(settings, previousMonthName);
+            }
+        }
+
+        private void ReminderOptionUseVoiceOperation(int days, string monthName, string previousMonthName, Modes mode)
+        {
+            if (mode == Modes.NonFlexible)
+                OperationForNonFlexibleModeUsingVoice(days, monthName);
+            else
+                OperationForFlexibleModeUsingVoice(days, monthName, previousMonthName);
+        }
+
+        private void ReminderOptionUseDialogOperation(int days, string monthName, string previousMonthName, Modes mode)
+        {
+            if (mode == Modes.NonFlexible)
+                OperationForNonFlexibleModeUsingDialog(days, monthName);
+            else
+                OperationForFlexibleModeUsingDialog(days, monthName, previousMonthName);
+        }
+
+        private void OperationForNonFlexibleModeUsingVoice(int days, string monthName)
+        {
+            InitSpeaker();
+            int daysLeftInCurrentMonth = days;
+            switch (daysLeftInCurrentMonth)
+            {
+                case 0:
+                    if (!_TransactionRepo.HasMonthBeenClosed(DateTime.Now.Month))
+                    {
+                        speaker.Speak($"Hello {USERNAME}. Today is the last day to close this month of {monthName}. Would you like me to close the month of {monthName}?");
+                        InitEngine();
+                    }
+                    else
+                    {
+                        DisposeSpeaker(speaker);
+                    }
+                    break;
+                case 1:
+                    speaker.Speak($"Hello {USERNAME}. You have {daysLeftInCurrentMonth} day left to close this month of {monthName}.");
+                    speaker.Speak($"Good bye.");
+                    DisposeSpeaker(speaker);
+                    break;
+                default:
+                    speaker.Speak($"Hello {USERNAME}. Including today, you have {daysLeftInCurrentMonth} days left to close this month of {monthName}.");
+                    speaker.Speak($"Good bye.");
+                    DisposeSpeaker(speaker);
+                    break;
+
+            }
+        }
+
+        private void OperationForNonFlexibleModeUsingDialog(int days, string monthName)
+        {
+            int daysLeftInCurrentMonth = days;
+            switch (daysLeftInCurrentMonth)
+            {
+                case 0:
+                    if (!_TransactionRepo.HasMonthBeenClosed(DateTime.Now.Month))
+                    {
+                        switch (MessageBox.Show($"Hello {USERNAME}. Today is the last day to close this month of {monthName}. \n\nWould you like me to close the month of {monthName} now?", "Superior Investment", MessageBoxButtons.YesNo, MessageBoxIcon.Information))
+                        {
+                            case DialogResult.Yes:
+                                MessageBox.Show($"Alright {USERNAME}. I am about to close the month. This might take some time. \n\nPlease note that once the month has been closed, no postings will be allowed anymore for the day.", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                UseWaitCursor = true;
+                                if (_TransactionRepo.CloseMonthOperation())
+                                {
+                                    MessageBox.Show($"Month of {monthName} has been closed. \n\nGood bye.", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                }
+                                UseWaitCursor = false;
+                                break;
+                            case DialogResult.No:
+                                MessageBox.Show($"Alright {USERNAME}. Please endeavour to close the month today. \n\nGood bye.", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                break;
+                        }
+                    }
+                    break;
+                case 1:
+                    MessageBox.Show($"Hello {USERNAME}. You have {daysLeftInCurrentMonth} day left to close this month of {monthName}. \n\nGood bye.", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    break;
+                default:
+                    MessageBox.Show($"Hello {USERNAME}. Including today, you have {daysLeftInCurrentMonth} days left to close this month of {monthName}. \n\nGood bye.", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    break;
+
+            }
+        }
+
+        private void OperationForFlexibleModeUsingVoice(int days, string monthName, string previousMonthName)
+        {
+            InitSpeaker();
+            int daysLeftInFlexibleMode = days; string message = string.Empty;
+            switch (daysLeftInFlexibleMode)
+            {
+                case 0:
+                    message = $"Today is the last day in the new month of {monthName} to close the previous month of {previousMonthName}";
+                    DoActionForFlexibleModeUsingVoice(monthName, previousMonthName, message);
+                    break;
+                case 1:
+                    message = $"You have {daysLeftInFlexibleMode} day left in the new month of {monthName} to close the previous month of {previousMonthName}";
+                    DoActionForFlexibleModeUsingVoice(monthName, previousMonthName, message);
+                    break;
+                default:
+                    message = $"Including today, you have {daysLeftInFlexibleMode} days left in the new month of {monthName} to close the previous month of {previousMonthName}";
+                    DoActionForFlexibleModeUsingVoice(monthName, previousMonthName, message);
+                    break;
+
+            }
+        }
+
+        private void OperationForFlexibleModeUsingDialog(int days, string monthName, string previousMonthName)
+        {
+            int daysLeftInFlexibleMode = days; string message = string.Empty;
+            switch (daysLeftInFlexibleMode)
+            {
+                case 0:
+                    message = $"Today is the last day in the new month of {monthName} to close the previous month of {previousMonthName}";
+                    DoActionForFlexibleModeUsingDialog(monthName, previousMonthName, message);
+                    break;
+                case 1:
+                    message = $"You have {daysLeftInFlexibleMode} day left in the new month of {monthName} to close the previous month of {previousMonthName}";
+                    DoActionForFlexibleModeUsingDialog(monthName, previousMonthName, message);
+                    break;
+                default:
+                    message = $"Including today, you have {daysLeftInFlexibleMode} days left in the new month of {monthName} to close the previous month of {previousMonthName}";
+                    DoActionForFlexibleModeUsingDialog(monthName, previousMonthName, message);
+                    break;
+
+            }
+        }
+
+        private void DoActionForFlexibleModeUsingVoice(string monthName, string previousMonthName, string message)
+        {
+            if (!_TransactionRepo.HasMonthBeenClosed(DateTime.Now.Month - 1))
+            {
+                speaker.Speak($"Hello {USERNAME}. {message}. Would you like me to close the previous month of {previousMonthName} now?");
+                InitEngine();
+            }
+            else
+            {
+                DisposeSpeaker(speaker);
+            }
+        }
+
+        private void DoActionForFlexibleModeUsingDialog(string monthName, string previousMonthName, string message)
+        {
+            if (!_TransactionRepo.HasMonthBeenClosed(DateTime.Now.Month - 1))
+            {
+                switch (MessageBox.Show($"Hello {USERNAME}. {message}. \n\nWould you like me to close the previous month of {previousMonthName} now?", "Superior Investment", MessageBoxButtons.YesNo, MessageBoxIcon.Information))
+                {
+                    case DialogResult.Yes:
+                        MessageBox.Show($"Alright {USERNAME}. I am about to close the previous month of {previousMonthName}. \n\nThis might take some time.", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        UseWaitCursor = true;
+                        if (_TransactionRepo.ClosePreviousMonthOperation())
+                        {
+                            MessageBox.Show($"Previous month of {previousMonthName} has been closed. \n\nGood bye.", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        UseWaitCursor = false;
+                        break;
+                    case DialogResult.No:
+                        MessageBox.Show($"Alright {USERNAME}. But Please endeavour to close the previous month of {previousMonthName} soon. \n\nGood bye.", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        break;
+                }
+            }
+        }
+
+        private void ForcefullyCloseMonth(SettingsConfig settings, string previousMonthName)
+        {
+            if (!_TransactionRepo.HasMonthBeenClosed(DateTime.Now.Month - 1))
+            {
+                if (settings.ReminderOptions.Equals(REMINDEROPTION_USEVOICE))
+                {
+                    InitSpeaker();
+                    speaker.Speak($"Hello {USERNAME}. You have surpassed the maximum days available to close the previous month of {previousMonthName}. I am forcefully closing the previous month now.");
+                    speaker.Speak($"Closing previous month of {previousMonthName}");
+                    UseWaitCursor = true;
+                    _TransactionRepo.ClosePreviousMonthOperation();
+                    UseWaitCursor = false;
+                    speaker.Speak($"Previous month of {previousMonthName} has been closed.");
+                    speaker.Speak($"Good bye.");
+                    DisposeSpeaker(speaker);
+                }
+                if (settings.ReminderOptions.Equals(REMINDEROPTION_USEDIALOG))
+                {
+                    UseWaitCursor = true;
+                    _TransactionRepo.ClosePreviousMonthOperation();
+                    UseWaitCursor = false;
+                    MessageBox.Show($"Month of {previousMonthName} has been closed. \n\nGood bye.", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
         }
     }

@@ -592,7 +592,7 @@ namespace Ajoor
                 }
             }
 
-            if (daysLeftInFlexibleMode == 0)
+            if (dayInCurrentMonth <= numberOfDaysAllowedInFlexibleMode)
             {
                 if (!_TransactionRepo.HasMonthBeenClosed(DateTime.Now.Month - 1))
                 {

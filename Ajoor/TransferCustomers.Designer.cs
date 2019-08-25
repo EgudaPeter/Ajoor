@@ -210,6 +210,7 @@
             this.Controls.Add(this.dgv_Customers);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "TransferCustomers";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Superior Investment: Transfer Customers";
             this.Load += new System.EventHandler(this.TransferCustomers_Load);
             this.panel1.ResumeLayout(false);

@@ -14,7 +14,7 @@ namespace BusinessLayer.Repos
             settingsRecord.DaysToRemindForClosingMonth = settingsConfig.DaysToRemindForClosingMonth;
             settingsRecord.AllowFlexibleClosingOfMonth = settingsConfig.AllowFlexibleClosingOfMonth;
             settingsRecord.DaysToAllowForFlexibleClosingOfMonth = settingsConfig.DaysToAllowForFlexibleClosingOfMonth;
-            settingsRecord.ReminderOptions = settingsConfig.ReminderOptions;
+            settingsRecord.ReminderOptions = settingsConfig.ReminderOptions == string.Empty ? settingsRecord.ReminderOptions : settingsConfig.ReminderOptions;
             return entities.SaveChanges() > 0;
         }
 

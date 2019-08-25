@@ -33,10 +33,6 @@ namespace Ajoor
                         MessageBox.Show("Please select a reminder option", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
-                    if (rbtn_UseVoice.Checked)
-                        reminderOption = Utilities.REMINDEROPTION_USEVOICE;
-                    if (rbtn_UseDialog.Checked)
-                        reminderOption = Utilities.REMINDEROPTION_USEDIALOG;
                 }
                 daysToRemind = daysToWaitForFlexibleClosing = "0";
                 if (chk_AllowReminder.Checked)
@@ -63,6 +59,10 @@ namespace Ajoor
                         return;
                     }
                 }
+                if (rbtn_UseVoice.Checked)
+                    reminderOption = Utilities.REMINDEROPTION_USEVOICE;
+                if (rbtn_UseDialog.Checked)
+                    reminderOption = Utilities.REMINDEROPTION_USEDIALOG;
                 SettingsConfig settingsConfig = new SettingsConfig()
                 {
                     AllowReminderForClosingMonth = chk_AllowReminder.Checked ? true : false,

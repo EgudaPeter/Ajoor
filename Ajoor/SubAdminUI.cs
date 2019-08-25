@@ -16,6 +16,7 @@ namespace Ajoor
         private void SubAdminUI_Load(object sender, EventArgs e)
         {
             lb_LoggedIn.Text = $"Welcome {Utilities.USERNAME}";
+            lb_Copyright.Text = $"Copyright © {DateTime.Now.Year}";
         }
 
         private void btn_Logout_Click(object sender, EventArgs e)

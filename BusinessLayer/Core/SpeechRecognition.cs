@@ -33,7 +33,7 @@ namespace BusinessLayer.Core
                         else
                         {
                             Utilities.speaker.Speak($"Alright {Utilities.USERNAME}. I am about to close the month of {monthName}. This might take some time.");
-                            Utilities.speaker.Speak($"Please note that once the month has been closed, no postings will allowed anymore for the day.");
+                            Utilities.speaker.Speak($"Please note that once the month has been closed, no postings will be allowed anymore for the day.");
                             Utilities.speaker.Speak($"Closing month of {monthName}");
                             if (_TransactionRepo.CloseMonthOperation())
                             {
@@ -46,9 +46,9 @@ namespace BusinessLayer.Core
                         break;
                     case "No":
                         if (!_TransactionRepo.HasMonthBeenClosed(DateTime.Now.Month - 1))
-                            Utilities.speaker.Speak($"Alright {Utilities.USERNAME}. But Please endeavour to close the previous month of {previousMonthName} today");
+                            Utilities.speaker.Speak($"Alright {Utilities.USERNAME}. But Please endeavour to close the previous month of {previousMonthName} soon.");
                         else
-                            Utilities.speaker.Speak($"Alright {Utilities.USERNAME}. But Please endeavour to close the month of {monthName} today");
+                            Utilities.speaker.Speak($"Alright {Utilities.USERNAME}. But Please endeavour to close the month of {monthName} today.");
                         Utilities.speaker.Speak($"Good bye.");
                         Utilities.DisposeSpeaker(Utilities.speaker);
                         Utilities.DisposeEngine(Utilities.engine);
