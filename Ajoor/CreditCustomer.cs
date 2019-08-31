@@ -91,9 +91,19 @@ namespace Ajoor
         {
             txt_AccountNumber.ReadOnly = true; txt_Commission.ReadOnly = true;
             txt_TotalDebt.ReadOnly = true; txt_TotalCredit.ReadOnly = true;
-            if (!bgwGetCustomers.IsBusy)
+            if (_TransactionRepo.HasMonthBeenClosed(DateTime.Now.Month))
             {
-                bgwGetCustomers.RunWorkerAsync();
+                txt_AmountContributed.Enabled = false; cmb_Customers.Enabled = false;
+                btn_Credit.Enabled = false;
+            }
+            else
+            {
+                txt_AmountContributed.Enabled = true; cmb_Customers.Enabled = true;
+                btn_Credit.Enabled = true;
+                if (!bgwGetCustomers.IsBusy)
+                {
+                    bgwGetCustomers.RunWorkerAsync();
+                }
             }
         }
 

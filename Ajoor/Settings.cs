@@ -73,7 +73,7 @@ namespace Ajoor
                 };
                 if (_SettingsRepo.SaveSettings(settingsConfig))
                 {
-                    MessageBox.Show("Operation successful!", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Operation successful! \n\nPlease note that changes will take effect once system restarts.", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch(Exception ex)

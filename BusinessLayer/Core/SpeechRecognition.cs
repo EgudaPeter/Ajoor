@@ -2,7 +2,6 @@
 using Ajoor.BusinessLayer.Repos;
 using System;
 using System.Speech.Recognition;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace BusinessLayer.Core
@@ -18,19 +17,26 @@ namespace BusinessLayer.Core
                 switch (e.Result.Text)
                 {
                     case "Yes":
-                        Utilities.speaker.Speak($"Alright {Utilities.USERNAME}. I am about to close the month. This might take some time.");
-                        Utilities.speaker.Speak($"Please note that once the month has been closed, no postings will allowed anymore for the day.");
-                        Utilities.speaker.Speak($"Closing month of {monthName}");
-                        if (_TransactionRepo.CloseMonthOperation())
+                        if (!_TransactionRepo.HasMonthBeenClosed(DateTime.Now.Month - 1))
                         {
-                            Utilities.speaker.Speak($"Month of {monthName} has been closed {Utilities.USERNAME}.");
-                            Utilities.speaker.Speak($"Good bye.");
+                            return;
                         }
-                        Utilities.DisposeSpeaker(Utilities.speaker);
-                        Utilities.DisposeEngine(Utilities.engine);
+                        else
+                        {
+                            Utilities.speaker.Speak($"Alright {Utilities.USERNAME}. I am about to close the month. This might take some time.");
+                            Utilities.speaker.Speak($"Please note that once the month has been closed, no postings will allowed anymore for the day.");
+                            Utilities.speaker.Speak($"Closing month of {monthName}");
+                            if (_TransactionRepo.CloseMonthOperation())
+                            {
+                                Utilities.speaker.Speak($"Month of {monthName} has been closed {Utilities.USERNAME}.");
+                                Utilities.speaker.Speak($"Good bye.");
+                            }
+                            Utilities.DisposeSpeaker(Utilities.speaker);
+                            Utilities.DisposeEngine(Utilities.engine);
+                        }
                         break;
                     case "No":
-                        Utilities.speaker.Speak($"Alright {Utilities.USERNAME}");
+                        Utilities.speaker.Speak($"Alright {Utilities.USERNAME}. But Please endeavour to close the month today");
                         Utilities.speaker.Speak($"Good bye.");
                         Utilities.DisposeSpeaker(Utilities.speaker);
                         Utilities.DisposeEngine(Utilities.engine);

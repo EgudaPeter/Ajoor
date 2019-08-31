@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SuperAdminUI));
             this.btn_CreateSubAdmin = new System.Windows.Forms.Button();
             this.panel_Controls = new System.Windows.Forms.Panel();
+            this.btn_Settings = new System.Windows.Forms.Button();
             this.btn_TransferCustomer = new System.Windows.Forms.Button();
             this.btn_CreateCustomer = new System.Windows.Forms.Button();
             this.btn_Summary = new System.Windows.Forms.Button();
@@ -58,7 +59,6 @@
             this.lb_TotalCustomers = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.bgw_PullData = new System.ComponentModel.BackgroundWorker();
-            this.btn_Settings = new System.Windows.Forms.Button();
             this.bgw_EndOfMonthOperations = new System.ComponentModel.BackgroundWorker();
             this.panel_Controls.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -98,6 +98,19 @@
             this.panel_Controls.Name = "panel_Controls";
             this.panel_Controls.Size = new System.Drawing.Size(278, 717);
             this.panel_Controls.TabIndex = 1;
+            // 
+            // btn_Settings
+            // 
+            this.btn_Settings.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btn_Settings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_Settings.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_Settings.Location = new System.Drawing.Point(19, 597);
+            this.btn_Settings.Name = "btn_Settings";
+            this.btn_Settings.Size = new System.Drawing.Size(243, 46);
+            this.btn_Settings.TabIndex = 10;
+            this.btn_Settings.Text = "Settings";
+            this.btn_Settings.UseVisualStyleBackColor = true;
+            this.btn_Settings.Click += new System.EventHandler(this.btn_Settings_Click);
             // 
             // btn_TransferCustomer
             // 
@@ -283,7 +296,7 @@
             this.groupBox1.ForeColor = System.Drawing.Color.Black;
             this.groupBox1.Location = new System.Drawing.Point(368, 175);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(255, 127);
+            this.groupBox1.Size = new System.Drawing.Size(252, 127);
             this.groupBox1.TabIndex = 36;
             this.groupBox1.TabStop = false;
             // 
@@ -388,7 +401,7 @@
             this.groupBox4.Controls.Add(this.label10);
             this.groupBox4.Location = new System.Drawing.Point(914, 175);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(252, 127);
+            this.groupBox4.Size = new System.Drawing.Size(249, 127);
             this.groupBox4.TabIndex = 37;
             this.groupBox4.TabStop = false;
             // 
@@ -418,19 +431,6 @@
             // bgw_PullData
             // 
             this.bgw_PullData.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgw_PullData_DoWork);
-            // 
-            // btn_Settings
-            // 
-            this.btn_Settings.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btn_Settings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_Settings.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_Settings.Location = new System.Drawing.Point(19, 597);
-            this.btn_Settings.Name = "btn_Settings";
-            this.btn_Settings.Size = new System.Drawing.Size(243, 46);
-            this.btn_Settings.TabIndex = 10;
-            this.btn_Settings.Text = "Settings";
-            this.btn_Settings.UseVisualStyleBackColor = true;
-            this.btn_Settings.Click += new System.EventHandler(this.btn_Settings_Click);
             // 
             // bgw_EndOfMonthOperations
             // 
@@ -481,8 +481,6 @@
         private System.Windows.Forms.Panel panel_Controls;
         private System.Windows.Forms.Button btn_Summary;
         private System.Windows.Forms.Button btn_CreateCustomer;
-        private System.Windows.Forms.Button btn_Debit;
-        private System.Windows.Forms.Button btn_Credit;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btn_Logout;
         private System.Windows.Forms.Button btn_ChangePassword;
@@ -508,5 +506,7 @@
         private System.Windows.Forms.Button btn_TransferCustomer;
         private System.Windows.Forms.Button btn_Settings;
         private System.ComponentModel.BackgroundWorker bgw_EndOfMonthOperations;
+        private System.Windows.Forms.Button btn_Debit;
+        private System.Windows.Forms.Button btn_Credit;
     }
 }

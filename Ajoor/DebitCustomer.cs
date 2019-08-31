@@ -79,9 +79,22 @@ namespace Ajoor
         {
             txt_AccountNumber.ReadOnly = true; txt_Commission.ReadOnly = true;
             txt_TotalDebt.ReadOnly = true; txt_TotalCredit.ReadOnly = true;
-            if (!bgwGetCustomers.IsBusy)
+
+            if (_TransactionRepo.HasMonthBeenClosed(DateTime.Now.Month))
             {
-                bgwGetCustomers.RunWorkerAsync();
+                txt_AmountCollected.Enabled = false; cmb_Customers.Enabled = false;
+                btn_Debit.Enabled = false; btn_ChargeCommission.Enabled = false;
+                btn_ExtraCommision.Enabled = false;
+            }
+            else
+            {
+                txt_AmountCollected.Enabled = true; cmb_Customers.Enabled = true;
+                btn_Debit.Enabled = true; btn_ChargeCommission.Enabled = true;
+                btn_ExtraCommision.Enabled = true;
+                if (!bgwGetCustomers.IsBusy)
+                {
+                    bgwGetCustomers.RunWorkerAsync();
+                }
             }
         }
 

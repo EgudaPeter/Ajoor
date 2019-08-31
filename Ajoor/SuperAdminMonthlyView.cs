@@ -10,6 +10,7 @@ using System.Drawing;
 using System.Drawing.Printing;
 using System.Linq;
 using System.Windows.Forms;
+using BusinessLayer.Repos;
 
 namespace Ajoor
 {
@@ -18,6 +19,7 @@ namespace Ajoor
         TransactionRepo _TransactionRepo = new TransactionRepo();
         SubAdminRepo _SubAdminRepo = new SubAdminRepo();
         CustomerRepo _CustomerRepo = new CustomerRepo();
+        SettingsRepo _SettingsRepo = new SettingsRepo();
 
         int iCellHeight = 0; //Used to get/set the datagridview cell height
         int iTotalWidth = 0; //
@@ -570,6 +572,24 @@ namespace Ajoor
             txt_TotalCredit.ReadOnly = true; txt_TotalDebit.ReadOnly = true;
             txt_TotalCommission.ReadOnly = true; txt_TotalExtraCommission.ReadOnly = true;
             txt_TotalDebt.ReadOnly = true; txt_TotalAmountPayable.ReadOnly = true;
+
+            var settings = _SettingsRepo.GetConfig();
+            var numberOfDaysInCurrentMonth = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
+            var dayInCurrentMonth = DateTime.Now.Day;
+            var numberOfDaysToStartRemindingUser = int.Parse(settings.DaysToRemindForClosingMonth);
+            var daysLeftInCurrentMonth = numberOfDaysInCurrentMonth - dayInCurrentMonth;
+            if(daysLeftInCurrentMonth == 0)
+            {
+                if (_TransactionRepo.HasMonthBeenClosed(DateTime.Now.Month))
+                {
+                    btn_EndMonth.Enabled = false;
+                }
+                else
+                {
+                    btn_EndMonth.Enabled = true;
+                }
+            }
+
             Cursor.Current = Cursors.WaitCursor;
             if (!bgw_SubAdmin.IsBusy)
             {
@@ -1560,6 +1580,7 @@ namespace Ajoor
                             if (_TransactionRepo.CloseMonthOperation())
                             {
                                 MessageBox.Show($"The month of {monthName} has been closed successfully!", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                btn_EndMonth.Enabled = false;
                                 if (!bgw_PullData.IsBusy)
                                 {
                                     bgw_PullData.RunWorkerAsync();

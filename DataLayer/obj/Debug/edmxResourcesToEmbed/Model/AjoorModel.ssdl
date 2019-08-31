@@ -29,10 +29,6 @@
     <Property Name="ReminderOptions" Type="nvarchar" MaxLength="50" />
     <Property Name="AllowFlexibleClosingOfMonth" Type="bit" Nullable="false" />
     <Property Name="DaysToAllowForFlexibleClosingOfMonth" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="StartedRemindingUserToCloseMonthInNonFlexibleMode" Type="bit" />
-    <Property Name="DaysLeftToRemindUserToCloseMonthInNonFlexibleMode" Type="nvarchar" MaxLength="50" />
-    <Property Name="StartedRemindingUserToCloseMonthInFlexibleMode" Type="bit" />
-    <Property Name="DaysLeftToRemindUserToCloseMonthInFlexibleMode" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="cor_sub_admin">
     <Key>

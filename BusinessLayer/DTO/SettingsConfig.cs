@@ -14,9 +14,5 @@ namespace BusinessLayer.DTO
         public string ReminderOptions { get; set; }
         public bool AllowFlexibleClosingOfMonth { get; set; }
         public string DaysToAllowForFlexibleClosingOfMonth { get; set; }
-        public bool? StartedRemindingUserToCloseMonthInNonFlexibleMode { get; set; }
-        public string DaysLeftToRemindUserToCloseMonthInNonFlexibleMode { get; set; }
-        public bool? StartedRemindingUserToCloseMonthInFlexibleMode { get; set; }
-        public string DaysLeftToRemindUserToCloseMonthInFlexibleMode { get; set; }
     }
 }

@@ -34,10 +34,6 @@
           <Property Name="ReminderOptions" Type="nvarchar" MaxLength="50" />
           <Property Name="AllowFlexibleClosingOfMonth" Type="bit" Nullable="false" />
           <Property Name="DaysToAllowForFlexibleClosingOfMonth" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="StartedRemindingUserToCloseMonthInNonFlexibleMode" Type="bit" />
-          <Property Name="DaysLeftToRemindUserToCloseMonthInNonFlexibleMode" Type="nvarchar" MaxLength="50" />
-          <Property Name="StartedRemindingUserToCloseMonthInFlexibleMode" Type="bit" />
-          <Property Name="DaysLeftToRemindUserToCloseMonthInFlexibleMode" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="cor_sub_admin">
           <Key>
@@ -222,10 +218,6 @@
           <Property Name="ReminderOptions" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="AllowFlexibleClosingOfMonth" Type="Boolean" Nullable="false" />
           <Property Name="DaysToAllowForFlexibleClosingOfMonth" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="StartedRemindingUserToCloseMonthInNonFlexibleMode" Type="Boolean" />
-          <Property Name="DaysLeftToRemindUserToCloseMonthInNonFlexibleMode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="StartedRemindingUserToCloseMonthInFlexibleMode" Type="Boolean" />
-          <Property Name="DaysLeftToRemindUserToCloseMonthInFlexibleMode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -327,10 +319,6 @@
           <EntitySetMapping Name="cor_settings_config">
             <EntityTypeMapping TypeName="AjoModel.cor_settings_config">
               <MappingFragment StoreEntitySet="cor_settings_config">
-                <ScalarProperty Name="DaysLeftToRemindUserToCloseMonthInFlexibleMode" ColumnName="DaysLeftToRemindUserToCloseMonthInFlexibleMode" />
-                <ScalarProperty Name="StartedRemindingUserToCloseMonthInFlexibleMode" ColumnName="StartedRemindingUserToCloseMonthInFlexibleMode" />
-                <ScalarProperty Name="DaysLeftToRemindUserToCloseMonthInNonFlexibleMode" ColumnName="DaysLeftToRemindUserToCloseMonthInNonFlexibleMode" />
-                <ScalarProperty Name="StartedRemindingUserToCloseMonthInNonFlexibleMode" ColumnName="StartedRemindingUserToCloseMonthInNonFlexibleMode" />
                 <ScalarProperty Name="DaysToAllowForFlexibleClosingOfMonth" ColumnName="DaysToAllowForFlexibleClosingOfMonth" />
                 <ScalarProperty Name="AllowFlexibleClosingOfMonth" ColumnName="AllowFlexibleClosingOfMonth" />
                 <ScalarProperty Name="ReminderOptions" ColumnName="ReminderOptions" />

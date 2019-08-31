@@ -20,9 +20,5 @@ namespace DataLayer.Model
         public string ReminderOptions { get; set; }
         public bool AllowFlexibleClosingOfMonth { get; set; }
         public string DaysToAllowForFlexibleClosingOfMonth { get; set; }
-        public Nullable<bool> StartedRemindingUserToCloseMonthInNonFlexibleMode { get; set; }
-        public string DaysLeftToRemindUserToCloseMonthInNonFlexibleMode { get; set; }
-        public Nullable<bool> StartedRemindingUserToCloseMonthInFlexibleMode { get; set; }
-        public string DaysLeftToRemindUserToCloseMonthInFlexibleMode { get; set; }
     }
 }

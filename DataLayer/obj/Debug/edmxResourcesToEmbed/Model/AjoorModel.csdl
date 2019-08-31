@@ -104,9 +104,5 @@
     <Property Name="ReminderOptions" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="AllowFlexibleClosingOfMonth" Type="Boolean" Nullable="false" />
     <Property Name="DaysToAllowForFlexibleClosingOfMonth" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="StartedRemindingUserToCloseMonthInNonFlexibleMode" Type="Boolean" />
-    <Property Name="DaysLeftToRemindUserToCloseMonthInNonFlexibleMode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="StartedRemindingUserToCloseMonthInFlexibleMode" Type="Boolean" />
-    <Property Name="DaysLeftToRemindUserToCloseMonthInFlexibleMode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
   </EntityType>
 </Schema>

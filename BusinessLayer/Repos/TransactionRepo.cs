@@ -315,7 +315,6 @@ namespace Ajoor.BusinessLayer.Repos
 
         public IQueryable<EndOfMonthTransactions> GetEndOfMonthTransactions()
         {
-
             var query = from a in entities.cor_transactions
                         join b in entities.cor_customer on a.CustomerId equals b.CustomerId
 

@@ -54,6 +54,7 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btn_EndMonth = new System.Windows.Forms.Button();
             this.btnView = new System.Windows.Forms.Button();
             this.btn_Print = new System.Windows.Forms.Button();
             this.btn_Go = new System.Windows.Forms.Button();
@@ -72,7 +73,6 @@
             this.bgw_PullReport_SubAdminAndCustomerOnly = new System.ComponentModel.BackgroundWorker();
             this.bgw_PullReport_DatesAndSubAdminAndCustomerOnly = new System.ComponentModel.BackgroundWorker();
             this.bgw_DatesAndCustomerOnly = new System.ComponentModel.BackgroundWorker();
-            this.btn_EndMonth = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_SummaryMonthlyView)).BeginInit();
@@ -338,6 +338,21 @@
             this.panel1.Size = new System.Drawing.Size(152, 350);
             this.panel1.TabIndex = 135;
             // 
+            // btn_EndMonth
+            // 
+            this.btn_EndMonth.BackColor = System.Drawing.Color.DimGray;
+            this.btn_EndMonth.Enabled = false;
+            this.btn_EndMonth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_EndMonth.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_EndMonth.ForeColor = System.Drawing.Color.White;
+            this.btn_EndMonth.Location = new System.Drawing.Point(7, 215);
+            this.btn_EndMonth.Name = "btn_EndMonth";
+            this.btn_EndMonth.Size = new System.Drawing.Size(142, 59);
+            this.btn_EndMonth.TabIndex = 151;
+            this.btn_EndMonth.Text = "End Month";
+            this.btn_EndMonth.UseVisualStyleBackColor = false;
+            this.btn_EndMonth.Click += new System.EventHandler(this.btn_EndMonth_Click);
+            // 
             // btnView
             // 
             this.btnView.BackColor = System.Drawing.Color.DimGray;
@@ -477,20 +492,6 @@
             // bgw_DatesAndCustomerOnly
             // 
             this.bgw_DatesAndCustomerOnly.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgw_DatesAndCustomerOnly_DoWork);
-            // 
-            // btn_EndMonth
-            // 
-            this.btn_EndMonth.BackColor = System.Drawing.Color.DimGray;
-            this.btn_EndMonth.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_EndMonth.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_EndMonth.ForeColor = System.Drawing.Color.White;
-            this.btn_EndMonth.Location = new System.Drawing.Point(7, 215);
-            this.btn_EndMonth.Name = "btn_EndMonth";
-            this.btn_EndMonth.Size = new System.Drawing.Size(142, 59);
-            this.btn_EndMonth.TabIndex = 151;
-            this.btn_EndMonth.Text = "End Month";
-            this.btn_EndMonth.UseVisualStyleBackColor = false;
-            this.btn_EndMonth.Click += new System.EventHandler(this.btn_EndMonth_Click);
             // 
             // SuperAdminMonthlyView
             // 

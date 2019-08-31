@@ -15,10 +15,6 @@ namespace BusinessLayer.Repos
             settingsRecord.AllowFlexibleClosingOfMonth = settingsConfig.AllowFlexibleClosingOfMonth;
             settingsRecord.DaysToAllowForFlexibleClosingOfMonth = settingsConfig.DaysToAllowForFlexibleClosingOfMonth;
             settingsRecord.ReminderOptions = settingsConfig.ReminderOptions;
-            settingsRecord.StartedRemindingUserToCloseMonthInNonFlexibleMode = settingsConfig.StartedRemindingUserToCloseMonthInNonFlexibleMode;
-            settingsRecord.DaysLeftToRemindUserToCloseMonthInNonFlexibleMode = settingsConfig.DaysLeftToRemindUserToCloseMonthInNonFlexibleMode;
-            settingsRecord.StartedRemindingUserToCloseMonthInFlexibleMode = settingsConfig.StartedRemindingUserToCloseMonthInFlexibleMode;
-            settingsRecord.DaysLeftToRemindUserToCloseMonthInFlexibleMode = settingsConfig.DaysLeftToRemindUserToCloseMonthInFlexibleMode;
             return entities.SaveChanges() > 0;
         }
 
@@ -32,11 +28,7 @@ namespace BusinessLayer.Repos
                 DaysToRemindForClosingMonth = settingsRecord.DaysToRemindForClosingMonth,
                 AllowFlexibleClosingOfMonth = settingsRecord.AllowFlexibleClosingOfMonth,
                 DaysToAllowForFlexibleClosingOfMonth = settingsRecord.DaysToAllowForFlexibleClosingOfMonth,
-                ReminderOptions = settingsRecord.ReminderOptions,
-                StartedRemindingUserToCloseMonthInNonFlexibleMode = settingsRecord.StartedRemindingUserToCloseMonthInNonFlexibleMode,
-                DaysLeftToRemindUserToCloseMonthInNonFlexibleMode = settingsRecord.DaysLeftToRemindUserToCloseMonthInNonFlexibleMode,
-                StartedRemindingUserToCloseMonthInFlexibleMode = settingsRecord.StartedRemindingUserToCloseMonthInFlexibleMode,
-                DaysLeftToRemindUserToCloseMonthInFlexibleMode = settingsRecord.DaysLeftToRemindUserToCloseMonthInFlexibleMode
+                ReminderOptions = settingsRecord.ReminderOptions
             };
             return settingsConfig;
         }
