@@ -92,5 +92,21 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="cor_settings_config">
+      <EntityTypeMapping TypeName="AjoModel.cor_settings_config">
+        <MappingFragment StoreEntitySet="cor_settings_config">
+          <ScalarProperty Name="DaysLeftToRemindUserToCloseMonthInFlexibleMode" ColumnName="DaysLeftToRemindUserToCloseMonthInFlexibleMode" />
+          <ScalarProperty Name="StartedRemindingUserToCloseMonthInFlexibleMode" ColumnName="StartedRemindingUserToCloseMonthInFlexibleMode" />
+          <ScalarProperty Name="DaysLeftToRemindUserToCloseMonthInNonFlexibleMode" ColumnName="DaysLeftToRemindUserToCloseMonthInNonFlexibleMode" />
+          <ScalarProperty Name="StartedRemindingUserToCloseMonthInNonFlexibleMode" ColumnName="StartedRemindingUserToCloseMonthInNonFlexibleMode" />
+          <ScalarProperty Name="DaysToAllowForFlexibleClosingOfMonth" ColumnName="DaysToAllowForFlexibleClosingOfMonth" />
+          <ScalarProperty Name="AllowFlexibleClosingOfMonth" ColumnName="AllowFlexibleClosingOfMonth" />
+          <ScalarProperty Name="ReminderOptions" ColumnName="ReminderOptions" />
+          <ScalarProperty Name="DaysToRemindForClosingMonth" ColumnName="DaysToRemindForClosingMonth" />
+          <ScalarProperty Name="AllowReminderForClosingMonth" ColumnName="AllowReminderForClosingMonth" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

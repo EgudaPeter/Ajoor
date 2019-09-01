@@ -1,5 +1,5 @@
 ﻿using System.Windows.Forms;
-using Ajoor.Core;
+using Ajoor.BusinessLayer.Core;
 
 namespace Ajoor
 {

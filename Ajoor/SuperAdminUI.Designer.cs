@@ -58,6 +58,8 @@
             this.lb_TotalCustomers = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.bgw_PullData = new System.ComponentModel.BackgroundWorker();
+            this.btn_Settings = new System.Windows.Forms.Button();
+            this.bgw_EndOfMonthOperations = new System.ComponentModel.BackgroundWorker();
             this.panel_Controls.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -70,7 +72,7 @@
             this.btn_CreateSubAdmin.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btn_CreateSubAdmin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_CreateSubAdmin.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_CreateSubAdmin.Location = new System.Drawing.Point(19, 58);
+            this.btn_CreateSubAdmin.Location = new System.Drawing.Point(19, 119);
             this.btn_CreateSubAdmin.Name = "btn_CreateSubAdmin";
             this.btn_CreateSubAdmin.Size = new System.Drawing.Size(243, 47);
             this.btn_CreateSubAdmin.TabIndex = 0;
@@ -80,6 +82,7 @@
             // 
             // panel_Controls
             // 
+            this.panel_Controls.Controls.Add(this.btn_Settings);
             this.panel_Controls.Controls.Add(this.btn_TransferCustomer);
             this.panel_Controls.Controls.Add(this.btn_CreateSubAdmin);
             this.panel_Controls.Controls.Add(this.btn_CreateCustomer);
@@ -93,7 +96,7 @@
             this.panel_Controls.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel_Controls.Location = new System.Drawing.Point(0, 0);
             this.panel_Controls.Name = "panel_Controls";
-            this.panel_Controls.Size = new System.Drawing.Size(278, 594);
+            this.panel_Controls.Size = new System.Drawing.Size(278, 717);
             this.panel_Controls.TabIndex = 1;
             // 
             // btn_TransferCustomer
@@ -101,7 +104,7 @@
             this.btn_TransferCustomer.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btn_TransferCustomer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_TransferCustomer.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_TransferCustomer.Location = new System.Drawing.Point(19, 483);
+            this.btn_TransferCustomer.Location = new System.Drawing.Point(19, 544);
             this.btn_TransferCustomer.Name = "btn_TransferCustomer";
             this.btn_TransferCustomer.Size = new System.Drawing.Size(243, 46);
             this.btn_TransferCustomer.TabIndex = 9;
@@ -117,7 +120,7 @@
             this.btn_CreateCustomer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_CreateCustomer.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_CreateCustomer.ForeColor = System.Drawing.Color.White;
-            this.btn_CreateCustomer.Location = new System.Drawing.Point(19, 111);
+            this.btn_CreateCustomer.Location = new System.Drawing.Point(19, 172);
             this.btn_CreateCustomer.Name = "btn_CreateCustomer";
             this.btn_CreateCustomer.Size = new System.Drawing.Size(243, 46);
             this.btn_CreateCustomer.TabIndex = 1;
@@ -130,7 +133,7 @@
             this.btn_Summary.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btn_Summary.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_Summary.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_Summary.Location = new System.Drawing.Point(19, 430);
+            this.btn_Summary.Location = new System.Drawing.Point(19, 491);
             this.btn_Summary.Name = "btn_Summary";
             this.btn_Summary.Size = new System.Drawing.Size(243, 46);
             this.btn_Summary.TabIndex = 4;
@@ -143,7 +146,7 @@
             this.btn_Logout.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btn_Logout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_Logout.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_Logout.Location = new System.Drawing.Point(19, 536);
+            this.btn_Logout.Location = new System.Drawing.Point(19, 649);
             this.btn_Logout.Name = "btn_Logout";
             this.btn_Logout.Size = new System.Drawing.Size(243, 46);
             this.btn_Logout.TabIndex = 6;
@@ -156,7 +159,7 @@
             this.btn_ExportRecords.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btn_ExportRecords.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_ExportRecords.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_ExportRecords.Location = new System.Drawing.Point(19, 270);
+            this.btn_ExportRecords.Location = new System.Drawing.Point(19, 331);
             this.btn_ExportRecords.Name = "btn_ExportRecords";
             this.btn_ExportRecords.Size = new System.Drawing.Size(243, 46);
             this.btn_ExportRecords.TabIndex = 7;
@@ -169,7 +172,7 @@
             this.btn_BalanceLedger.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btn_BalanceLedger.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_BalanceLedger.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_BalanceLedger.Location = new System.Drawing.Point(19, 323);
+            this.btn_BalanceLedger.Location = new System.Drawing.Point(19, 384);
             this.btn_BalanceLedger.Name = "btn_BalanceLedger";
             this.btn_BalanceLedger.Size = new System.Drawing.Size(243, 46);
             this.btn_BalanceLedger.TabIndex = 8;
@@ -182,7 +185,7 @@
             this.btn_ChangePassword.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btn_ChangePassword.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_ChangePassword.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_ChangePassword.Location = new System.Drawing.Point(19, 377);
+            this.btn_ChangePassword.Location = new System.Drawing.Point(19, 438);
             this.btn_ChangePassword.Name = "btn_ChangePassword";
             this.btn_ChangePassword.Size = new System.Drawing.Size(243, 46);
             this.btn_ChangePassword.TabIndex = 5;
@@ -198,7 +201,7 @@
             this.btn_Debit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_Debit.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_Debit.ForeColor = System.Drawing.Color.White;
-            this.btn_Debit.Location = new System.Drawing.Point(19, 217);
+            this.btn_Debit.Location = new System.Drawing.Point(19, 278);
             this.btn_Debit.Name = "btn_Debit";
             this.btn_Debit.Size = new System.Drawing.Size(243, 46);
             this.btn_Debit.TabIndex = 3;
@@ -214,7 +217,7 @@
             this.btn_Credit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_Credit.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_Credit.ForeColor = System.Drawing.Color.White;
-            this.btn_Credit.Location = new System.Drawing.Point(19, 163);
+            this.btn_Credit.Location = new System.Drawing.Point(19, 224);
             this.btn_Credit.Name = "btn_Credit";
             this.btn_Credit.Size = new System.Drawing.Size(243, 46);
             this.btn_Credit.TabIndex = 2;
@@ -247,7 +250,7 @@
             this.lb_Copyright.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.lb_Copyright.AutoSize = true;
             this.lb_Copyright.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lb_Copyright.Location = new System.Drawing.Point(510, 567);
+            this.lb_Copyright.Location = new System.Drawing.Point(510, 690);
             this.lb_Copyright.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.lb_Copyright.Name = "lb_Copyright";
             this.lb_Copyright.Size = new System.Drawing.Size(0, 18);
@@ -258,7 +261,7 @@
             this.lb_Progress.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lb_Progress.AutoSize = true;
             this.lb_Progress.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lb_Progress.Location = new System.Drawing.Point(953, 567);
+            this.lb_Progress.Location = new System.Drawing.Point(953, 690);
             this.lb_Progress.Name = "lb_Progress";
             this.lb_Progress.Size = new System.Drawing.Size(0, 19);
             this.lb_Progress.TabIndex = 33;
@@ -280,7 +283,7 @@
             this.groupBox1.ForeColor = System.Drawing.Color.Black;
             this.groupBox1.Location = new System.Drawing.Point(368, 175);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(258, 127);
+            this.groupBox1.Size = new System.Drawing.Size(255, 127);
             this.groupBox1.TabIndex = 36;
             this.groupBox1.TabStop = false;
             // 
@@ -385,7 +388,7 @@
             this.groupBox4.Controls.Add(this.label10);
             this.groupBox4.Location = new System.Drawing.Point(914, 175);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(255, 127);
+            this.groupBox4.Size = new System.Drawing.Size(252, 127);
             this.groupBox4.TabIndex = 37;
             this.groupBox4.TabStop = false;
             // 
@@ -416,6 +419,23 @@
             // 
             this.bgw_PullData.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgw_PullData_DoWork);
             // 
+            // btn_Settings
+            // 
+            this.btn_Settings.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btn_Settings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_Settings.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_Settings.Location = new System.Drawing.Point(19, 597);
+            this.btn_Settings.Name = "btn_Settings";
+            this.btn_Settings.Size = new System.Drawing.Size(243, 46);
+            this.btn_Settings.TabIndex = 10;
+            this.btn_Settings.Text = "Settings";
+            this.btn_Settings.UseVisualStyleBackColor = true;
+            this.btn_Settings.Click += new System.EventHandler(this.btn_Settings_Click);
+            // 
+            // bgw_EndOfMonthOperations
+            // 
+            this.bgw_EndOfMonthOperations.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgw_EndOfMonthOperations_DoWork);
+            // 
             // SuperAdminUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -423,7 +443,7 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1248, 594);
+            this.ClientSize = new System.Drawing.Size(1248, 717);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox4);
@@ -486,5 +506,7 @@
         private System.Windows.Forms.Label lb_TotalAmountCollected;
         private System.ComponentModel.BackgroundWorker bgw_PullData;
         private System.Windows.Forms.Button btn_TransferCustomer;
+        private System.Windows.Forms.Button btn_Settings;
+        private System.ComponentModel.BackgroundWorker bgw_EndOfMonthOperations;
     }
 }

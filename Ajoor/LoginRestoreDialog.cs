@@ -1,4 +1,4 @@
-﻿using Ajoor.Core;
+﻿using Ajoor.BusinessLayer.Core;
 using Microsoft.SqlServer.Management.Common;
 using Microsoft.SqlServer.Management.Smo;
 using System;

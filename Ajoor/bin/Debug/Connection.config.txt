@@ -1,1 +1,1 @@
-server =THE-MACHINE\THEMACHINESVR; database = master; uid = sa; pwd = vaug;
+server =THA-MACHINE; database = master; uid = sa; pwd = vaug;

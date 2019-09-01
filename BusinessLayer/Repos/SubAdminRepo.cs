@@ -1,5 +1,5 @@
-﻿using Ajoor.BusinessLayer.DTO;
-using Ajoor.Core;
+﻿using Ajoor.BusinessLayer.Core;
+using Ajoor.BusinessLayer.DTO;
 using DataLayer.Model;
 using System;
 using System.Collections.Generic;

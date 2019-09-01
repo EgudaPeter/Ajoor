@@ -31,5 +31,6 @@ namespace DataLayer.Model
         public virtual DbSet<cor_sub_admin_login_log> cor_sub_admin_login_log { get; set; }
         public virtual DbSet<cor_super_admin_login_log> cor_super_admin_login_log { get; set; }
         public virtual DbSet<cor_transactions> cor_transactions { get; set; }
+        public virtual DbSet<cor_settings_config> cor_settings_config { get; set; }
     }
 }

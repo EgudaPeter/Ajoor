@@ -36,6 +36,7 @@
     <EntitySet Name="cor_sub_admin_login_log" EntityType="AjoModel.cor_sub_admin_login_log" />
     <EntitySet Name="cor_super_admin_login_log" EntityType="AjoModel.cor_super_admin_login_log" />
     <EntitySet Name="cor_transactions" EntityType="AjoModel.cor_transactions" />
+    <EntitySet Name="cor_settings_config" EntityType="AjoModel.cor_settings_config" />
   </EntityContainer>
   <EntityType Name="cor_customer">
     <Key>
@@ -92,5 +93,20 @@
     <Property Name="CreatedDate" Type="DateTime" Precision="3" />
     <Property Name="ExtraCommission" Type="Decimal" Precision="18" Scale="0" />
     <Property Name="EOMBalance" Type="Decimal" Precision="18" Scale="0" />
+  </EntityType>
+  <EntityType Name="cor_settings_config">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AllowReminderForClosingMonth" Type="Boolean" Nullable="false" />
+    <Property Name="DaysToRemindForClosingMonth" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ReminderOptions" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="AllowFlexibleClosingOfMonth" Type="Boolean" Nullable="false" />
+    <Property Name="DaysToAllowForFlexibleClosingOfMonth" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="StartedRemindingUserToCloseMonthInNonFlexibleMode" Type="Boolean" />
+    <Property Name="DaysLeftToRemindUserToCloseMonthInNonFlexibleMode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="StartedRemindingUserToCloseMonthInFlexibleMode" Type="Boolean" />
+    <Property Name="DaysLeftToRemindUserToCloseMonthInFlexibleMode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
   </EntityType>
 </Schema>

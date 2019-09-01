@@ -1,5 +1,5 @@
 ﻿using Ajoor.BusinessLayer.Repos;
-using Ajoor.Core;
+using Ajoor.BusinessLayer.Core;
 using System;
 using System.IO;
 using System.Linq;

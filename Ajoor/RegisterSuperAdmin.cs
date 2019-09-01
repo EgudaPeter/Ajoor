@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using Ajoor.Core;
+using Ajoor.BusinessLayer.Core;
 using Ajoor.BusinessLayer.Repos;
 using Ajoor.BusinessLayer.DTO;
 

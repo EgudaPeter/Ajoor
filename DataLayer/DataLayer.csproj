@@ -65,6 +65,9 @@
     <Compile Include="Model\cor_customer.cs">
       <DependentUpon>AjoorModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\cor_settings_config.cs">
+      <DependentUpon>AjoorModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\cor_sub_admin.cs">
       <DependentUpon>AjoorModel.tt</DependentUpon>
     </Compile>

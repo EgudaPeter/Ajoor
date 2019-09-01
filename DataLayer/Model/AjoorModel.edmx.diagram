@@ -11,6 +11,7 @@
         <EntityTypeShape EntityType="AjoModel.cor_sub_admin_login_log" Width="1.5" PointX="5.375" PointY="0.75" />
         <EntityTypeShape EntityType="AjoModel.cor_super_admin_login_log" Width="1.5" PointX="5.375" PointY="3.75" />
         <EntityTypeShape EntityType="AjoModel.cor_transactions" Width="1.5" PointX="0.75" PointY="5.75" />
+        <EntityTypeShape EntityType="AjoModel.cor_settings_config" Width="2.375" PointX="5.375" PointY="6.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

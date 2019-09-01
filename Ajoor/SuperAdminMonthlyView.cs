@@ -1,5 +1,5 @@
 ﻿using Ajoor.BusinessLayer.Repos;
-using Ajoor.Core;
+using Ajoor.BusinessLayer.Core;
 using BusinessLayer.DTO;
 using System;
 using System.Collections;
@@ -28,7 +28,7 @@ namespace Ajoor
         int iHeaderHeight = 0; //Used for the header height
         StringFormat strFormat; //Used to format the grid rows.
         ArrayList arrColumnLefts = new ArrayList();//Used to save left coordinates of columns
-        ArrayList arrColumnWidths = new ArrayList();//Used to save column widths
+        ArrayList arrColumnWidths = new ArrayList();//Used to save column widths    
         int customerID = 0;
 
         public SuperAdminMonthlyView()
@@ -795,13 +795,15 @@ namespace Ajoor
                         {
                             Name = g.FirstOrDefault().CustomerName,
                             AccountNumber = g.FirstOrDefault().AccountNumber,
-                            EndOfMonthBalance = g.OrderByDescending(x => x.TransactionId).FirstOrDefault().EOMBalance,
+                            EndOfMonthBalance = g.Where(s => s.CreatedDate.Value.Month == previousDate.Month && s.TransactionType == "End Of Month").FirstOrDefault() != null ? g.Where(s => s.CreatedDate.Value.Month == previousDate.Month && s.TransactionType == "End Of Month").FirstOrDefault().EOMBalance : 0,
                             TotalSavings = g.Where(s => s.CreatedDate.Value.Month == DateTime.Now.Month).Sum(s => s.AmountContributed) != null ? g.Where(s => s.CreatedDate.Value.Month == DateTime.Now.Month).Sum(s => s.AmountContributed) : 0,
                             TotalWithdrawals = g.Where(s => s.CreatedDate.Value.Month == DateTime.Now.Month).Sum(s => s.AmountCollected) != null ? g.Where(s => s.CreatedDate.Value.Month == DateTime.Now.Month).Sum(s => s.AmountCollected) : 0,
                             Commission = g.Where(s => s.CreatedDate.Value.Month == DateTime.Now.Month && s.TransactionType == "Commission Charge" && s.Commission > 0).FirstOrDefault() != null ? g.Where(s => s.CreatedDate.Value.Month == DateTime.Now.Month && s.TransactionType == "Commission Charge" && s.Commission > 0).FirstOrDefault().Commission : 0,
                             ExtraCommission = g.Where(s => s.CreatedDate.Value.Month == DateTime.Now.Month && s.TransactionType == "Extra Commission Charge" && s.ExtraCommission > 0).FirstOrDefault() != null ? g.Where(s => s.CreatedDate.Value.Month == DateTime.Now.Month && s.TransactionType == "Extra Commission Charge" && s.ExtraCommission > 0).FirstOrDefault().ExtraCommission : 0,
-                            TotalCredit = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission) + g.Sum(s => s.ExtraCommission)) > 0 ? g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission) + g.Sum(s => s.ExtraCommission)) : 0,
-                            TotalDebt = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission) + g.Sum(s => s.ExtraCommission)) > 0 ? 0 : g.OrderByDescending(x => x.TransactionId).Where(x => x.TransactionType != "End Of Month").FirstOrDefault().TotalDebt,
+                            TotalCredit = g.OrderByDescending(s => s.TransactionId).FirstOrDefault().AmountPayable > 0 ? g.OrderByDescending(s => s.TransactionId).FirstOrDefault().AmountPayable : 0,
+                            TotalDebit = g.OrderByDescending(s => s.TransactionId).FirstOrDefault().TotalDebt > 0 ? g.OrderByDescending(s => s.TransactionId).FirstOrDefault().TotalDebt : 0,
+                            //TotalCredit = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission) + g.Sum(s => s.ExtraCommission)) > 0 ? g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission) + g.Sum(s => s.ExtraCommission)) : 0,
+                            //TotalDebt = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission) + g.Sum(s => s.ExtraCommission)) > 0 ? 0 : g.OrderByDescending(x => x.TransactionId).Where(x => x.TransactionType != "End Of Month").FirstOrDefault().TotalDebt,
                             CreatedBy = g.FirstOrDefault().CreatedBy,
                             CreatedDate = g.FirstOrDefault().CreatedDate
                         }).ToList();
@@ -1548,43 +1550,14 @@ namespace Ajoor
             try
             {
                 var presentMonth = DateTime.Now.Month;
-                var monthName = getMonthName(presentMonth);
-                var eoms = _TransactionRepo.GetEndOfMonthTransactions().Where(x => x.CreatedDate.Value.Month == presentMonth).ToList();
-                if (eoms.Count == 0)
+                var monthName = Utilities.getMonthName(presentMonth);
+                if (!_TransactionRepo.HasMonthBeenClosed(presentMonth))
                 {
                     switch (MessageBox.Show($"You are about to end the month of {monthName}. \n\nThis operation might take several minutes. Do you wish to continue?", "Superior Investment", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
                     {
                         case DialogResult.Yes:
                             Cursor.Current = Cursors.WaitCursor;
-                            var records = _TransactionRepo.GetAllTransactions().GroupBy(p => p.CustomerId).Select(g => new
-                            {
-                                CustomerID = g.FirstOrDefault().CustomerId,
-                                TotalCredit = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) > 0 ? g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) : 0,
-                                TotalDebt = g.Sum(s => s.AmountContributed) - (g.Sum(s => s.AmountCollected) + g.Sum(s => s.Commission)) > 0 ? 0 : g.OrderByDescending(x => x.TransactionId).FirstOrDefault().TotalDebt,
-                            }).ToList();
-                            List<EndOfMonthTransactions> eomTransactions = new List<EndOfMonthTransactions>();
-                            foreach (var record in records)
-                            {
-                                EndOfMonthTransactions transaction = new EndOfMonthTransactions()
-                                {
-                                    CustomerId = record.CustomerID,
-                                    AmountContributed = 0m,
-                                    AmountCollected = 0m,
-                                    TransactionType = "End Of Month",
-                                    Date = DateTime.Now,
-                                    Commission = 0m,
-                                    ExtraCommission = 0m,
-                                    AmountPayable = 0m,
-                                    Debt = 0m,
-                                    TotalDebt = 0m,
-                                    EOMBalance = record.TotalCredit == 0 ? -1 * record.TotalDebt : record.TotalCredit,
-                                    CreatedBy = Utilities.USERNAME,
-                                    CreatedDate = DateTime.Now
-                                };
-
-                                eomTransactions.Add(transaction);
-                            }
-                            if (_TransactionRepo.EndOfMonthTransaction(eomTransactions))
+                            if (_TransactionRepo.CloseMonthOperation())
                             {
                                 MessageBox.Show($"The month of {monthName} has been closed successfully!", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 if (!bgw_PullData.IsBusy)
@@ -1609,36 +1582,51 @@ namespace Ajoor
             }
         }
 
-        private string getMonthName(int monthNumber)
+        public void CloseMonthOperation(string monthName)
         {
-            switch (monthNumber)
+            var records = _TransactionRepo.GetAllTransactions().GroupBy(p => p.CustomerId).Select(g => new
             {
-                case 1:
-                    return "January";
-                case 2:
-                    return "February";
-                case 3:
-                    return "March";
-                case 4:
-                    return "April";
-                case 5:
-                    return "May";
-                case 6:
-                    return "June";
-                case 7:
-                    return "July";
-                case 8:
-                    return "August";
-                case 9:
-                    return "September";
-                case 10:
-                    return "October";
-                case 11:
-                    return "November";
-                case 12:
-                    return "December";
+                CustomerID = g.FirstOrDefault().CustomerId,
+                TotalCredit = g.OrderByDescending(s => s.TransactionId).FirstOrDefault().AmountPayable > 0 ? g.OrderByDescending(s => s.TransactionId).FirstOrDefault().AmountPayable : 0,
+                TotalDebt = g.OrderByDescending(s => s.TransactionId).FirstOrDefault().TotalDebt > 0 ? g.OrderByDescending(s => s.TransactionId).FirstOrDefault().TotalDebt : 0,
+            }).ToList();
+            List<EndOfMonthTransactions> eomTransactions = new List<EndOfMonthTransactions>();
+            foreach (var record in records)
+            {
+                EndOfMonthTransactions transaction = new EndOfMonthTransactions()
+                {
+                    CustomerId = record.CustomerID,
+                    AmountContributed = 0m,
+                    AmountCollected = 0m,
+                    TransactionType = "End Of Month",
+                    Date = DateTime.Now,
+                    Commission = 0m,
+                    ExtraCommission = 0m,
+                    AmountPayable = 0m,
+                    Debt = 0m,
+                    TotalDebt = 0m,
+                    EOMBalance = record.TotalCredit == 0 ? -1 * record.TotalDebt : record.TotalCredit,
+                    CreatedBy = Utilities.USERNAME,
+                    CreatedDate = DateTime.Now
+                };
+                if (transaction.EOMBalance.ToString().Contains("-"))
+                {
+                    transaction.TotalDebt = transaction.EOMBalance * -1;
+                }
+                else
+                {
+                    transaction.AmountPayable = transaction.EOMBalance;
+                }
+                eomTransactions.Add(transaction);
             }
-            return string.Empty;
+            if (_TransactionRepo.EndOfMonthTransaction(eomTransactions))
+            {
+                MessageBox.Show($"The month of {monthName} has been closed successfully!", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (!bgw_PullData.IsBusy)
+                {
+                    bgw_PullData.RunWorkerAsync();
+                }
+            }
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using Ajoor.Core;
+﻿using Ajoor.BusinessLayer.Core;
 using System;
 using System.Windows.Forms;
 using Microsoft.SqlServer.Management.Smo;
@@ -7,6 +7,8 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using Ajoor.BusinessLayer.Repos;
+using System.Speech.Synthesis;
+using BusinessLayer.Repos;
 
 namespace Ajoor
 {
@@ -16,6 +18,7 @@ namespace Ajoor
         SubAdminRepo _SubAdminRepo = new SubAdminRepo();
         CustomerRepo _CustomerRepo = new CustomerRepo();
         TransactionRepo _TransactionRepo = new TransactionRepo();
+        SettingsRepo _SettingsRepo = new SettingsRepo();
         static string connectionPath = $"{Application.StartupPath}/Connection.config.txt";
         public SuperAdminUI()
         {
@@ -78,10 +81,14 @@ namespace Ajoor
         {
             lb_LoggedIn.Text = $"Welcome {Utilities.USERNAME}";
             lb_Copyright.Text = $"Copyright © {DateTime.Now.Year}";
-            Cursor.Current = Cursors.WaitCursor;
             if (!bgw_PullData.IsBusy)
             {
                 bgw_PullData.RunWorkerAsync();
+            }
+
+            if (!bgw_EndOfMonthOperations.IsBusy)
+            {
+                bgw_EndOfMonthOperations.RunWorkerAsync();
             }
         }
 
@@ -186,6 +193,7 @@ namespace Ajoor
 
         private void bgw_PullData_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
             lb_TotalSubAdmin.Invoke(new MethodInvoker(delegate
             {
                 try
@@ -244,6 +252,60 @@ namespace Ajoor
         {
             TransferCustomers TransferCustomers_Form = new TransferCustomers();
             TransferCustomers_Form.ShowDialog();
+        }
+
+        private void btn_Settings_Click(object sender, EventArgs e)
+        {
+            Settings settingsForm = new Settings();
+            settingsForm.ShowDialog();
+        }
+
+        private void bgw_EndOfMonthOperations_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            var settings = _SettingsRepo.GetConfig();
+            if (settings.AllowReminderForClosingMonth)
+            {
+                var numberOfDaysInCurrentMonth = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
+                var dayInCurrentMonth = DateTime.Now.Day;
+                var numberOfDaysToStartRemindingUser = int.Parse(settings.DaysToRemindForClosingMonth);
+                var daysLeftInCurrentMonth = numberOfDaysInCurrentMonth - dayInCurrentMonth;
+                if (daysLeftInCurrentMonth <= numberOfDaysToStartRemindingUser)
+                {
+                    settings.StartedRemindingUserToCloseMonthInNonFlexibleMode = true;
+                    settings.DaysLeftToRemindUserToCloseMonthInNonFlexibleMode = (daysLeftInCurrentMonth - 1).ToString();
+                    _SettingsRepo.SaveSettings(settings);
+                    var monthName = Utilities.getMonthName(DateTime.Now.Month);
+                    if (settings.ReminderOptions.Equals(Utilities.REMINDEROPTION_USEVOICE))
+                    {
+                        Utilities.InitSpeaker();
+                        switch (daysLeftInCurrentMonth)
+                        {
+                            case 0:
+                                if (!_TransactionRepo.HasMonthBeenClosed(DateTime.Now.Month))
+                                {
+                                    Utilities.speaker.Speak($"Dear {Utilities.USERNAME}. Today is the last day to close this month of {monthName}. Would you like me to close the month of {monthName}?");
+                                    Utilities.InitEngine();
+                                }
+                                else
+                                {
+                                    Utilities.DisposeSpeaker(Utilities.speaker);
+                                }
+                                break;
+                            case 1:
+                                Utilities.speaker.Speak($"Dear {Utilities.USERNAME}. You have {daysLeftInCurrentMonth} day left to close this month of {monthName}.");
+                                Utilities.speaker.Speak($"Good bye.");
+                                Utilities.DisposeSpeaker(Utilities.speaker);
+                                break;
+                            default:
+                                Utilities.speaker.Speak($"Dear {Utilities.USERNAME}. Including today, you have {daysLeftInCurrentMonth} days left to close this month of {monthName}.");
+                                Utilities.speaker.Speak($"Good bye.");
+                                Utilities.DisposeSpeaker(Utilities.speaker);
+                                break;
+
+                        }
+                    }
+                }
+            }
         }
     }
 }
