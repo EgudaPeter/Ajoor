@@ -398,10 +398,53 @@ namespace Ajoor.BusinessLayer.Repos
             return EndOfMonthTransaction(eomTransactions);
         }
 
+        public bool ClosePreviousMonthOperation()
+        {
+            var records = GetAllTransactions().GroupBy(p => p.CustomerId).Select(g => new
+            {
+                CustomerID = g.FirstOrDefault().CustomerId,
+                TotalCredit = g.OrderByDescending(s => s.TransactionId).FirstOrDefault().AmountPayable > 0 ? g.OrderByDescending(s => s.TransactionId).FirstOrDefault().AmountPayable : 0,
+                TotalDebt = g.OrderByDescending(s => s.TransactionId).FirstOrDefault().TotalDebt > 0 ? g.OrderByDescending(s => s.TransactionId).FirstOrDefault().TotalDebt : 0,
+            }).ToList();
+            List<EndOfMonthTransactions> eomTransactions = new List<EndOfMonthTransactions>();
+            var numberOfDaysInCurrentMonth = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month - 1);
+            var dateInStringFormat = $"{numberOfDaysInCurrentMonth}-{DateTime.Now.Month - 1}-{DateTime.Now.Year}";
+            var date = DateTime.Parse(dateInStringFormat);
+            foreach (var record in records)
+            {
+                EndOfMonthTransactions transaction = new EndOfMonthTransactions()
+                {
+                    CustomerId = record.CustomerID,
+                    AmountContributed = 0m,
+                    AmountCollected = 0m,
+                    TransactionType = "End Of Month",
+                    Date = date,
+                    Commission = 0m,
+                    ExtraCommission = 0m,
+                    AmountPayable = 0m,
+                    Debt = 0m,
+                    TotalDebt = 0m,
+                    EOMBalance = record.TotalCredit == 0 ? -1 * record.TotalDebt : record.TotalCredit,
+                    CreatedBy = Utilities.USERNAME,
+                    CreatedDate = date
+                };
+                if (transaction.EOMBalance.ToString().Contains("-"))
+                {
+                    transaction.TotalDebt = transaction.EOMBalance * -1;
+                }
+                else
+                {
+                    transaction.AmountPayable = transaction.EOMBalance;
+                }
+                eomTransactions.Add(transaction);
+            }
+            return EndOfMonthTransaction(eomTransactions);
+        }
+
         public bool HasMonthBeenClosed(int month)
         {
             var eoms = GetEndOfMonthTransactions().Where(x => x.CreatedDate.Value.Month == month).ToList();
-            if(eoms.Count == 0)
+            if (eoms.Count == 0)
             {
                 return false;
             }
