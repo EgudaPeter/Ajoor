@@ -273,16 +273,20 @@ namespace Ajoor
                 {
                     AllowNonFlexibleClosingOfMonthOperation(settings);
                 }
-                if (!_TransactionRepo.HasMonthBeenClosed(DateTime.Now.Month - 1))
+                if (settings.AllowFlexibleClosingOfMonth)
                 {
-                    if (settings.AllowFlexibleClosingOfMonth)
+                    if (!_TransactionRepo.HasMonthBeenClosed(DateTime.Now.Month - 1))
                     {
                         AllowFlexibleClosingOfMonthOperation(settings);
                     }
                 }
                 else
-                {
-                    return;
+                { 
+                    if (!_TransactionRepo.HasMonthBeenClosed(DateTime.Now.Month - 1))
+                    {
+                        var previousMonthName = GetMonthName(DateTime.Now.Month - 1);
+                        ForcefullyCloseMonth(settings, previousMonthName);
+                    }
                 }
             }
             catch (Exception ex)
@@ -297,6 +301,7 @@ namespace Ajoor
             var dayInCurrentMonth = DateTime.Now.Day;
             var numberOfDaysToStartRemindingUser = int.Parse(settings.DaysToRemindForClosingMonth);
             var daysLeftInCurrentMonth = numberOfDaysInCurrentMonth - dayInCurrentMonth;
+            var previousMonthName = GetMonthName(DateTime.Now.Month - 1);
             if (daysLeftInCurrentMonth <= numberOfDaysToStartRemindingUser)
             {
                 var monthName = GetMonthName(DateTime.Now.Month);
@@ -308,6 +313,16 @@ namespace Ajoor
                 if (settings.ReminderOptions.Equals(REMINDEROPTION_USEDIALOG))
                 {
                     ReminderOptionUseDialogOperation(daysLeftInCurrentMonth, monthName, string.Empty, Modes.NonFlexible);
+                }
+            }
+            else
+            {
+                if (!settings.AllowFlexibleClosingOfMonth)
+                {
+                    if (!_TransactionRepo.HasMonthBeenClosed(DateTime.Now.Month - 1))
+                    {
+                        ForcefullyCloseMonth(settings, previousMonthName);
+                    }
                 }
             }
         }
@@ -518,7 +533,7 @@ namespace Ajoor
                     UseWaitCursor = true;
                     _TransactionRepo.ClosePreviousMonthOperation();
                     UseWaitCursor = false;
-                    MessageBox.Show($"Month of {previousMonthName} has been closed. \n\nGood bye.", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show($"Month of {previousMonthName} has been forcefully closed. \n\nGood bye.", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
         }

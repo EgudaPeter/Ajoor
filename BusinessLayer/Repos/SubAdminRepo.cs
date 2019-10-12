@@ -4,6 +4,7 @@ using DataLayer.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Z.EntityFramework.Plus;
 
 namespace Ajoor.BusinessLayer.Repos
 {
@@ -70,6 +71,19 @@ namespace Ajoor.BusinessLayer.Repos
                 updateModel.UpdatedDate = subAdmin.UpdatedDate;
             }
             return entities.SaveChanges() > 0;
+        }
+
+        public void UpdateRecordsCreatedByUpdatedSubAdmin(string previousSubAdminUsername, long SubId)
+        {
+            var subAdmin = entities.cor_sub_admin.Find(SubId);
+            if(subAdmin != null)
+            {
+                if (!previousSubAdminUsername.Equals(subAdmin.Username))
+                {
+                    entities.cor_transactions.Where(x => x.CreatedBy == previousSubAdminUsername).Update(tr=> new cor_transactions { CreatedBy = subAdmin.Username });
+                    entities.cor_customer.Where(x => x.CreatedBy == previousSubAdminUsername).Update(tr => new cor_customer { CreatedBy = subAdmin.Username });
+                }
+            }
         }
 
         public SubAdmin GetSubAdmin(long SubAdminId)

@@ -13,3 +13,5 @@ C:\Ajoor\BusinessLayer\bin\Debug\EntityFramework.BulkInsert.dll.config
 C:\Ajoor\BusinessLayer\bin\Debug\EntityFramework.SqlServer.xml
 C:\Ajoor\BusinessLayer\obj\Debug\BusinessLayer.dll
 C:\Ajoor\BusinessLayer\obj\Debug\BusinessLayer.pdb
+C:\Ajoor\BusinessLayer\bin\Debug\Z.EntityFramework.Plus.EF6.dll
+C:\Ajoor\BusinessLayer\bin\Debug\Z.EntityFramework.Plus.EF6.xml

@@ -30,10 +30,11 @@ namespace Ajoor
                 cmb_Customers.ValueMember = "CustomerId";
                 cmb_Customers.SelectedIndex = -1;
             }));
+            Cursor.Current = Cursors.Default;
         }
 
         private void bgwGetRecords_DoWork(object sender, DoWorkEventArgs e)
-        {
+        {           
             dgv_CustomerTransactions.Invoke(new MethodInvoker(delegate
             {
                 dgv_CustomerTransactions.DataSource = _TransactionRepo.GetCreditTransactions().Where(x => x.CustomerId == selectedID && x.CreatedBy == Utilities.USERNAME).Select(g => new
@@ -51,6 +52,7 @@ namespace Ajoor
             }));
             lb_Total.Invoke(new MethodInvoker(delegate { lb_Total.Text = dgv_CustomerTransactions.RowCount.ToString(); }));
             e.Result = "Done";
+            Cursor.Current = Cursors.Default;
         }
 
         private void btn_Cancel_Click(object sender, EventArgs e)
@@ -78,6 +80,7 @@ namespace Ajoor
                 selectedID = long.Parse(ID); txt_Commission.Text = Utilities.CurrencyFormat(customer.Commission.ToString());
                 txt_TotalCredit.Text = Utilities.CurrencyFormat(customerTransaction != null ? customerTransaction.AmountPayable.ToString() : 0m.ToString());
                 txt_TotalDebt.Text = Utilities.CurrencyFormat(customerTransaction != null ? customerTransaction.TotalDebt.ToString() : 0m.ToString());
+                Cursor.Current = Cursors.WaitCursor;
                 if (!bgwGetRecords.IsBusy)
                 {
                     bgwGetRecords.RunWorkerAsync();
@@ -89,6 +92,7 @@ namespace Ajoor
 
         private void CreditCustomer_Load(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
             txt_AccountNumber.ReadOnly = true; txt_Commission.ReadOnly = true;
             txt_TotalDebt.ReadOnly = true; txt_TotalCredit.ReadOnly = true;
             if (_TransactionRepo.HasMonthBeenClosed(DateTime.Now.Month))

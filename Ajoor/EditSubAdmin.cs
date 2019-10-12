@@ -10,11 +10,11 @@ namespace Ajoor
     {
         SubAdminRepo _SubAdminRepo = new SubAdminRepo(); bool usernameVerified = true;
         string currentUsername = string.Empty; string currentPhone = string.Empty;
-        string currentEmail = string.Empty; SubAdmin subAdmin;
+        string currentEmail = string.Empty; SubAdmin _subAdmin;
         bool isEmailExisting = false; bool isPhoneNoExisting = false;
         public EditSubAdmin(SubAdmin model)
         {
-            InitializeComponent(); subAdmin = model;
+            InitializeComponent(); _subAdmin = model;
         }
 
         private void btn_Cancel_Click(object sender, EventArgs e)
@@ -133,6 +133,7 @@ namespace Ajoor
         {
             try
             {
+                string previousSubAdminUsername = _subAdmin.Username;
                 if (txt_Firstname.Text == string.Empty)
                 {
                     MessageBox.Show("Firstname is required!", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -161,6 +162,7 @@ namespace Ajoor
                     && Utilities.IsValidEmail(txt_Email.Text) && isEmailExisting == false && isPhoneNoExisting == false && Utilities.EnsureNumericOnly(txt_Phone.Text)
                     && txt_Email.Text != string.Empty && txt_Phone.Text != string.Empty)
                 {
+                    Cursor.Current = Cursors.WaitCursor;
                     SubAdmin subAdmin = new SubAdmin()
                     {
                         SubId = int.Parse(txt_ID.Text),
@@ -174,6 +176,8 @@ namespace Ajoor
                     };
                     if (_SubAdminRepo.UpdateSubAdmin(subAdmin))
                     {
+                        _SubAdminRepo.UpdateRecordsCreatedByUpdatedSubAdmin(previousSubAdminUsername, _subAdmin.SubId);
+                        Cursor.Current = Cursors.Default;
                         MessageBox.Show("Sub admin updated successfully!", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         txt_Firstname.Focus();
                     }
@@ -196,12 +200,12 @@ namespace Ajoor
             lb_DangerLastname.Hide();
             lb_DangerPhone.Hide(); lb_DangerUsername.Hide();
 
-            txt_Firstname.Text = subAdmin.Firstname;
-            txt_Lastname.Text = subAdmin.Lastname;
-            txt_Email.Text = currentEmail = subAdmin.Email;
-            txt_Phone.Text = currentPhone = subAdmin.PhoneNo;
-            txt_Username.Text = currentUsername = subAdmin.Username;
-            txt_ID.Text = subAdmin.SubId.ToString(); txt_ID.ReadOnly = true;
+            txt_Firstname.Text = _subAdmin.Firstname;
+            txt_Lastname.Text = _subAdmin.Lastname;
+            txt_Email.Text = currentEmail = _subAdmin.Email;
+            txt_Phone.Text = currentPhone = _subAdmin.PhoneNo;
+            txt_Username.Text = currentUsername = _subAdmin.Username;
+            txt_ID.Text = _subAdmin.SubId.ToString(); txt_ID.ReadOnly = true;
         }
 
         private void EditSubAdmin_FormClosing(object sender, FormClosingEventArgs e)

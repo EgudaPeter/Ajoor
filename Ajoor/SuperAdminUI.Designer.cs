@@ -37,11 +37,11 @@
             this.btn_Summary = new System.Windows.Forms.Button();
             this.btn_Logout = new System.Windows.Forms.Button();
             this.btn_ExportRecords = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.btn_BalanceLedger = new System.Windows.Forms.Button();
             this.btn_ChangePassword = new System.Windows.Forms.Button();
             this.btn_Debit = new System.Windows.Forms.Button();
             this.btn_Credit = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.lb_LoggedIn = new System.Windows.Forms.Label();
             this.lb_Copyright = new System.Windows.Forms.Label();
             this.lb_Progress = new System.Windows.Forms.Label();
@@ -204,6 +204,17 @@
             this.btn_ExportRecords.UseVisualStyleBackColor = false;
             this.btn_ExportRecords.Click += new System.EventHandler(this.btn_ExportRecords_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Calibri", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(3, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(287, 39);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Superior Investment";
+            // 
             // btn_BalanceLedger
             // 
             this.btn_BalanceLedger.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -267,17 +278,6 @@
             this.btn_Credit.Text = "Credit Operation";
             this.btn_Credit.UseVisualStyleBackColor = false;
             this.btn_Credit.Click += new System.EventHandler(this.btn_Credit_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Calibri", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(3, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(287, 39);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Superior Investment";
             // 
             // lb_LoggedIn
             // 
