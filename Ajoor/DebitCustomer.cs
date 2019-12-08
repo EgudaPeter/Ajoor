@@ -294,7 +294,7 @@ namespace Ajoor
                 {
                     var customerId = int.Parse(cmb_Customers.SelectedValue.ToString());
                     var customer = _CustomerRepo.GetCustomer(customerId);
-                    var commission = _TransactionRepo.GetAllTransactions().Where(x => x.CustomerId == customerId && x.Commission == customer.Commission && x.Date.Value.Month == DateTime.Now.Month).FirstOrDefault();
+                    var commission = _TransactionRepo.GetAllTransactions().Where(x => x.CustomerId == customerId && x.Commission == customer.Commission && x.Date.Value.Month == DateTime.Now.Month && x.Date.Value.Year == DateTime.Now.Year).FirstOrDefault();
                     var transactionRecord = _TransactionRepo.GetDebitTransactions().Where(x => x.CustomerId == customerId).OrderByDescending(p => p.TransactionId).FirstOrDefault();
                     DateTime date = new DateTime();
                     if (!_TransactionRepo.HasMonthBeenClosed(DateTime.Now.Month - 1))
@@ -358,7 +358,7 @@ namespace Ajoor
                 {
                     var customerId = int.Parse(cmb_Customers.SelectedValue.ToString());
                     var customer = _CustomerRepo.GetCustomer(customerId);
-                    var extraCommission = _TransactionRepo.GetAllTransactions().Where(x => x.CustomerId == customerId && x.ExtraCommission == customer.Commission && x.Date.Value.Month == DateTime.Now.Month).FirstOrDefault();
+                    var extraCommission = _TransactionRepo.GetAllTransactions().Where(x => x.CustomerId == customerId && x.ExtraCommission == customer.Commission && x.Date.Value.Month == DateTime.Now.Month && x.Date.Value.Year == DateTime.Now.Year).FirstOrDefault();
                     var transactionRecord = _TransactionRepo.GetDebitTransactions().Where(x => x.CustomerId == customerId).OrderByDescending(p => p.TransactionId).FirstOrDefault();
                     DateTime date = new DateTime();
                     if (!_TransactionRepo.HasMonthBeenClosed(DateTime.Now.Month - 1))
