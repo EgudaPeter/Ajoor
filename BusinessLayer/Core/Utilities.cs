@@ -148,8 +148,18 @@ namespace Ajoor.BusinessLayer.Core
 
         public static string GetLastDateOfPreviousMonth()
         {
-            var numberOfDaysInCurrentMonth = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month - 1);
-            var dateInStringFormat = $"{numberOfDaysInCurrentMonth}-{DateTime.Now.Month - 1}-{DateTime.Now.Year}";
+            var previousMonthNumber = DateTime.Now.Month - 1;
+            int numberOfDaysInCurrentMonth = 0; string dateInStringFormat = string.Empty;
+            if (previousMonthNumber > 0)
+            {
+                numberOfDaysInCurrentMonth = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month - 1);
+                dateInStringFormat = $"{numberOfDaysInCurrentMonth}-{DateTime.Now.Month - 1}-{DateTime.Now.Year}";
+            }
+            else
+            {
+                numberOfDaysInCurrentMonth = DateTime.DaysInMonth(DateTime.Now.Year - 1, 12);
+                dateInStringFormat = $"{numberOfDaysInCurrentMonth}-{12}-{DateTime.Now.Year - 1}";
+            }
             return dateInStringFormat;
         }
 
