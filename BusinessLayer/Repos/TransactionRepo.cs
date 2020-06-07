@@ -442,7 +442,8 @@ namespace Ajoor.BusinessLayer.Repos
         public bool HasMonthBeenClosed(int month)
         {
             month = month == 0 ? 12 : month;
-            var eoms = GetEndOfMonthTransactions().Where(x => x.CreatedDate.Value.Month == month).ToList();
+            int year = DateTime.Now.Year;
+            var eoms = GetEndOfMonthTransactions().Where(x => x.CreatedDate.Value.Month == month && x.CreatedDate.Value.Year == year).ToList();
             if (eoms.Count == 0)
             {
                 return false;
