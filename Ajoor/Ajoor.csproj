@@ -220,6 +220,12 @@
     <Compile Include="CustomerList.Designer.cs">
       <DependentUpon>CustomerList.cs</DependentUpon>
     </Compile>
+    <Compile Include="CustomerMonthlyTransactions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CustomerMonthlyTransactions.Designer.cs">
+      <DependentUpon>CustomerMonthlyTransactions.cs</DependentUpon>
+    </Compile>
     <Compile Include="DebitCustomer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -359,6 +365,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CustomerList.resx">
       <DependentUpon>CustomerList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomerMonthlyTransactions.resx">
+      <DependentUpon>CustomerMonthlyTransactions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DebitCustomer.resx">
       <DependentUpon>DebitCustomer.cs</DependentUpon>

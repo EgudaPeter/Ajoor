@@ -988,7 +988,7 @@ namespace Ajoor
                 }
                 else
                 {
-                    MessageBox.Show("Please select atleast one customer to edit!", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Please select a customer to view transactions!", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             catch (Exception ex)

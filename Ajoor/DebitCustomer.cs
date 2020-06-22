@@ -343,7 +343,7 @@ namespace Ajoor
                 }
                 else
                 {
-                    MessageBox.Show("Please select atleast one customer to charge commission!", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Please select a customer to charge commission!", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             catch (Exception ex)
@@ -407,7 +407,27 @@ namespace Ajoor
                 }
                 else
                 {
-                    MessageBox.Show("Please select atleast one customer to charge extra commission!", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Please select a customer to charge extra commission!", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{Utilities.ERRORMESSAGE} \n Error details: {ex.Message}", "Superior Investment!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btn_ViewMonthlyTransactions_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (selectedID > 0)
+                {
+                    CustomerMonthlyTransactions customerMonthlyTransactionsForm = new CustomerMonthlyTransactions(selectedID);
+                    customerMonthlyTransactionsForm.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Please select a customer to view transactions!", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             catch (Exception ex)

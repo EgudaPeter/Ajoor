@@ -98,3 +98,4 @@ C:\Ajoor\Ajoor\obj\Debug\Ajoor.exe
 C:\Ajoor\Ajoor\obj\Debug\Ajoor.pdb
 C:\Ajoor\Ajoor\bin\Debug\Z.EntityFramework.Plus.EF6.dll
 C:\Ajoor\Ajoor\bin\Debug\Z.EntityFramework.Plus.EF6.xml
+C:\Ajoor\Ajoor\obj\Debug\Ajoor.CustomerMonthlyTransactions.resources

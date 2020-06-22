@@ -52,6 +52,7 @@
             this.dgv_CustomerTransactions = new System.Windows.Forms.DataGridView();
             this.label5 = new System.Windows.Forms.Label();
             this.txt_TotalCredit = new System.Windows.Forms.TextBox();
+            this.btn_ViewMonthlyTransactions = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_CustomerTransactions)).BeginInit();
             this.SuspendLayout();
@@ -182,7 +183,7 @@
             this.btn_Cancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_Cancel.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_Cancel.ForeColor = System.Drawing.Color.Black;
-            this.btn_Cancel.Location = new System.Drawing.Point(7, 207);
+            this.btn_Cancel.Location = new System.Drawing.Point(7, 285);
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(142, 59);
             this.btn_Cancel.TabIndex = 3;
@@ -206,22 +207,23 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btn_ViewMonthlyTransactions);
             this.panel1.Controls.Add(this.btn_ExtraCommision);
             this.panel1.Controls.Add(this.btn_ChargeCommission);
             this.panel1.Controls.Add(this.btn_Cancel);
             this.panel1.Controls.Add(this.btn_Debit);
             this.panel1.Location = new System.Drawing.Point(956, 222);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(152, 277);
+            this.panel1.Size = new System.Drawing.Size(152, 347);
             this.panel1.TabIndex = 95;
             // 
             // btn_ExtraCommision
             // 
-            this.btn_ExtraCommision.BackColor = System.Drawing.Color.SteelBlue;
+            this.btn_ExtraCommision.BackColor = System.Drawing.Color.White;
             this.btn_ExtraCommision.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_ExtraCommision.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_ExtraCommision.ForeColor = System.Drawing.Color.White;
-            this.btn_ExtraCommision.Location = new System.Drawing.Point(7, 143);
+            this.btn_ExtraCommision.ForeColor = System.Drawing.Color.Black;
+            this.btn_ExtraCommision.Location = new System.Drawing.Point(7, 220);
             this.btn_ExtraCommision.Name = "btn_ExtraCommision";
             this.btn_ExtraCommision.Size = new System.Drawing.Size(142, 59);
             this.btn_ExtraCommision.TabIndex = 5;
@@ -231,11 +233,11 @@
             // 
             // btn_ChargeCommission
             // 
-            this.btn_ChargeCommission.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btn_ChargeCommission.BackColor = System.Drawing.Color.White;
             this.btn_ChargeCommission.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_ChargeCommission.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_ChargeCommission.ForeColor = System.Drawing.Color.White;
-            this.btn_ChargeCommission.Location = new System.Drawing.Point(7, 81);
+            this.btn_ChargeCommission.ForeColor = System.Drawing.Color.Black;
+            this.btn_ChargeCommission.Location = new System.Drawing.Point(7, 155);
             this.btn_ChargeCommission.Name = "btn_ChargeCommission";
             this.btn_ChargeCommission.Size = new System.Drawing.Size(142, 59);
             this.btn_ChargeCommission.TabIndex = 4;
@@ -287,6 +289,20 @@
             this.txt_TotalCredit.Name = "txt_TotalCredit";
             this.txt_TotalCredit.Size = new System.Drawing.Size(306, 27);
             this.txt_TotalCredit.TabIndex = 110;
+            // 
+            // btn_ViewMonthlyTransactions
+            // 
+            this.btn_ViewMonthlyTransactions.BackColor = System.Drawing.Color.White;
+            this.btn_ViewMonthlyTransactions.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_ViewMonthlyTransactions.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_ViewMonthlyTransactions.ForeColor = System.Drawing.Color.Black;
+            this.btn_ViewMonthlyTransactions.Location = new System.Drawing.Point(7, 85);
+            this.btn_ViewMonthlyTransactions.Name = "btn_ViewMonthlyTransactions";
+            this.btn_ViewMonthlyTransactions.Size = new System.Drawing.Size(142, 59);
+            this.btn_ViewMonthlyTransactions.TabIndex = 6;
+            this.btn_ViewMonthlyTransactions.Text = "View monthly Transactions";
+            this.btn_ViewMonthlyTransactions.UseVisualStyleBackColor = false;
+            this.btn_ViewMonthlyTransactions.Click += new System.EventHandler(this.btn_ViewMonthlyTransactions_Click);
             // 
             // DebitCustomer
             // 
@@ -353,5 +369,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txt_TotalCredit;
         private System.Windows.Forms.Button btn_ExtraCommision;
+        private System.Windows.Forms.Button btn_ViewMonthlyTransactions;
     }
 }
