@@ -49,6 +49,7 @@ namespace Ajoor
         private void bgw_PullData_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             int currentMonth = DateTime.Now.Month; int currentYear = DateTime.Now.Year;
+            lbMonthName.Invoke(new MethodInvoker(delegate { lbMonthName.Text = Utilities.GetMonthName(currentMonth); }));
             try
             {
                 dgv_CustomerTransactionRecords.Invoke(new MethodInvoker(delegate

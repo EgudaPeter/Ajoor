@@ -37,6 +37,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.dgv_CustomerTransactionRecords = new System.Windows.Forms.DataGridView();
             this.bgw_PullData = new System.ComponentModel.BackgroundWorker();
+            this.lbMonthName = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_CustomerTransactionRecords)).BeginInit();
             this.SuspendLayout();
@@ -87,7 +89,7 @@
             // 
             this.lbCustomerName.AutoSize = true;
             this.lbCustomerName.Font = new System.Drawing.Font("Calibri", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbCustomerName.Location = new System.Drawing.Point(457, 13);
+            this.lbCustomerName.Location = new System.Drawing.Point(770, 13);
             this.lbCustomerName.Name = "lbCustomerName";
             this.lbCustomerName.Size = new System.Drawing.Size(0, 39);
             this.lbCustomerName.TabIndex = 144;
@@ -98,9 +100,9 @@
             this.label1.Font = new System.Drawing.Font("Calibri", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(6, 13);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(445, 39);
+            this.label1.Size = new System.Drawing.Size(495, 39);
             this.label1.TabIndex = 143;
-            this.label1.Text = "Monthly transaction records for:";
+            this.label1.Text = "Transaction records of the month of ";
             // 
             // dgv_CustomerTransactionRecords
             // 
@@ -121,12 +123,33 @@
             // 
             this.bgw_PullData.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgw_PullData_DoWork);
             // 
+            // lbMonthName
+            // 
+            this.lbMonthName.AutoSize = true;
+            this.lbMonthName.Font = new System.Drawing.Font("Calibri", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbMonthName.Location = new System.Drawing.Point(488, 13);
+            this.lbMonthName.Name = "lbMonthName";
+            this.lbMonthName.Size = new System.Drawing.Size(0, 39);
+            this.lbMonthName.TabIndex = 148;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Calibri", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(556, 13);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(195, 39);
+            this.label2.TabIndex = 149;
+            this.label2.Text = "for customer:";
+            // 
             // CustomerMonthlyTransactions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(989, 470);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.lbMonthName);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.lb_Total);
             this.Controls.Add(this.label5);
@@ -158,5 +181,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dgv_CustomerTransactionRecords;
         private System.ComponentModel.BackgroundWorker bgw_PullData;
+        private System.Windows.Forms.Label lbMonthName;
+        private System.Windows.Forms.Label label2;
     }
 }
