@@ -3,6 +3,8 @@ using System.Text.RegularExpressions;
 using System.Speech.Synthesis;
 using System.Speech.Recognition;
 using BusinessLayer.Core;
+using BusinessLayer.DTO;
+using System.Collections.Generic;
 
 namespace Ajoor.BusinessLayer.Core
 {
@@ -161,6 +163,34 @@ namespace Ajoor.BusinessLayer.Core
                 dateInStringFormat = $"{numberOfDaysInCurrentMonth}-{12}-{DateTime.Now.Year - 1}";
             }
             return dateInStringFormat;
+        }
+
+        public static List<Month> GetAllMonthsInAYear()
+        {
+            return new List<Month>
+            {
+                new Month(){Id=1, Name="January"},
+                new Month(){Id=2, Name="February"},
+                new Month(){Id=3, Name="March"},
+                new Month(){Id=4, Name="April"},
+                new Month(){Id=5, Name="May"},
+                new Month(){Id=6, Name="June"},
+                new Month(){Id=7, Name="July"},
+                new Month(){Id=8, Name="August"},
+                new Month(){Id=9, Name="September"},
+                new Month(){Id=10, Name="October"},
+                new Month(){Id=11, Name="November"},
+                new Month(){Id=12, Name="December"},
+            };
+        }
+
+        public static List<int> GetValidYears()
+        {
+            return new List<int>
+            {
+                2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027,
+                2028, 2029, 2030
+            };
         }
 
         public enum Modes

@@ -420,10 +420,22 @@ namespace Ajoor
         {
             try
             {
-                if (selectedID > 0)
+                if (cmb_Customers.SelectedValue != null)
                 {
-                    CustomerMonthlyTransactions customerMonthlyTransactionsForm = new CustomerMonthlyTransactions(selectedID);
-                    customerMonthlyTransactionsForm.ShowDialog();
+                    long id = long.Parse(cmb_Customers.SelectedValue.ToString());
+                    if (id > 0)
+                    {
+                        CustomerMonthlyTransactions customerMonthlyTransactionsForm = new CustomerMonthlyTransactions(id);
+                        if (cmb_Customers.SelectedValue == null)
+                        {
+                            id = 0;
+                        }
+                        customerMonthlyTransactionsForm.ShowDialog();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please select a customer to view transactions!", "Superior Investment", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 }
                 else
                 {

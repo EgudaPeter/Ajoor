@@ -65,6 +65,7 @@
     <Compile Include="DTO\EndOfMonthTransactions.cs" />
     <Compile Include="DTO\ListOfCustomer.cs" />
     <Compile Include="DTO\ListOfSubAdmin.cs" />
+    <Compile Include="DTO\Month.cs" />
     <Compile Include="DTO\SettingsConfig.cs" />
     <Compile Include="DTO\SubAdmin.cs" />
     <Compile Include="DTO\SuperAdmin.cs" />
